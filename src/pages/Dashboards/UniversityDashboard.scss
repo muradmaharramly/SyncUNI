@@ -1,0 +1,113 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.university-bento {
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: $spacing-6;
+    
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .bento-panel {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-6;
+
+    .panel-header {
+      @include flex-between;
+      margin-bottom: $spacing-6;
+      border-bottom: 1px solid $border;
+      padding-bottom: $spacing-3;
+      
+      h3 { font-size: $font-lg; color: $text-main; }
+    }
+  }
+
+  .market-heatmap {
+    .chart-wrapper {
+      height: 300px;
+      margin-bottom: $spacing-4;
+      border-radius: $radius-md;
+      overflow: hidden;
+    }
+    .desc {
+      font-size: $font-sm;
+      color: $text-muted;
+      margin-top: auto;
+    }
+  }
+
+  .privacy-wall {
+    @include flex-center;
+    flex-direction: column;
+    text-align: center;
+    background: linear-gradient(180deg, rgba($bg-card, 1) 0%, rgba($danger, 0.05) 100%);
+    border: 1px solid rgba($danger, 0.2);
+
+    .lock-icon {
+      font-size: 3rem;
+      color: $danger;
+      margin-bottom: $spacing-4;
+      background: rgba($danger, 0.1);
+      width: 80px; height: 80px;
+      border-radius: $radius-full;
+      @include flex-center;
+      box-shadow: 0 0 20px rgba($danger, 0.2);
+    }
+
+    h3 { color: $danger; margin-bottom: $spacing-3; font-size: $font-xl; }
+    p { color: $text-muted; margin-bottom: $spacing-6; font-size: $font-sm; }
+    .btn { width: 100%; border-color: rgba($danger, 0.3); color: $danger; }
+  }
+
+  .ref-ledger {
+    .ledger-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: $spacing-6;
+    }
+
+    .ledger-card {
+      background: $hover-bg;
+      border-radius: $radius-lg;
+      padding: $spacing-4;
+      border: 1px solid $border;
+
+      .st-info {
+        margin-bottom: $spacing-4;
+        h4 { color: $primary; margin-bottom: 2px;}
+        p { font-size: $font-sm; color: $text-muted; }
+      }
+
+      .scores {
+        margin-bottom: $spacing-4;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-2;
+
+        .score-item {
+          @include flex-between;
+          font-size: $font-sm;
+          
+          .stars { color: $warning; letter-spacing: 2px; }
+        }
+      }
+
+      .comment {
+        font-style: italic;
+        color: $text-muted;
+        font-size: $font-sm;
+        margin-bottom: $spacing-4;
+        background: rgba(0,0,0,0.1);
+        padding: $spacing-2;
+        border-radius: $radius-sm;
+      }
+
+      .btn { width: 100%; @include flex-center; gap: $spacing-2; }
+    }
+  }
+}

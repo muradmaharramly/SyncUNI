@@ -1,0 +1,66 @@
+@import 'variables';
+@import 'mixins';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $bg;
+  color: $text-main;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: $font-family;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-4;
+}
+
+.btn {
+  padding: $spacing-2 $spacing-6;
+  border-radius: $radius-md;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &--primary {
+    background-color: $primary;
+    color: white;
+    
+    &:hover {
+      background-color: $secondary;
+    }
+  }
+
+  &--outline {
+    border: 1px solid $border;
+    color: $text-main;
+    
+    &:hover {
+      background-color: $hover-bg;
+    }
+  }
+}
+
+

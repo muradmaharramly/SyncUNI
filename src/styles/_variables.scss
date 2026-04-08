@@ -1,0 +1,73 @@
+:root {
+  // Electric Indigo & Cyan
+  --primary-color: #6366F1;
+  --secondary-color: #06B6D4;
+  
+  // Light Surface Theme
+  --bg-color: #F8FAFC; // Pure Ghost
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --text-main: #1E293B; // Slate 800
+  --text-muted: #64748B;
+  --border-color: rgba(255, 255, 255, 0.5);
+  --hover-bg: rgba(99, 102, 241, 0.05);
+  --card-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.05);
+
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  &[data-theme='dark'] {
+    // Dark Surface Theme
+    --bg-color: #05050A; // Very deep slate-black
+    --bg-card: rgba(15, 15, 20, 0.5); // Neutral deep blur
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8; // Standard slate
+    --border-color: rgba(255, 255, 255, 0.05); // Subtle white instead of purple
+    --hover-bg: rgba(255, 255, 255, 0.03); 
+    --card-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.3); // Softer, dark shadow without colors
+    --primary-color: #6366F1; // Soft Indigo instead of bright Purple
+    --secondary-color: #0EA5E9; // Sky Blue
+  }
+}
+
+$primary: var(--primary-color);
+$secondary: var(--secondary-color);
+$bg: var(--bg-color);
+$bg-card: var(--bg-card);
+$text-main: var(--text-main);
+$text-muted: var(--text-muted);
+$border: var(--border-color);
+$hover-bg: var(--hover-bg);
+
+$success: var(--success);
+$warning: var(--warning);
+$danger: var(--danger);
+
+// Typography
+$font-family: 'Inter', sans-serif;
+$font-sm: 0.875rem;
+$font-base: 1rem;
+$font-lg: 1.125rem;
+$font-xl: 1.25rem;
+$font-2xl: 1.5rem;
+$font-3xl: 1.875rem;
+$font-4xl: 2.25rem;
+
+// Spacing
+$spacing-1: 0.25rem;
+$spacing-2: 0.5rem;
+$spacing-3: 0.75rem;
+$spacing-4: 1rem;
+$spacing-6: 1.5rem;
+$spacing-8: 2rem;
+$spacing-12: 3rem;
+$spacing-16: 4rem;
+
+// Squircle Radius
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 24px; // Requested Premium squircle
+$radius-full: 9999px;
+
+$card-shadow-var: var(--card-shadow);

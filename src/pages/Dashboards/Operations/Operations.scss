@@ -1,0 +1,125 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.operations-page {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  h2 { font-size: $font-2xl; color: $text-main; }
+  .desc { color: $text-muted; }
+
+  // Kanban specifically for Company Operations
+  .kanban-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-4;
+    overflow-x: auto;
+    padding-bottom: $spacing-4;
+    min-height: 50vh;
+
+    .kanban-column {
+      padding: $spacing-4;
+      display: flex;
+      flex-direction: column;
+      
+      h3 { font-size: $font-sm; text-transform: uppercase; letter-spacing: 1px; color: $text-muted; margin-bottom: $spacing-4; text-align: center; }
+      
+      .kanban-cards {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-3;
+        flex: 1;
+      }
+
+      .kanban-card {
+        background: $hover-bg;
+        border: 1px solid $border;
+        padding: $spacing-3;
+        border-radius: $radius-md;
+        cursor: grab;
+        
+        &:active { cursor: grabbing; }
+
+        h4 { margin-bottom: 4px; font-size: $font-base; color: $primary; }
+        p { font-size: $font-sm; color: $text-muted; margin-bottom: $spacing-3; }
+
+        .quick-actions {
+          @include flex-between;
+          border-top: 1px dashed $border;
+          padding-top: $spacing-2;
+          
+          button {
+            padding: 4px; border-radius: $radius-sm;
+            &:hover { background: rgba(255,255,255,0.1); }
+          }
+        }
+      }
+    }
+  }
+
+  // Grid for general operations
+  .operations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-6;
+    
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .op-panel {
+    padding: $spacing-6;
+    display: flex;
+    flex-direction: column;
+    
+    .panel-header {
+      @include flex-between;
+      margin-bottom: $spacing-4;
+      border-bottom: 1px solid $border;
+      padding-bottom: $spacing-2;
+      h3 { @include flex-center; justify-content: flex-start; gap: $spacing-2; }
+    }
+
+    .st-strip {
+      @include flex-between;
+      padding: $spacing-2;
+      border-bottom: 1px solid $border;
+      &:last-child { border: none; }
+    }
+
+    .requests-list {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-3;
+      
+      .req-card {
+        @include flex-between;
+        padding: $spacing-3;
+        border-radius: $radius-md;
+        border: 1px solid $border;
+        background: $hover-bg;
+        
+        .info {
+          display: flex; flex-direction: column;
+          .time { font-size: 0.75rem; color: $text-muted; }
+        }
+
+        .actions .icon-btn {
+          padding: 8px; border-radius: $radius-full; margin-left: 8px;
+          &.success { color: $success; background: rgba($success, 0.1); }
+          &.danger { color: $danger; background: rgba($danger, 0.1); }
+        }
+        
+        .status-badge {
+          font-size: $font-sm; padding: 4px 8px; border-radius: $radius-sm;
+          background: rgba(0,0,0,0.2);
+        }
+        
+        &.accepted { border-color: $success; }
+        &.rejected { border-color: $danger; opacity: 0.6; }
+      }
+    }
+  }
+}

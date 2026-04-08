@@ -1,0 +1,64 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.navbar {
+  background-color: $bg-card;
+  border-bottom: 1px solid $border;
+  padding: $spacing-4 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: $card-shadow-var;
+
+  &__container {
+    @include flex-between;
+  }
+
+  &__logo {
+    font-size: $font-2xl;
+    font-weight: 700;
+    color: $text-main;
+    letter-spacing: -0.5px;
+    
+    span {
+      color: $primary;
+    }
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: $spacing-6;
+  }
+
+  &__theme-toggle {
+    font-size: $font-xl;
+    color: $text-muted;
+    @include flex-center;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &__user {
+    @include flex-center;
+    gap: $spacing-4;
+
+    &-role {
+      font-size: $font-sm;
+      background-color: $hover-bg;
+      padding: $spacing-1 $spacing-2;
+      border-radius: $radius-sm;
+      text-transform: capitalize;
+      font-weight: 600;
+      color: $primary;
+      border: 1px solid $border;
+    }
+
+    &-name {
+      font-weight: 500;
+      color: $text-main;
+    }
+  }
+}

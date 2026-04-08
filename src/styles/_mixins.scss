@@ -1,0 +1,29 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card-style {
+  background-color: $bg-card;
+  border-radius: $radius-xl;
+  box-shadow: $card-shadow-var;
+  border: 1px solid $border;
+  padding: $spacing-6;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  position: relative;
+}
+
+@mixin text-gradient {
+  background: linear-gradient(90deg, $primary 0%, $secondary 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

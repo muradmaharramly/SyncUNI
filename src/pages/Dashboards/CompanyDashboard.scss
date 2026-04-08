@@ -1,0 +1,222 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.company-bento {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  .bento-panel {
+    @include card-style;
+    
+    .panel-header {
+      @include flex-between;
+      margin-bottom: $spacing-4;
+      border-bottom: 1px solid $border;
+      padding-bottom: $spacing-2;
+      
+      h3 { font-size: $font-lg; color: $text-main; }
+    }
+  }
+
+  .filter-panel {
+    display: flex;
+    align-items: center;
+    gap: $spacing-6;
+    flex-wrap: wrap;
+
+    .search-box {
+      @include flex-center;
+      background: $hover-bg;
+      border-radius: $radius-full;
+      padding: $spacing-2 $spacing-4;
+      border: 1px solid $border;
+      flex: 1; min-width: 200px;
+      
+      .icon { color: $text-muted; margin-right: $spacing-2; }
+      input {
+        background: transparent; border: none; color: $text-main; outline: none; width: 100%;
+        &::placeholder { color: $text-muted; }
+      }
+    }
+
+    .range-box {
+      @include flex-center;
+      gap: $spacing-3;
+      .label { font-size: $font-sm; color: $primary; font-weight: bold; width: 80px; }
+      input[type=range] { accent-color: $primary; }
+    }
+
+    .funnel-tabs {
+      display: flex;
+      background: rgba(0,0,0,0.2);
+      border-radius: $radius-full;
+      padding: 4px;
+      
+      .tab {
+        padding: $spacing-1 $spacing-4;
+        border-radius: $radius-full;
+        color: $text-muted;
+        font-size: $font-sm;
+        font-weight: 500;
+        
+        &.active {
+          background: $primary;
+          color: white;
+          box-shadow: 0 4px 12px rgba($primary, 0.4);
+        }
+      }
+    }
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: $spacing-6;
+    
+    @media (max-width: 1200px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .bento-col {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+  }
+
+  .talent-radar {
+    display: flex;
+    flex-direction: column;
+    
+    .skills-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-2;
+      margin-top: auto;
+      
+      .tag {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        border-radius: $radius-sm;
+        
+        &.hard { background: rgba($primary, 0.1); color: $primary; }
+        &.soft { background: rgba($secondary, 0.1); color: $secondary; }
+      }
+    }
+  }
+
+  .student-selection {
+    .list-wrapper {
+      max-height: 450px;
+      overflow-y: auto;
+      padding-right: $spacing-2;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-3;
+      
+      &::-webkit-scrollbar { width: 6px; }
+      &::-webkit-scrollbar-thumb { background: $border; border-radius: 4px; }
+    }
+
+    .candidate-card {
+      @include flex-between;
+      padding: $spacing-3 $spacing-4;
+      background: $hover-bg;
+      border: 1px solid transparent;
+      border-radius: $radius-lg;
+      cursor: pointer;
+      transition: all 0.2s;
+      
+      &.selected {
+        border-color: $primary;
+        background: rgba($primary, 0.05);
+      }
+
+      .info {
+        h4 { 
+          margin-bottom: $spacing-1; 
+          @include flex-center; justify-content: flex-start; gap: $spacing-3;
+        }
+        p { font-size: $font-sm; color: $text-muted; }
+        
+        .match-score {
+          font-size: 0.75rem;
+          background: rgba($success, 0.1);
+          color: $success;
+          padding: 2px 6px;
+          border-radius: $radius-full;
+        }
+      }
+      
+      .actions {
+        .icon-btn {
+          padding: $spacing-2;
+          border-radius: $radius-md;
+          &:hover { background: rgba(255,255,255,0.1); }
+        }
+      }
+    }
+  }
+
+  .ref-validator {
+    max-height: 250px;
+    overflow-y: auto;
+    
+    .ref-item {
+      padding: $spacing-3;
+      border: 1px solid $border;
+      border-radius: $radius-md;
+      margin-bottom: $spacing-3;
+      
+      p { font-size: $font-sm; color: $text-main; margin-bottom: $spacing-3; }
+      
+      .btn {
+        width: 100%;
+        @include flex-center; gap: $spacing-2;
+      }
+    }
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    @include flex-center;
+    
+    .modal-content {
+      width: 90%;
+      max-width: 600px;
+      padding: $spacing-8;
+      
+      .modal-header {
+        @include flex-between;
+        margin-bottom: $spacing-6;
+        h2 { color: $primary; }
+        .close-btn { font-size: $font-xl; color: $text-muted; }
+      }
+      
+      .compare-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: $spacing-6;
+        
+        .comp-card {
+          background: $hover-bg;
+          border-radius: $radius-lg;
+          padding: $spacing-4;
+          
+          h3 { margin-bottom: $spacing-4; border-bottom: 1px solid $border; padding-bottom: $spacing-2; }
+          p { margin-bottom: $spacing-2; }
+          .skills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: $spacing-4; }
+          .tag { font-size: 0.75rem; padding: 2px 6px; background: rgba($primary,0.1); color: $primary; border-radius: 4px;}
+        }
+      }
+    }
+  }
+}

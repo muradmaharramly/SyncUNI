@@ -1,0 +1,203 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.glass-panel {
+  background-color: $bg-card;
+  border-radius: $radius-xl;
+  box-shadow: $card-shadow-var;
+  border: 1px solid $border;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: calc(100vh - 73px);
+  background-color: $bg;
+  position: relative;
+  
+  // Decorative ambient glows for soft-modern aesthetic
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(circle, rgba($primary, 0.1) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 40%;
+    height: 60%;
+    background: radial-gradient(circle, rgba($secondary, 0.08) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .dashboard-sidebar {
+    width: 250px;
+    margin: $spacing-6;
+    height: calc(100vh - 120px);
+    position: sticky;
+    top: 90px;
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-6;
+    z-index: 10;
+    transition: width 0.3s ease;
+    
+    &.collapsed {
+      width: 80px;
+      padding: $spacing-6 $spacing-2;
+      align-items: center;
+
+      .dashboard-sidebar__link {
+        justify-content: center;
+        padding: $spacing-3;
+      }
+    }
+
+    &__header {
+      margin-bottom: $spacing-8;
+      @include flex-between;
+      h3 {
+        color: $text-muted;
+        font-size: $font-sm;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .toggle-btn {
+        background: transparent; border: none; color: $text-main; cursor: pointer; font-size: 1.2rem;
+      }
+    }
+
+    &__nav {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-2;
+    }
+
+    &__link {
+      @include flex-center;
+      justify-content: flex-start;
+      gap: $spacing-3;
+      padding: $spacing-3 $spacing-4;
+      border-radius: $radius-md;
+      color: $text-main;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      span {
+        white-space: nowrap;
+      }
+
+      &:hover {
+        background-color: $hover-bg;
+      }
+
+      &.active {
+        background-color: rgba($primary, 0.1);
+        color: $primary;
+        border: 1px solid rgba($primary, 0.2);
+      }
+    }
+  }
+
+  .dashboard-main {
+    flex: 1;
+    padding: $spacing-6;
+    padding-left: 0;
+    z-index: 10;
+    overflow-y: auto;
+    
+    .dashboard-header-bento {
+      margin-bottom: $spacing-6;
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: $spacing-6;
+      
+      .greeting-card {
+        padding: $spacing-6;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        h1 {
+          font-size: $font-3xl;
+          margin-bottom: $spacing-2;
+          color: $text-main;
+          span { color: $primary; }
+        }
+        p { color: $text-muted; }
+      }
+      
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: $spacing-4;
+      }
+      
+      .stat-card {
+        padding: $spacing-4;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        .icon-wrapper {
+          color: $secondary;
+          font-size: $font-xl;
+          margin-bottom: $spacing-2;
+          background-color: rgba($secondary, 0.1);
+          width: 40px; height: 40px;
+          border-radius: $radius-full;
+          @include flex-center;
+        }
+        
+        .stat-info {
+          display: flex;
+          flex-direction: column;
+          .label { font-size: $font-sm; color: $text-muted; }
+          .value { font-size: $font-2xl; color: $text-main; }
+        }
+      }
+    }
+
+    &__content {
+      // Content container styles
+    }
+  }
+}
+
+// Ensure responsiveness
+@media (max-width: 992px) {
+  .dashboard-layout {
+    flex-direction: column;
+    
+    .dashboard-sidebar {
+      width: auto;
+      height: auto;
+      position: static;
+      margin: $spacing-4;
+      
+      &__nav {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+    }
+    
+    .dashboard-main {
+      padding: $spacing-4;
+      
+      .dashboard-header-bento {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

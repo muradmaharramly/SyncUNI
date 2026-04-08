@@ -1,0 +1,356 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.section {
+  padding: $spacing-16 0;
+
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+
+    h2 {
+      font-size: $font-3xl;
+      margin-bottom: $spacing-4;
+      @include text-gradient;
+      display: inline-block;
+    }
+    p {
+      color: $text-muted;
+      font-size: $font-lg;
+    }
+  }
+
+  &.bg-alt {
+    background-color: var(--bg-card);
+  }
+}
+
+// Hero
+.hero {
+  padding: calc($spacing-16 * 2) 0;
+  text-align: center;
+  background: radial-gradient(circle at top, rgba($primary, 0.15) 0%, transparent 60%);
+  position: relative;
+  overflow: hidden;
+
+  .neon-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    opacity: 0.5;
+
+    &.purple {
+      width: 400px;
+      height: 400px;
+      background: rgba(99, 102, 241, 0.15); // Softer indigo instead of bright purple
+      top: -100px;
+      left: -100px;
+    }
+
+    &.blue {
+      width: 300px;
+      height: 300px;
+      background: rgba(56, 189, 248, 0.1); // Reduced opacity
+      bottom: -50px;
+      right: -50px;
+    }
+  }
+
+  &__container {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+
+    .floating-badge {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+      &.badge-1 { top: -20px; left: -50px; }
+      &.badge-2 { top: 40px; right: -80px; }
+      &.badge-3 { bottom: 100px; left: -100px; color: var(--secondary-color); }
+    }
+
+    h1 {
+      font-size: $font-4xl;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: $spacing-6;
+      
+      span {
+        @include text-gradient;
+      }
+    }
+
+    p {
+      color: $text-muted;
+      font-size: $font-xl;
+      margin-bottom: $spacing-8;
+    }
+  }
+
+  &__actions {
+    @include flex-center;
+    gap: $spacing-4;
+    
+    .icon {
+      margin-left: $spacing-2;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+}
+
+// About / Skills Gap
+.about {
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-8;
+    flex-wrap: wrap;
+  }
+
+  &__text {
+    flex: 1;
+    min-width: 300px;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-4;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      gap: $spacing-3;
+      font-size: $font-lg;
+      color: $text-main;
+    }
+    .check-icon {
+      color: $success;
+      font-size: $font-xl;
+      flex-shrink: 0;
+    }
+  }
+
+  &__visual {
+    flex: 1;
+    min-width: 300px;
+    @include flex-center;
+  }
+
+  .skills-gap-graphic {
+    display: flex;
+    align-items: center;
+    background-color: $bg-card;
+    padding: $spacing-8;
+    border-radius: $radius-xl;
+    box-shadow: $card-shadow-var;
+    border: 1px solid $border;
+    width: 100%;
+    justify-content: space-between;
+
+    .node {
+      padding: $spacing-4 $spacing-6;
+      border-radius: $radius-lg;
+      font-weight: bold;
+      color: white;
+
+      &.uni {
+        background-color: $primary;
+      }
+
+      &.company {
+        background-color: $secondary;
+      }
+    }
+
+    .bridge {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      font-size: $font-sm;
+      color: $text-muted;
+      font-weight: 500;
+      padding: 0 $spacing-2;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, $primary, $secondary);
+        z-index: -1;
+      }
+    }
+  }
+}
+
+// Services
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-6;
+
+  .service-card {
+    @include card-style;
+    text-align: center;
+
+    .service-icon {
+      font-size: 3rem;
+      color: $primary;
+      margin-bottom: $spacing-4;
+    }
+
+    h3 {
+      font-size: $font-xl;
+      margin-bottom: $spacing-2;
+    }
+
+    p {
+      color: $text-muted;
+    }
+  }
+}
+
+// Collaborate
+.collaborate__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-6;
+
+  .collab-card {
+    @include card-style;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    h3 {
+      font-size: $font-xl;
+      margin-bottom: $spacing-4;
+      color: $primary;
+    }
+
+    p {
+      color: $text-muted;
+      margin-bottom: $spacing-6;
+      flex-grow: 1;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// Competitor
+.competitor {
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .competitor-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: $bg-card;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $card-shadow-var;
+
+    th, td {
+      padding: $spacing-4 $spacing-6;
+      text-align: left;
+      border-bottom: 1px solid $border;
+    }
+
+    th {
+      background-color: rgba($primary, 0.1);
+      color: $text-main;
+      font-weight: 600;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr {
+      transition: background-color 0.2s;
+    }
+
+    tr:hover {
+      background-color: $hover-bg;
+    }
+  }
+}
+
+// FAQ
+.faq__list {
+  max-width: 800px;
+  margin: 0 auto;
+
+  .faq-item {
+    @include card-style;
+    margin-bottom: $spacing-4;
+    padding: 0; // handle padding inside
+
+    &__header {
+      padding: $spacing-4 $spacing-6;
+      @include flex-between;
+      cursor: pointer;
+      
+      h3 {
+        font-size: $font-lg;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+
+    &__content {
+      padding: 0 $spacing-6;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: $text-muted;
+    }
+
+    &.open {
+      .faq-item__header {
+        border-bottom: 1px solid $border;
+      }
+      .faq-item__content {
+        padding: $spacing-4 $spacing-6;
+        max-height: 200px; // arbitrary enough for expanding
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: $font-3xl;
+  }
+  
+  .about__content {
+    flex-direction: column;
+  }
+}
