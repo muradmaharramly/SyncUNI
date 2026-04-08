@@ -144,9 +144,13 @@
       color: $text-main;
     }
     .check-icon {
-      color: $success;
-      font-size: $font-xl;
+      color: $primary;
+      background-color: rgba($primary, 0.15);
+      border-radius: 50%;
+      padding: 6px;
+      font-size: calc($font-xl + 6px); /* slightly larger to account for padding */
       flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba($primary, 0.1);
     }
   }
 
