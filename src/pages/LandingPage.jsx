@@ -25,6 +25,15 @@ const LandingPage = () => {
       <section className="hero">
         <div className="neon-blob purple"></div>
         <div className="neon-blob blue"></div>
+        
+        {/* Roadmap Roadmap Path BG */}
+        <div className="hero__roadmap-bg" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', zIndex: 0, pointerEvents: 'none'}}>
+           <svg width="100%" height="100%" viewBox="0 0 1440 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+             <path d="M-100 500 C 300 0, 800 600, 1500 100" stroke="rgba(255,255,255,0.03)" strokeWidth="6" fill="none" strokeDasharray="30 20" />
+             <path d="M-100 600 C 400 100, 700 800, 1500 200" stroke="rgba(124, 58, 237, 0.08)" strokeWidth="8" fill="none" />
+           </svg>
+        </div>
+
         <div className="container hero__container">
             <motion.div 
             className="hero__content"
@@ -184,11 +193,26 @@ const LandingPage = () => {
 
       {/* FAQ Section */}
       <section className="faq section">
-        <div className="container">
-          <div className="section__header">
-            <h2>Tez-tez Verilən Suallar</h2>
+        <div className="container faq__wrapper" style={{display: 'flex', gap: '4rem', alignItems: 'stretch'}}>
+          
+          {/* FAQ Visual Left Side */}
+          <div className="faq__visual hide-mobile" style={{flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-card)', borderRadius: '15px', border: '1px solid var(--border-color)', overflow: 'hidden'}}>
+             <div style={{fontSize: '20rem', color: 'rgba(124, 58, 237, 0.1)', lineHeight: '1', fontWeight: '900', userSelect: 'none', position: 'absolute'}}>?</div>
+             <div style={{position: 'absolute', top: '15%', left: '15%', fontSize: '4rem', color: 'rgba(56, 189, 248, 0.2)'}}>?</div>
+             <div style={{position: 'absolute', bottom: '15%', right: '20%', fontSize: '6rem', color: 'rgba(124, 58, 237, 0.15)'}}>?</div>
+             <div style={{position: 'relative', zIndex: 1, textAlign: 'center', padding: '2rem'}}>
+                <h3 style={{color: 'var(--primary-color)', fontSize: '1.5rem', marginBottom: '1rem'}}>Maraqlandığınızı tapmadınız?</h3>
+                <p style={{color: 'var(--text-muted)'}}>Bizim peşəkar komandamız sizin bütün texniki və təşkilati suallarınızı cavablandırmağa hər zaman hazırdır.</p>
+             </div>
           </div>
-          <div className="faq__list">
+
+          {/* FAQ Content Right Side */}
+          <div className="faq__content" style={{flex: 1.5}}>
+            <div className="section__header" style={{textAlign: 'left', alignItems: 'flex-start', marginBottom: '2rem'}}>
+              <h2 style={{fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Sualı Şəkilləndirən Fikirlər</h2>
+              <p style={{color: 'var(--text-muted)'}}>Platforma haqqında ən çox soruşulan vacib detallar</p>
+            </div>
+            <div className="faq__list">
             {faqs.map(faq => (
               <div key={faq.id} className={`faq-item ${openFaq === faq.id ? 'open' : ''}`}>
                 <div className="faq-item__header" onClick={() => toggleFaq(faq.id)}>
@@ -200,6 +224,7 @@ const LandingPage = () => {
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
       </section>
