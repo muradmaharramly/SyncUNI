@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { FiSun, FiMoon, FiLogOut } from 'react-icons/fi';
@@ -9,14 +9,17 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout(navigate);
   };
 
+  const isDashboard = location.pathname.startsWith('/dashboard');
+
   return (
     <nav className="navbar">
-      <div className="container navbar__container">
+      <div className={isDashboard ? "navbar__dashboard-container" : "container navbar__container"}>
         <Link to="/" className="navbar__logo">
           Sync<span>UNI</span>
         </Link>

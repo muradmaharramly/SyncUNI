@@ -14,6 +14,12 @@
     @include flex-between;
   }
 
+  &__dashboard-container {
+    @include flex-between;
+    width: 100%;
+    padding: 0 $spacing-6;
+  }
+
   &__logo {
     font-size: $font-2xl;
     font-weight: 700;
