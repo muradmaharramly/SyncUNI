@@ -20,6 +20,10 @@ import StudentOperations from './pages/Dashboards/Operations/StudentOperations';
 import CourseOperations from './pages/Dashboards/Operations/CourseOperations';
 import CourseAnalytics from './pages/Dashboards/Analytics/CourseAnalytics';
 
+// Common
+import ProfilePage from './pages/Dashboards/Common/ProfilePage';
+import SettingsPage from './pages/Dashboards/Common/SettingsPage';
+
 function PrivateRoute({ children, allowedRole }) {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
@@ -57,6 +61,10 @@ function App() {
                 {/* Student Routes */}
                 <Route path="student" element={<PrivateRoute allowedRole="student"><StudentDashboard /></PrivateRoute>} />
                 <Route path="student/operations" element={<PrivateRoute allowedRole="student"><StudentOperations /></PrivateRoute>} />
+
+                {/* Common Routes */}
+                <Route path=":role/profile" element={<ProfilePage />} />
+                <Route path=":role/settings" element={<SettingsPage />} />
               </Route>
             </Routes>
           </div>

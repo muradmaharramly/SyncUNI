@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SYNC_DATA } from '../data/dummyData';
-import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import './DashboardLayout.scss';
 
@@ -79,6 +79,26 @@ const DashboardLayout = () => {
             </Link>
           )}
         </nav>
+        
+        <div className="dashboard-sidebar__footer" style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <Link 
+             to={`/dashboard/${user.role}/profile`} 
+             className={`dashboard-sidebar__link ${location.pathname.includes('/profile') ? 'active' : ''}`}
+             title="Profil"
+          >
+             <FiUser /> {isSidebarOpen && <span>Profil</span>}
+          </Link>
+          
+          {user.role !== 'student' && (
+            <Link 
+               to={`/dashboard/${user.role}/settings`} 
+               className={`dashboard-sidebar__link ${location.pathname.includes('/settings') ? 'active' : ''}`}
+               title="Tənzimləmələr"
+            >
+               <FiSettings /> {isSidebarOpen && <span>Tənzimləmələr</span>}
+            </Link>
+          )}
+        </div>
       </aside>
       
       <main className="dashboard-main">
