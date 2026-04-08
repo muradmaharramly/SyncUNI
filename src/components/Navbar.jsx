@@ -21,7 +21,7 @@ const Navbar = () => {
           Sync<span>UNI</span>
         </Link>
         
-        <div className="navbar__menu" style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
+        <div className="navbar__menu hide-mobile" style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
           {!user && location.pathname === '/' && (
              <>
                <a href="#features" className="navbar__link">Xidmətlər</a>

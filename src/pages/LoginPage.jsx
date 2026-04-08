@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FiBriefcase, FiBookOpen, FiMonitor, FiUserCheck } from 'react-icons/fi';
+import { FiBriefcase, FiBookOpen, FiMonitor, FiUserCheck, FiArrowRight } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 import './LoginPage.scss';
 
 const LoginPage = () => {
@@ -22,21 +23,61 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="container login-page__container">
-        <div className="login-header">
-          <h1>SyncUNI-yə Daxil Ol</h1>
-          <p>Davam etmək üçün rolunuzu seçin (Demo Giriş)</p>
-        </div>
         
-        <div className="roles-grid">
-          {roles.map(role => (
-            <div key={role.id} className="role-card" onClick={() => handleLogin(role.id)}>
-              <div className="role-card__icon">{role.icon}</div>
-              <h3>{role.title}</h3>
-              <p>{role.desc}</p>
-              <span className="role-card__hint">Klikləyib simulyasiya ilə daxil olun</span>
-            </div>
-          ))}
+        <div className="login-info">
+           <motion.div className="info-badge" initial={{opacity:0, y:-10}} animate={{opacity:1, y:0}}>👋 Xoş gəlmisiniz</motion.div>
+           <motion.h1 initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay: 0.1}}>
+              Datanın Gücü İlə <br/><span>Karyeranızı İdarə Edin</span>
+           </motion.h1>
+           <motion.p initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay: 0.2}}>
+              SyncUNI tək bir platformada universitetləri, şirkətləri və tələbələri birləşdirən "Skill-gap" əsaslı innovativ karyera ekosistemidir.
+           </motion.p>
+           
+           <motion.div className="info-features" initial={{opacity:0}} animate={{opacity:1}} transition={{delay: 0.3}}>
+             <div className="feature">
+               <div className="f-icon"><FiUserCheck /></div>
+               <div>
+                 <h4>Tələbələr üçün</h4>
+                 <span>Sübut olunmuş bacarıqlarla işə düzəl</span>
+               </div>
+             </div>
+             <div className="feature">
+               <div className="f-icon"><FiBriefcase /></div>
+               <div>
+                 <h4>Şirkətlər üçün</h4>
+                 <span>Doğru istedadı birbaşa tap</span>
+               </div>
+             </div>
+           </motion.div>
         </div>
+
+        <motion.div className="login-actions" initial={{opacity:0, scale:0.95}} animate={{opacity:1, scale:1}} transition={{duration: 0.4}}>
+          <div className="actions-header">
+            <h2>Daxil Ol <span className="demo-badge">Demo</span></h2>
+            <p>Davam etmək üçün istifadəçi rolunuzu seçin</p>
+          </div>
+          
+          <div className="roles-list">
+            {roles.map((role, idx) => (
+              <motion.div 
+                key={role.id} 
+                className="role-row" 
+                onClick={() => handleLogin(role.id)}
+                initial={{opacity:0, x:20}}
+                animate={{opacity:1, x:0}}
+                transition={{delay: 0.2 + idx * 0.1}}
+              >
+                <div className="role-row__icon">{role.icon}</div>
+                <div className="role-row__text">
+                  <h3>{role.title}</h3>
+                  <p>{role.desc}</p>
+                </div>
+                <div className="role-row__arrow"><FiArrowRight/></div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
       </div>
     </div>
   );

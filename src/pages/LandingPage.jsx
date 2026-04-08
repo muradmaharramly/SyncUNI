@@ -8,9 +8,11 @@ const LandingPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
 
   const faqs = [
-    { id: 1, q: "SyncUNI tam olaraq nədir?", a: "SyncUNI universitetlər, şirkətlər və tələbələri bir araya gətirən, məlumat əsaslı karyera və təhsil ekosistemidir." },
-    { id: 2, q: "Tələbə kimi necə qeydiyyatdan keçə bilərəm?", a: "Tələbələr yalnız universitetləri tərəfindən platformaya əlavə edildikdə və ya rəsmi dəvət aldıqda qoşula bilərlər. Bu, məlumatların doğruluğunu təmin edir." },
-    { id: 3, q: "Şirkətlər üçün üstünlüyü nədir?", a: "Şirkətlər tələbələrin həm akademik göstəricilərini, həm müəllim rəylərini, həm də əlavə kurs sertifikatlarını vahid profildən görə bilirlər." }
+    { id: 1, q: "SyncUNI tam olaraq nədir?", a: "SyncUNI universitetlər, şirkətlər və tələbələri bir araya gətirən, məlumat əsaslı karyera və təhsil ekosistemidir. Məqsədimiz bazardakı 'Skill-gap' (bacarıq boşluğu) problemini riyazi data ilə ölçməkdir." },
+    { id: 2, q: "Tələbə kimi platformaya necə qeydiyyatdan keçə bilərəm?", a: "Tələbələr yalnız universitetləri tərəfindən platformaya əlavə edildikdə və ya rəsmi dəvət aldıqda qoşula bilərlər. Bu, məlumatların (GPA, İxtisas) doğruluğunu təmin edir." },
+    { id: 3, q: "Şirkətlər üçün üstünlüyü nədir?", a: "Şirkətlər CV yığını içində itmədən, birbaşa aktiv vakansiyalarına uyğun gələn tələbələri 'Match Score' (uyğunluq balı) vasitəsilə ən üstdə görə bilirlər. Sistem həmçinin xüsusi Drag-and-Drop idarəetmə paneli təklif edir." },
+    { id: 4, q: "Tədris Mərkəzləri (Kurslar) sistemə necə inteqrasiya olunur?", a: "Rəsmi partnyor kurslar tələbələrin profillərinə keçdikləri təlimlər barədə rəsmi 'Badge' və Sertifikatlar əlavə edə bilərlər. Bu da şirkətlərin namizədlərə olan güvənini artırır." },
+    { id: 5, q: "Sistem ödənişlidirmi?", a: "Hazırda baza xidmətlər (Tələbə portfel idarəetməsi və fundamental şirkət profilləri) pulsuzdur. Ətraflı analitika və AI əsaslı tövsiyələr üçün Premium paketlər mövcuddur." }
   ];
 
   const toggleFaq = (id) => {
@@ -24,17 +26,13 @@ const LandingPage = () => {
         <div className="neon-blob purple"></div>
         <div className="neon-blob blue"></div>
         <div className="container hero__container">
-          <motion.div 
+            <motion.div 
             className="hero__content"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <motion.div className="floating-badge badge-1" animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}>Data-Driven</motion.div>
-            <motion.div className="floating-badge badge-2" animate={{ y: [0, 15, 0] }} transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}>AI Match Score</motion.div>
-            <motion.div className="floating-badge badge-3" animate={{ y: [0, -15, 0] }} transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }}>Skill Gap Engine</motion.div>
-
-            <h1>SyncUNI: Təhsil və İş Dünyasını <span>Data ilə Birləşdiririk</span></h1>
+            <h1>SyncUNI: Təhsil və İş Dünyasını <br className="hide-mobile" /><span>Data ilə Birləşdiririk</span></h1>
             <p>Universitetlər, Şirkətlər və Kurslar arasında sinerji yaradaraq, tələbələrin karyera yolunu rəqəmsal və şəffaf şəkildə idarə edirik.</p>
             <div className="hero__actions">
               <Link to="/login" className="btn btn--primary">Platformaya Daxil Ol <FiArrowRight className="icon"/></Link>
@@ -170,6 +168,20 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Modern CTA Section */}
+      <section className="modern-cta section">
+        <div className="container">
+          <div className="cta-card">
+            <div className="cta-badge"> SyncUNI - Karyera və Təhsil Ekosistemi</div>
+            <h2>Səyahətinizə İndi Başlayın</h2>
+            <p>Data əsaslı platformamız vasitəsilə biliklərinizin tam potensialını kəşf edin və ən uyğun vakansiyanı tapın.</p>
+            <Link to="/login" className="btn btn--primary cta-btn" style={{borderRadius: '2rem', padding: '1rem 2rem', fontSize: '1.1rem'}}>
+              Başla <FiArrowRight className="icon"/>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="faq section">
         <div className="container">
@@ -191,6 +203,37 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="container footer__container">
+          <div className="footer__brand">
+             <h3>Sync<span>UNI</span></h3>
+             <p>Təhsil və İş Dünyasını Data ilə Birləşdirən Rəqəmsal Körpü.</p>
+          </div>
+          <div className="footer__links">
+             <div className="link-group">
+                <h4>Platform</h4>
+                <a href="#features">Xidmətlər</a>
+                <a href="#partners">Partnyorlar</a>
+                <a href="/login">Giriş</a>
+             </div>
+             <div className="link-group">
+                <h4>Şirkət</h4>
+                <a href="#about">Biz Kimik?</a>
+                <a href="#">Karyera</a>
+             </div>
+             <div className="link-group">
+                <h4>Hüquqi</h4>
+                <a href="#">Məxfilik Şərtləri</a>
+                <a href="#">Qaydalar</a>
+             </div>
+          </div>
+        </div>
+        <div className="footer__bottom container">
+          <p>&copy; {new Date().getFullYear()} SyncUNI. Bütün hüquqlar qorunur.</p>
+        </div>
+      </footer>
     </div>
   );
 };
