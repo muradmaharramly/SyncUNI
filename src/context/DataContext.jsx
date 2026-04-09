@@ -8,7 +8,6 @@ export const useData = () => useContext(DataContext);
 const API_URL    = 'https://api.jsonbin.io/v3/b/69d6e1e436566621a891852d';
 const API_KEY    = '$2a$10$1oZRVLo2qmQsi9KWoTEnVeUjl7Rz7FyhavZJfXrLqSD5sfzwp4t3K';
 
-// ── Transform raw API student → internal shape ──────────────────────
 const transformStudent = (s) => ({
   id:            s.id?.toUpperCase() ?? s.id,
   name:          s.name,
@@ -30,7 +29,6 @@ const transformStudent = (s) => ({
   timeline:      s.timeline ?? [],
 });
 
-// ── Transform raw job_listing → internal shape ───────────────────────
 const transformJob = (j) => ({
   id:         j.id,
   company:    j.company,
@@ -41,10 +39,9 @@ const transformJob = (j) => ({
 
 export const DataProvider = ({ children }) => {
   const [data,    setData]    = useState(fallbackData);
-  const [loading, setLoading] = useState(true);      // skeleton trigger
+  const [loading, setLoading] = useState(true);
   const [apiOk,   setApiOk]   = useState(false);
 
-  // ── Fetch & merge API data ────────────────────────────────────────
   const fetchApiData = useCallback(async () => {
     setLoading(true);
     try {
@@ -62,14 +59,14 @@ export const DataProvider = ({ children }) => {
       const apiJobs      = (eco.job_listings  ?? []).map(transformJob);
 
       setData(prev => ({
-        ...prev,                             // keep companies, universities, references, hiringAccuracyTimeline from dummyData
+        ...prev,
         students:     apiStudents,
         job_listings: apiJobs,
       }));
       setApiOk(true);
     } catch (err) {
       console.warn('[DataContext] API fetch failed, using dummyData →', err.message);
-      // Silently fall back – toast only in dev
+
       if (import.meta.env.DEV) {
         toast('API əlaqəsi qurulamadı, demo data istifadə olunur.', { icon: '⚠️' });
       }
@@ -80,7 +77,6 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => { fetchApiData(); }, [fetchApiData]);
 
-  // ── Mutations (unchanged logic) ───────────────────────────────────
   const hireStudent = (studentId) => {
     setData(prev => ({
       ...prev,

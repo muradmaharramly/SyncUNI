@@ -47,7 +47,7 @@ const UniversityOperations = () => {
       <>
       <h2>Advanced Operations: Academic Control</h2>
       <p className="desc">Tələbə referanslarının kütləvi idarəsi və Əməkdaşlıq Tələbləri</p>
-      
+
       <div className="operations-grid">
         <motion.div className="op-panel glass-panel">
            <div className="panel-header">

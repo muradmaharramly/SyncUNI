@@ -53,12 +53,12 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      {/* Hero Section */}
+      {}
       <section className="hero">
         <div className="neon-blob purple"></div>
         <div className="neon-blob blue"></div>
-        
-        {/* Roadmap Roadmap Path BG */}
+
+        {}
         <div className="hero__roadmap-bg" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', zIndex: 0, pointerEvents: 'none'}}>
            <svg width="100%" height="100%" viewBox="0 0 1440 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
              <path d="M-100 500 C 300 0, 800 600, 1500 100" stroke="rgba(255,255,255,0.03)" strokeWidth="6" fill="none" strokeDasharray="30 20" />
@@ -67,7 +67,7 @@ const LandingPage = () => {
         </div>
 
         <div className="container hero__container">
-            <motion.div 
+            <motion.div
             className="hero__content"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* About Section - Skills Gap */}
+      {}
       <section id="about" className="about section">
         <div className="container">
           <div className="section__header">
@@ -99,7 +99,7 @@ const LandingPage = () => {
               </ul>
             </div>
             <div className="about__visual">
-              {/* Dummy SVG Graphic for Skills Gap */}
+              {}
               <div className="skills-gap-graphic">
                 <div className="node uni">Universitetlər</div>
                 <div className="bridge">
@@ -112,7 +112,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Services Section */}
+      {}
       <section id="features" className="services section bg-alt">
         <div className="container">
           <div className="section__header">
@@ -139,7 +139,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-        {/* SyncAI Agent Section */}
+        {}
       <section className="agent-promo section bg-alt">
         <div className="container agent-promo__wrapper">
           <div className="agent-promo__content">
@@ -148,7 +148,7 @@ const LandingPage = () => {
             </div>
             <h2>Süni Zəka İlə <br/><span>Proaktiv İdarəetmə</span></h2>
             <p>SyncAI Agent arxa planda bütün ekosistemi (tələbə, şirkət, kurs datası) real vaxtda analiz edir. Gözlənilmədən önəmli fürsətləri və trendləri sizə bildiriş olaraq çatdırır.</p>
-            
+
             <div className="agent-features-list">
               <div className="f-item">
                 <FiCpu className="f-icon" />
@@ -173,10 +173,10 @@ const LandingPage = () => {
                 </div>
                 <div className="title">SyncAI Live Intelligence</div>
               </div>
-              
+
               <div className="feed-content">
                 <AnimatePresence mode="wait">
-                  <motion.div 
+                  <motion.div
                     key={agentMocks[visibleAgentMock].id}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -193,7 +193,7 @@ const LandingPage = () => {
                   </motion.div>
                 </AnimatePresence>
 
-                {/* Static background items to make it look like a list */}
+                {}
                 <div className="feed-item static">
                   <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>🔒</div>
                   <div className="feed-item__text">Təhlükəsizlik analizi tamamlandı...</div>
@@ -214,7 +214,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Collaborate Us */}
+      {}
       <section id="partners" className="collaborate section">
         <div className="container">
           <div className="section__header">
@@ -241,7 +241,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Competitor Edge Section */}
+      {}
       <section className="competitor section bg-alt">
         <div className="container">
           <div className="section__header">
@@ -284,14 +284,14 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {}
       <section className="pricing section">
         <div className="container">
           <div className="section__header">
             <h2>Dinamik Paketlər</h2>
             <p>Hər rol üçün xüsusi olaraq düşünülmüş və data-ya əsaslanan qiymətləndirmə.</p>
           </div>
-          
+
           <div className="pricing__toggle">
              <div className="segmented-control">
                 <button className={activeRole === 'company' ? 'active' : ''} onClick={() => setActiveRole('company')}>Şirkətlər Üçün</button>
@@ -302,7 +302,7 @@ const LandingPage = () => {
 
           <div className="pricing__grid">
              {pricingData[activeRole].map((plan, i) => (
-                <motion.div 
+                <motion.div
                    key={plan.id}
                    className={`pricing-card glass-card ${plan.badge === 'Popular' ? 'popular' : ''} ${activeRole === 'university' ? 'university-card' : ''}`}
                    initial={{ opacity: 0, y: 20 }}
@@ -330,7 +330,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Modern CTA Section */}
+      {}
       <section className="modern-cta section">
         <div className="container">
           <div className="cta-card">
@@ -344,11 +344,11 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {}
       <section className="faq section">
         <div className="container faq__wrapper" style={{display: 'flex', gap: '4rem', alignItems: 'stretch'}}>
-          
-          {/* FAQ Visual Left Side */}
+
+          {}
           <div className="faq__visual hide-mobile" style={{flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-card)', borderRadius: '15px', border: '1px solid var(--border-color)', overflow: 'hidden'}}>
              <div style={{fontSize: '20rem', color: 'rgba(124, 58, 237, 0.1)', lineHeight: '1', fontWeight: '900', userSelect: 'none', position: 'absolute'}}>?</div>
              <div style={{position: 'absolute', top: '15%', left: '15%', fontSize: '4rem', color: 'rgba(56, 189, 248, 0.2)'}}>?</div>
@@ -359,7 +359,7 @@ const LandingPage = () => {
              </div>
           </div>
 
-          {/* FAQ Content Right Side */}
+          {}
           <div className="faq__content" style={{flex: 1.5}}>
             <div className="section__header" style={{textAlign: 'left', alignItems: 'flex-start', marginBottom: '2rem'}}>
               <h2 style={{fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Suallarına Cavab Tap</h2>
@@ -382,7 +382,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {}
       <footer className="footer">
         <div className="container footer__container">
           <div className="footer__brand">

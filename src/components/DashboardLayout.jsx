@@ -17,7 +17,6 @@ const DashboardLayout = () => {
 
   if (!user) return <Navigate to="/login" replace />;
 
-  // Derive quick stats from live API data
   let stats = [];
   if (user.role === 'company') {
     const comp = data.companies?.[0];
@@ -50,7 +49,7 @@ const DashboardLayout = () => {
 
   return (
     <div className={`dashboard-layout ${!isSidebarOpen ? 'layout--collapsed' : ''}`}>
-      {/* Sidebar Navigation */}
+      {}
       <aside className={`dashboard-sidebar glass-panel ${!isSidebarOpen ? 'collapsed' : ''}`}>
         <div className="dashboard-sidebar__header">
           {isSidebarOpen && <h3>Panel</h3>}
@@ -155,7 +154,7 @@ const DashboardLayout = () => {
       </aside>
 
       <main className="dashboard-main">
-        {/* Dynamic Global Greeting & Stats Bento */}
+        {}
         {loading ? (
           <SkeletonDashboardHeader />
         ) : (
@@ -188,7 +187,7 @@ const DashboardLayout = () => {
           </motion.div>
         )}
 
-        {/* Dashboard Specific Content */}
+        {}
         <div className="dashboard-main__content">
           <Outlet />
         </div>

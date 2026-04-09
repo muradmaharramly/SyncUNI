@@ -25,14 +25,14 @@ const CourseOperations = () => {
     <div className="operations-page">
       <h2>İdarəetmə Paneli (Tədris Mərkəzləri)</h2>
       <p className="desc">Tələbələrin bacarıqlarını təsdiqləyin və yeni kurslar elan edin.</p>
-      
+
       <div className="operations-grid">
         <motion.div className="op-panel glass-panel">
           <div className="panel-header">
             <h3>Tələbə Bacarıqlarını Təsdiqləmə (Endorsement)</h3>
           </div>
           <p style={{marginBottom: '1rem'}}>Kursunuzu uğurla bitirən tələbələrə "Verify" statusu qazandırın:</p>
-          
+
           <div className="student-list-mini">
             {data.students.slice(0, 5).map(st => (
               <div key={st.id} className="st-strip" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -53,11 +53,11 @@ const CourseOperations = () => {
             <h3>Kurs İdarəetməsi</h3>
           </div>
           <p style={{marginBottom: '1rem'}}>Aktiv kurslar və elanlar paneli</p>
-          
+
           <button className="btn btn--primary" onClick={() => setIsModalOpen(true)} style={{width: '100%', marginBottom: '1rem'}}>
              <FiPlus /> Yeni Kurs Yarat
           </button>
-          
+
           <div className="requests-list">
              <div className="req-card accepted">
                <div className="info">
@@ -86,11 +86,11 @@ const CourseOperations = () => {
               </div>
               <div style={{marginBottom: '1rem'}}>
                 <label style={{display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)'}}>Kursun Adı</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={newCourseName}
                   onChange={(e) => setNewCourseName(e.target.value)}
-                  style={{width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--hover-bg)', border: '1px solid var(--border-color)', color: 'var(--text-main)'}} 
+                  style={{width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--hover-bg)', border: '1px solid var(--border-color)', color: 'var(--text-main)'}}
                   placeholder="Məs. Node.js Masterclass"
                 />
               </div>

@@ -12,7 +12,6 @@
     p  { color: var(--text-muted); font-size: $font-base; }
   }
 
-  // ── History Stats ──────────────────────────────────────────
   .history-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -41,7 +40,6 @@
     }
   }
 
-  // ── Date Range Filter ──────────────────────────────────────
   .date-filter {
     display: flex;
     align-items: center;
@@ -100,7 +98,6 @@
     }
   }
 
-  // ── History Table wrapper ──────────────────────────────────
   .history-table-container, .payment-history-container {
     padding: $spacing-6;
 
@@ -121,7 +118,6 @@
     padding: $spacing-8 0;
   }
 
-  // ── Shared Table ───────────────────────────────────────────
   .history-table {
     width: 100%;
     border-collapse: collapse;
@@ -156,7 +152,6 @@
       &.analyzed { background: rgba(59,130,246,0.1);  color: #3b82f6; }
     }
 
-    // Receipt button inside table
     .receipt-btn {
       display: inline-flex;
       align-items: center;
@@ -177,7 +172,6 @@
     }
   }
 
-  // ── Billing Widget ─────────────────────────────────────────
   .billing-widget {
     padding: $spacing-8;
     margin-bottom: $spacing-8;
@@ -233,7 +227,6 @@
     }
   }
 
-  // ── Upgrade Plans ──────────────────────────────────────────
   .upgrade-options {
     overflow: hidden;
     margin-bottom: $spacing-8;
@@ -281,7 +274,6 @@
   }
 }
 
-// ── Receipt Modal ────────────────────────────────────────────
 .receipt-overlay {
   position: fixed;
   inset: 0;
@@ -375,7 +367,6 @@
   }
 }
 
-// ── Responsive ────────────────────────────────────────────────
 @media (max-width: 768px) {
   .history-page, .subscription-page {
     padding: $spacing-4;

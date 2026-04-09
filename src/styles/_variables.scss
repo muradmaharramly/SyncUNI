@@ -1,12 +1,11 @@
 :root {
-  // Electric Indigo & Cyan
+
   --primary-color: #6366F1;
   --secondary-color: #06B6D4;
-  
-  // Light Surface Theme
-  --bg-color: #F8FAFC; // Pure Ghost
+
+  --bg-color: #F8FAFC;
   --bg-card: rgba(255, 255, 255, 0.7);
-  --text-main: #1E293B; // Slate 800
+  --text-main: #1E293B;
   --text-muted: #64748B;
   --border-color: rgba(255, 255, 255, 0.5);
   --hover-bg: rgba(99, 102, 241, 0.05);
@@ -17,16 +16,16 @@
   --danger: #EF4444;
 
   &[data-theme='dark'] {
-    // Dark Surface Theme
-    --bg-color: #05050A; // Very deep slate-black
-    --bg-card: rgba(15, 15, 20, 0.338); // Neutral deep blur
+
+    --bg-color: #05050A;
+    --bg-card: rgba(15, 15, 20, 0.338);
     --text-main: #F8FAFC;
-    --text-muted: #94A3B8; // Standard slate
-    --border-color: rgba(255, 255, 255, 0.05); // Subtle white instead of purple
-    --hover-bg: rgba(255, 255, 255, 0.03); 
-    --card-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.3); // Softer, dark shadow without colors
-    --primary-color: #6366F1; // Soft Indigo instead of bright Purple
-    --secondary-color: #0EA5E9; // Sky Blue
+    --text-muted: #94A3B8;
+    --border-color: rgba(255, 255, 255, 0.05);
+    --hover-bg: rgba(255, 255, 255, 0.03);
+    --card-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.3);
+    --primary-color: #6366F1;
+    --secondary-color: #0EA5E9;
   }
 }
 
@@ -43,7 +42,6 @@ $success: var(--success);
 $warning: var(--warning);
 $danger: var(--danger);
 
-// Typography
 $font-family: 'Inter', sans-serif;
 $font-sm: 0.875rem;
 $font-base: 1rem;
@@ -53,7 +51,6 @@ $font-2xl: 1.5rem;
 $font-3xl: 1.875rem;
 $font-4xl: 2.25rem;
 
-// Spacing
 $spacing-1: 0.25rem;
 $spacing-2: 0.5rem;
 $spacing-3: 0.75rem;
@@ -65,11 +62,10 @@ $spacing-10: 2.5rem;
 $spacing-12: 3rem;
 $spacing-16: 4rem;
 
-// Squircle Radius
 $radius-sm: 8px;
 $radius-md: 12px;
 $radius-lg: 16px;
-$radius-xl: 24px; // Requested Premium squircle
+$radius-xl: 24px;
 $radius-full: 9999px;
 
 $card-shadow-var: var(--card-shadow);

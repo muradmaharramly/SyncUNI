@@ -29,7 +29,7 @@ const CompanyOperations = () => {
   };
 
   const handleDragOver = (e, stage) => {
-    e.preventDefault(); // necessary to allow dropping
+    e.preventDefault();
     setDraggedStage(stage);
   };
 
@@ -39,16 +39,14 @@ const CompanyOperations = () => {
 
   const stages = ['Applicants', 'Interview', 'Verified', 'Offer'];
 
-  // Match our custom funnel stages to actual statuses or dynamically use funnelStage property
-  // Since our dummy data didn't have funnelStage, we map logic (or assume funnelStage exists)
   const getStageStudents = (stage) => {
     return data.students.filter(s => {
-      // Map initial statuses to funnel stages specifically if not defined
+
       let initialStage = 'Applicants';
       if (s.status === 'Looking') initialStage = 'Applicants';
       if (s.status === 'Active') initialStage = 'Interview';
       if (s.status === 'Hired') initialStage = 'Offer';
-      
+
       const currentStage = s.funnelStage || initialStage;
       return currentStage === stage;
     });
@@ -71,10 +69,10 @@ const CompanyOperations = () => {
           <h2>Advanced Operations: Recruitment Flow</h2>
           <p className="desc" style={{marginBottom: 0}}>Tələbələri sütunlar arası sürükləyərək statuslarını yeniləyin (Tab-lara Drag and Drop)</p>
         </div>
-        
+
         <div style={{ display: 'flex', gap: '0.5rem', background: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
           {stages.map(stage => (
-            <div 
+            <div
               key={stage}
               onClick={() => setActiveStage(stage)}
               onDrop={(e) => handleDrop(e, stage)}
@@ -96,20 +94,20 @@ const CompanyOperations = () => {
           ))}
         </div>
       </div>
-      
+
       <div style={{
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
           gap: '1.5rem'
         }}>
         <AnimatePresence mode='popLayout'>
           {getStageStudents(activeStage).map(st => (
-            <motion.div 
+            <motion.div
               layout
               initial={{opacity: 0, scale: 0.9}}
               animate={{opacity: 1, scale: 1}}
               exit={{opacity: 0, scale: 0.9}}
-              key={st.id} 
+              key={st.id}
               className="kanban-card glass-panel"
               draggable
               onDragStart={(e) => handleDragStart(e, st.id)}

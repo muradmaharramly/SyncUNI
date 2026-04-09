@@ -17,7 +17,7 @@
       border-bottom: 1px solid $border;
       padding-bottom: $spacing-2;
     }
-    
+
     .panel-header {
       @include flex-between;
       margin-bottom: $spacing-4;
@@ -25,7 +25,7 @@
       padding-bottom: $spacing-2;
       h2 { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     }
-    
+
     .desc {
       color: $text-muted;
       margin-bottom: $spacing-4;
@@ -46,12 +46,12 @@
       background: linear-gradient(135deg, rgba($primary, 0.05), transparent);
 
       h3 { margin-bottom: $spacing-4; color: $primary; }
-      
+
       .course-stats {
         @include flex-between;
         color: $text-muted;
         font-size: $font-sm;
-        
+
         span { @include flex-center; gap: 4px; }
         .rating { color: $warning; font-weight: bold; }
       }
@@ -82,7 +82,7 @@
         .c-item {
           @include flex-center;
           gap: $spacing-4;
-          
+
           .c-name { font-weight: 500; }
           .badge {
             @include flex-center;
@@ -90,7 +90,7 @@
             font-size: $font-sm;
             padding: 2px 8px;
             border-radius: $radius-sm;
-            
+
             &.true {
               background-color: rgba($success, 0.1);
               color: $success;

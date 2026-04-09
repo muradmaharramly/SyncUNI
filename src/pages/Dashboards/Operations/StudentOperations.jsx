@@ -12,7 +12,6 @@ const StudentOperations = () => {
   const { user } = useAuth();
   const student = data.students.find(s => s.name === user.name) || data.students[0];
 
-  // CV-də göstəriləcək sabit ad (istifadəçi adından asılı olmayaraq)
   const cvStudent = { ...student, name: 'Aysel Məmmədova' };
 
   const [selectedGoal, setSelectedGoal] = useState('');
@@ -26,21 +25,20 @@ const StudentOperations = () => {
       toast.error("Zəhmət olmasa həqiqi CV yaratmaq üçün əvvəlcə 'Məqsəd (Goal)' seçin.");
       return;
     }
-    
+
     setIsGenerating(true);
-    
+
     const generateAiText = async () => {
-      // Yüksek keyfiyyətli HR (Advanced Prompt) şablonu - Əgər API çöksə və ya spam yazsa işə düşəcək
+
       const fallbackSummary = `Analitik düşünmə qabiliyyətinə malik, ${cvStudent.uni} təhsil bazası ilə (GPA: ${cvStudent.gpa}) fərqlənən gənc mütəxəssis. ${cvStudent.skills.hard.join(', ')} kimi texniki bacarıqlara dərindən yiyələnmiş, aktiv olaraq ${selectedGoal} mövqeyi üzrə ixtisaslaşmışdır. Sürətli qavrama, idarəetmə və proaktiv yanaşması ilə əlaqədar layihələrdə yüksək səmərəlilik nümayiş etdirir.`;
 
       try {
         const advancedPrompt = `Persona: Sən peşəkar bir HR mütəxəssisi və karyera kouçusan. Task: Verilən tələbə datasına əsasən CV-nin ən yuxarı hissəsində yerləşəcək 'Profil Xülasəsi' yazmalısan. Format: Mətn maksimum 3-4 cümlədən ibarət olmalıdır. Birinci şəxsin dilindən deyil, neytral və peşəkar (üçüncü şəxs) dilində yazılmalıdır. Akademik uğurlar, texniki bacarıqlar mütləq cümlə içində zərif şəkildə qeyd olunmalıdır. Tone: Korporativ, ciddi, lakin müasir. Language: YALNIZ Azərbaycan dilində. Mətndə 'Mən', 'Mənim' kimi sözlərdən qaçın, birbaşa bacarıqlara və hədəflərə fokuslan. STUDENT_DATA: Adı: ${cvStudent.name}, GPA: ${cvStudent.gpa}, Hədəf Peşə: ${selectedGoal}, Bacarıqlar: ${cvStudent.skills.hard.join(', ')}.`;
-        
+
         const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(advancedPrompt)}?model=mistral&seed=${Math.floor(Math.random()*1000)}&cache=false`);
         if(!res.ok) throw new Error("API Error");
         let text = await res.text();
 
-        // Clean deprecation notice from legacy API
         const cleaningPatterns = [
           /⚠️ \*\*IMPORTANT NOTICE\*\* ⚠️[\s\S]*?normally\./gi,
           /The Pollinations legacy text API[\s\S]*?normally\./gi,
@@ -52,17 +50,15 @@ const StudentOperations = () => {
           text = text.replace(pattern, '').trim();
         });
 
-        
-        // Ciddi yoxlanış: Əgər gələn mətndə ingiliscə "pollinations", "migrate", "URL (http)" varsa, bu spamdır!
         if (
-           text.toLowerCase().includes('pollinations') || 
-           text.toLowerCase().includes('migrate') || 
+           text.toLowerCase().includes('pollinations') ||
+           text.toLowerCase().includes('migrate') ||
            text.includes('http') ||
            text.length < 20
         ) {
            throw new Error("Mənasız AI spici gəldi, fallback istifadə olunacaq");
         }
-        
+
         setAiSummaryText(text);
       } catch (e) {
         setAiSummaryText(fallbackSummary);
@@ -112,22 +108,22 @@ const StudentOperations = () => {
       <>
       <h2>İcra Mərkəzi (Goal Tracking)</h2>
       <p className="desc">Karyera hədəflərini izlə, əskikləri tamamla və Portfolio yarat.</p>
-      
+
       <div className="operations-grid">
-        {/* Skill-to-Job Simulator */}
+        {}
         <motion.div className="op-panel glass-panel">
           <div className="panel-header">
             <h3><FiTarget /> Skill-to-Job Simulator</h3>
           </div>
           <p style={{marginBottom: '1rem'}}>Arzuladığınız peşəni seçin və çatmıyan bacarıqları To-do list şəklində görün:</p>
-          
+
           <div className="custom-dropdown-container" style={{ position: 'relative', marginBottom: '1rem' }}>
-            <div 
-              className="custom-dropdown-selected" 
+            <div
+              className="custom-dropdown-selected"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               style={{
-                width: '100%', padding: '10px 15px', borderRadius: '8px', 
-                background: 'var(--hover-bg)', color: 'var(--text-main)', 
+                width: '100%', padding: '10px 15px', borderRadius: '8px',
+                background: 'var(--hover-bg)', color: 'var(--text-main)',
                 border: '1px solid var(--border-color)', cursor: 'pointer',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center'
               }}
@@ -135,23 +131,23 @@ const StudentOperations = () => {
               <span>{selectedGoal || '-- Məqsəd Seçin --'}</span>
               <span style={{ fontSize: '0.8rem', transform: isDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▼</span>
             </div>
-            
+
             <AnimatePresence>
               {isDropdownOpen && (
-                <motion.div 
+                <motion.div
                   className="custom-dropdown-options glass-panel"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   style={{
-                    position: 'absolute', top: '100%', left: 0, right: 0, 
+                    position: 'absolute', top: '100%', left: 0, right: 0,
                     marginTop: '5px', borderRadius: '8px', overflow: 'hidden',
                     background: 'var(--bg-color)', zIndex: 10,
                     border: '1px solid var(--border-color)',
                     boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
                   }}
                 >
-                  <div 
+                  <div
                     className="custom-dropdown-option"
                     onClick={() => { setSelectedGoal(''); setIsDropdownOpen(false); }}
                     style={{ padding: '10px 15px', cursor: 'pointer', borderBottom: '1px solid var(--border-color)' }}
@@ -159,11 +155,11 @@ const StudentOperations = () => {
                     -- Məqsəd Seçin --
                   </div>
                   {['Frontend Developer', 'Data Scientist', 'Project Manager'].map(option => (
-                    <div 
+                    <div
                       key={option}
                       className="custom-dropdown-option"
                       onClick={() => { setSelectedGoal(option); setIsDropdownOpen(false); }}
-                      style={{ 
+                      style={{
                         padding: '10px 15px', cursor: 'pointer',
                         background: selectedGoal === option ? 'var(--hover-bg)' : 'transparent',
                         color: selectedGoal === option ? 'var(--primary-color)' : 'var(--text-main)'
@@ -194,7 +190,7 @@ const StudentOperations = () => {
           )}
         </motion.div>
 
-        {/* Portfolio Builder */}
+        {}
         <motion.div className="op-panel glass-panel">
           <div className="panel-header">
             <h3><FiDownloadCloud /> Portfolio / CV Builder</h3>
@@ -204,7 +200,7 @@ const StudentOperations = () => {
           </p>
           <div style={{ padding: '2rem', textAlign: 'center', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px dashed var(--border-color)' }}>
             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📄</div>
-            <motion.button 
+            <motion.button
                className="btn btn--primary"
                onClick={handleGeneratePDF}
                whileHover={{ scale: 1.01 }}
@@ -218,11 +214,11 @@ const StudentOperations = () => {
         </motion.div>
       </div>
 
-      {/* CV Modal */}
+      {}
       <AnimatePresence>
         {showCVModal && (
           <div className="cv-modal-overlay">
-            <motion.div 
+            <motion.div
               className="cv-modal-content"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -239,17 +235,17 @@ const StudentOperations = () => {
                    </button>
                  </div>
                </div>
-               
+
                <div className="cv-document print-cv-area">
-                 {/* CV Header */}
+                 {}
                  <div className="cv-header">
                     <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', color: '#1a1a2e'}}>{cvStudent.name}</h1>
                     <p style={{fontSize: '1.1rem', color: '#4a4a68'}}>{cvStudent.degree} | GPA: {cvStudent.gpa}</p>
                     <p style={{color: 'var(--primary-color)', fontWeight: 'bold', marginTop: '10px', fontSize: '1.2rem', textTransform: 'uppercase'}}>{selectedGoal}</p>
                  </div>
-                 
+
                  <hr style={{border: '0', borderBottom: '2px solid #e1e1e8', margin: '2rem 0'}} />
-                 
+
                  <div className="cv-section" style={{marginBottom: '2rem'}}>
                    <h4 style={{fontSize: '1.2rem', color: '#1a1a2e', margin: '0 0 1rem 0', borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}}>🤖 AI Xülasəsi (Profile Summary)</h4>
                    <p style={{lineHeight: '1.6', color: '#4a4a68'}}>{aiSummaryText}</p>
@@ -273,7 +269,7 @@ const StudentOperations = () => {
                      <li>SyncUNI rəqəmsal reyestrinin imtiyazlı istifadəçisidir.</li>
                    </ul>
                  </div>
-                 
+
                  <div className="cv-footer" style={{marginTop: '3rem', textAlign: 'center', fontSize: '0.8rem', color: '#888', borderTop: '1px dotted #ccc', paddingTop: '1rem'}}>
                     <p>Bu sənəd SyncUNI AI Engine vasitəsilə <strong>{cvStudent.name}</strong> üçün avtomatik yaradılmışdır.</p>
                  </div>

@@ -23,7 +23,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="container login-page__container">
-        
+
         <div className="login-info">
            <motion.div className="info-badge" initial={{opacity:0, y:-10}} animate={{opacity:1, y:0}}>Xoş gəlmişsiniz</motion.div>
            <motion.h1 initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay: 0.1}}>
@@ -32,7 +32,7 @@ const LoginPage = () => {
            <motion.p initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay: 0.2}}>
               SyncUNI tək bir platformada universitetləri, şirkətləri və tələbələri birləşdirən "Skill-gap" əsaslı innovativ karyera ekosistemidir.
            </motion.p>
-           
+
            <motion.div className="info-features" initial={{opacity:0}} animate={{opacity:1}} transition={{delay: 0.3}}>
              <div className="feature">
                <div className="f-icon"><FiUserCheck /></div>
@@ -56,12 +56,12 @@ const LoginPage = () => {
             <h2>Daxil Ol <span className="demo-badge">Demo</span></h2>
             <p>Davam etmək üçün istifadəçi rolunuzu seçin</p>
           </div>
-          
+
           <div className="roles-list">
             {roles.map((role, idx) => (
-              <motion.div 
-                key={role.id} 
-                className="role-row" 
+              <motion.div
+                key={role.id}
+                className="role-row"
                 onClick={() => handleLogin(role.id)}
                 initial={{opacity:0, x:20}}
                 animate={{opacity:1, x:0}}

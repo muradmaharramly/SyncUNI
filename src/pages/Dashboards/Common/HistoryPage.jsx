@@ -43,7 +43,7 @@ const HistoryPage = () => {
         <p>Əvvəlki ayların statistikası və platforma üzərindən əldə olunan nəticələr.</p>
       </div>
 
-      {/* Stats */}
+      {}
       <div className="history-stats">
         <div className="stat-box glass-panel">
           <FiUserCheck className="icon blue" />
@@ -59,7 +59,7 @@ const HistoryPage = () => {
         </div>
       </div>
 
-      {/* Date Range Filter */}
+      {}
       <div className="date-filter glass-panel">
         <FiFilter className="filter-icon" />
         <label>Başlanğıc:</label>
@@ -74,7 +74,7 @@ const HistoryPage = () => {
         <span className="filter-count">{filtered.length} nəticə</span>
       </div>
 
-      {/* Table */}
+      {}
       <div className="history-table-container glass-panel">
         <h3><FiClock /> Son Proseslər</h3>
         {filtered.length === 0 ? (

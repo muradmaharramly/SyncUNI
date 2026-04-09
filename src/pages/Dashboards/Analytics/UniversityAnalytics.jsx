@@ -7,7 +7,6 @@ import './Analytics.scss';
 const UniversityAnalytics = () => {
   const { data } = useData();
 
-  // Mock Student Readiness Score
   const readinessData = [
     { year: '2022', score: 65, avgMarket: 70 },
     { year: '2023', score: 72, avgMarket: 75 },
@@ -16,7 +15,6 @@ const UniversityAnalytics = () => {
     { year: '2026', score: Math.round(data.universities[0].placementRate), avgMarket: 85 }
   ];
 
-  // Mock Skills distribution
   const skillsConfig = [
     { name: 'Python/AI', value: 400, color: '#6366F1' },
     { name: 'React/UI', value: 300, color: '#06B6D4' },
@@ -28,9 +26,9 @@ const UniversityAnalytics = () => {
     <div className="analytics-page">
       <h2>İntellektual Analitika</h2>
       <p className="desc">Qərarlar üçün dərin insight-lar ("Insight Engine")</p>
-      
+
       <div className="analytics-grid">
-        {/* Student Readiness Score */}
+        {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}}>
           <h3>Sənayeyə Hazırlıq Səviyyəsi (Student Readiness)</h3>
           <div className="chart-wrapper">
@@ -47,7 +45,7 @@ const UniversityAnalytics = () => {
           </div>
         </motion.div>
 
-        {/* Skills Over Time */}
+        {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay:0.1}}>
           <h3>Tələbə Bazası Üzrə Aktual Bacarıqlar</h3>
           <div className="chart-wrapper" style={{display:'flex', alignItems:'center'}}>

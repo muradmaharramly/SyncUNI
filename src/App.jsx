@@ -22,14 +22,12 @@ import StudentOperations from './pages/Dashboards/Operations/StudentOperations';
 import CourseOperations from './pages/Dashboards/Operations/CourseOperations';
 import CourseAnalytics from './pages/Dashboards/Analytics/CourseAnalytics';
 
-// Common
 import ProfilePage from './pages/Dashboards/Common/ProfilePage';
 import SettingsPage from './pages/Dashboards/Common/SettingsPage';
 import HistoryPage from './pages/Dashboards/Common/HistoryPage';
 import SubscriptionPage from './pages/Dashboards/Common/SubscriptionPage';
 import ElanlarPage from './pages/Dashboards/Common/ElanlarPage';
 
-// Agent
 import AgentPage from './pages/Dashboards/Agent/AgentPage';
 
 function PrivateRoute({ children, allowedRole }) {
@@ -51,28 +49,28 @@ function App() {
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/login" element={<LoginPage />} />
-                  
+
                   <Route path="/dashboard" element={<DashboardLayout />}>
-                    {/* Company Routes */}
+                    {}
                     <Route path="company" element={<PrivateRoute allowedRole="company"><CompanyDashboard /></PrivateRoute>} />
                     <Route path="company/operations" element={<PrivateRoute allowedRole="company"><CompanyOperations /></PrivateRoute>} />
                     <Route path="company/analytics" element={<PrivateRoute allowedRole="company"><CompanyAnalytics /></PrivateRoute>} />
 
-                    {/* University Routes */}
+                    {}
                     <Route path="university" element={<PrivateRoute allowedRole="university"><UniversityDashboard /></PrivateRoute>} />
                     <Route path="university/operations" element={<PrivateRoute allowedRole="university"><UniversityOperations /></PrivateRoute>} />
                     <Route path="university/analytics" element={<PrivateRoute allowedRole="university"><UniversityAnalytics /></PrivateRoute>} />
 
-                    {/* Course Routes */}
+                    {}
                     <Route path="course" element={<PrivateRoute allowedRole="course"><CourseDashboard /></PrivateRoute>} />
                     <Route path="course/operations" element={<PrivateRoute allowedRole="course"><CourseOperations /></PrivateRoute>} />
                     <Route path="course/analytics" element={<PrivateRoute allowedRole="course"><CourseAnalytics /></PrivateRoute>} />
-                    
-                    {/* Student Routes */}
+
+                    {}
                     <Route path="student" element={<PrivateRoute allowedRole="student"><StudentDashboard /></PrivateRoute>} />
                     <Route path="student/operations" element={<PrivateRoute allowedRole="student"><StudentOperations /></PrivateRoute>} />
 
-                    {/* Common Routes */}
+                    {}
                     <Route path=":role/history" element={<HistoryPage />} />
                     <Route path=":role/subscription" element={<SubscriptionPage />} />
                     <Route path=":role/elanlar" element={<ElanlarPage />} />

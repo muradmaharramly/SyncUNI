@@ -11,7 +11,6 @@ const UniversityDashboard = () => {
   const uni = SYNC_DATA.universities[0];
   const students = SYNC_DATA.students.filter(s => s.uni === uni.name);
 
-  // Mock Market Demand Heatmap Data (Treemap)
   const heatmapData = [
     { name: 'Frontend', size: 400 },
     { name: 'React', size: 300 },
@@ -29,8 +28,8 @@ const UniversityDashboard = () => {
   return (
     <div className="university-bento">
       <div className="bento-grid">
-        
-        {/* Industry Alignment Index (Heatmap) */}
+
+        {}
         <motion.div className="bento-panel market-heatmap glass-panel" layout>
           <div className="panel-header">
             <h3>Bazar Tələbatı Xəritəsi (Market Demand Heatmap)</h3>
@@ -52,7 +51,7 @@ const UniversityDashboard = () => {
           <p className="desc">Qara xətlər qırılmaları göstərir. Daha iri qutular hazirda sənayedəki (Industry) ən çox tələb olunan bacarıqlardır.</p>
         </motion.div>
 
-        {/* Privacy Wall / Secure Vault */}
+        {}
         <motion.div className="bento-panel privacy-wall glass-panel" layout>
           <div className="lock-icon">
              <FiLock />
@@ -62,7 +61,7 @@ const UniversityDashboard = () => {
           <button className="btn btn--outline" disabled onClick={() => toast.error('Qadağandır')}>Kənar Baza Axtarışı</button>
         </motion.div>
 
-        {/* Digital Reference Ledger */}
+        {}
         <motion.div className="bento-panel ref-ledger glass-panel" layout style={{ gridColumn: '1 / -1' }}>
           <div className="panel-header">
             <h3>Digital Reference Ledger (Ağıllı Rəy)</h3>
@@ -92,7 +91,7 @@ const UniversityDashboard = () => {
                     </div>
                   </div>
                   <p className="comment">"{ref.comment}"</p>
-                  <motion.button 
+                  <motion.button
                     className="btn btn--outline btn-sm"
                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                     onClick={() => handleEndorse(st.name)}

@@ -14,12 +14,11 @@ const CompanyDashboard = () => {
   const [compareList, setCompareList] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(SYNC_DATA.students[0]);
 
-  // Filtering Logic
   const filteredStudents = SYNC_DATA.students.filter(s => {
-    const matchesSearch = s.name.toLowerCase().includes(filterQuery.toLowerCase()) || 
+    const matchesSearch = s.name.toLowerCase().includes(filterQuery.toLowerCase()) ||
                           s.skills.hard.join(',').toLowerCase().includes(filterQuery.toLowerCase());
     const matchesGpa = s.gpa >= gpaFilter;
-    const matchesFunnel = funnelStage === 'Applicants' ? s.status === 'Looking' : 
+    const matchesFunnel = funnelStage === 'Applicants' ? s.status === 'Looking' :
                           funnelStage === 'Interview' ? s.status === 'Active' : s.status === 'Hired';
     return matchesSearch && matchesGpa && matchesFunnel;
   });
@@ -44,7 +43,6 @@ const CompanyDashboard = () => {
     });
   };
 
-  // Mock Radar Data from selected student
   const radarData = [
     { subject: 'Hard Skills', A: selectedStudent.skills.hard.length * 20, fullMark: 100 },
     { subject: 'Soft Skills', A: selectedStudent.skills.soft.length * 30, fullMark: 100 },
@@ -55,7 +53,7 @@ const CompanyDashboard = () => {
 
   return (
     <div className="company-bento">
-      {/* Filtering & Funnel Bar */}
+      {}
       <div className="bento-panel filter-panel">
         <div className="search-box">
           <FiSearch className="icon"/>
@@ -67,8 +65,8 @@ const CompanyDashboard = () => {
         </div>
         <div className="funnel-tabs">
           {['Applicants', 'Interview', 'Verified', 'Offer'].map(stage => (
-            <motion.button 
-              key={stage} 
+            <motion.button
+              key={stage}
               className={`tab ${funnelStage === stage ? 'active' : ''}`}
               onClick={() => setFunnelStage(stage)}
               whileTap={{ scale: 0.95 }}
@@ -80,7 +78,7 @@ const CompanyDashboard = () => {
       </div>
 
       <div className="bento-grid">
-        {/* Talent Radar Panel */}
+        {}
         <motion.div className="bento-panel talent-radar" layout>
           <div className="panel-header">
             <h3>Talent Radar: {selectedStudent.name}</h3>
@@ -101,7 +99,7 @@ const CompanyDashboard = () => {
           </div>
         </motion.div>
 
-        {/* Student List & Selection */}
+        {}
         <motion.div className="bento-panel student-selection" layout>
           <div className="panel-header">
             <h3>Namizədlər ({filteredStudents.length})</h3>
@@ -110,8 +108,8 @@ const CompanyDashboard = () => {
           <div className="list-wrapper">
             <AnimatePresence>
               {filteredStudents.map(student => (
-                <motion.div 
-                  key={student.id} 
+                <motion.div
+                  key={student.id}
                   className={`candidate-card ${selectedStudent.id === student.id ? 'selected' : ''}`}
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }}
                   onClick={() => setSelectedStudent(student)}
@@ -136,7 +134,7 @@ const CompanyDashboard = () => {
           </div>
         </motion.div>
 
-        {/* Hiring Accuracy & References */}
+        {}
         <div className="bento-col">
           <motion.div className="bento-panel accuracy-chart" layout>
             <div className="panel-header">
@@ -161,8 +159,8 @@ const CompanyDashboard = () => {
             {SYNC_DATA.references.map(ref => (
               <div key={ref.id} className="ref-item">
                 <p><strong>{ref.teacher}</strong>: "{ref.comment}"</p>
-                <motion.button 
-                  className="btn btn--outline btn-sm" 
+                <motion.button
+                  className="btn btn--outline btn-sm"
                   whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.95 }}
                   onClick={() => handleVerify(ref.id)}
                 >
@@ -173,8 +171,8 @@ const CompanyDashboard = () => {
           </motion.div>
         </div>
       </div>
-      
-      {/* Dynamic Comparison Modal (Simplified overlay) */}
+
+      {}
       <AnimatePresence>
         {compareList.length === 2 && (
           <motion.div className="modal-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>

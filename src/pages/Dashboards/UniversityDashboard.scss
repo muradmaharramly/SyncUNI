@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: $spacing-6;
-    
+
     @media (max-width: 992px) {
       grid-template-columns: 1fr;
     }
@@ -22,7 +22,7 @@
       margin-bottom: $spacing-6;
       border-bottom: 1px solid $border;
       padding-bottom: $spacing-3;
-      
+
       h3 { font-size: $font-lg; color: $text-main; }
     }
   }
@@ -92,7 +92,7 @@
         .score-item {
           @include flex-between;
           font-size: $font-sm;
-          
+
           .stars { color: $warning; letter-spacing: 2px; }
         }
       }

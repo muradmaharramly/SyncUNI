@@ -46,7 +46,7 @@ const SubscriptionPage = () => {
         <p>Cari paketiniz, ödəniş tarixçəsi və plan tənzimləmələri.</p>
       </div>
 
-      {/* Active Plan Widget */}
+      {}
       <div className="billing-widget glass-panel">
         <div className="billing-header">
           <div className="title-area">
@@ -72,7 +72,7 @@ const SubscriptionPage = () => {
         </p>
       </div>
 
-      {/* Upgrade Plans */}
+      {}
       <AnimatePresence>
         {showPlans && !isUniversity && (
           <motion.div
@@ -100,7 +100,7 @@ const SubscriptionPage = () => {
         )}
       </AnimatePresence>
 
-      {/* Payment History */}
+      {}
       <div className="payment-history-container glass-panel">
         <h3><FiCreditCard /> Ödəniş Keçmişi</h3>
         <table className="history-table">
@@ -133,7 +133,7 @@ const SubscriptionPage = () => {
         </table>
       </div>
 
-      {/* Receipt Modal */}
+      {}
       <AnimatePresence>
         {activeReceipt && (
           <motion.div

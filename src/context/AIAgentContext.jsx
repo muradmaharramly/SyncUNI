@@ -5,7 +5,6 @@ import { useAuth } from './AuthContext';
 const AIAgentContext = createContext();
 export const useAIAgent = () => useContext(AIAgentContext);
 
-// ── Agent Analysis Engine ─────────────────────────────────────────────────────
 const runAnalysis = (data, role) => {
   if (!data || !role) return [];
 
@@ -15,7 +14,7 @@ const runAnalysis = (data, role) => {
   const results = [];
 
   if (role === 'company') {
-    // Find high-match React students
+
     const reactDevs = students.filter(s =>
       s.skills?.hard?.some(sk => sk.toLowerCase().includes('react')) &&
       s.matchRate >= 85
@@ -32,7 +31,6 @@ const runAnalysis = (data, role) => {
       });
     }
 
-    // Students looking for work
     const active = students.filter(s => s.status === 'Looking' || s.status === 'Active');
     if (active.length > 0) {
       results.push({
@@ -46,7 +44,6 @@ const runAnalysis = (data, role) => {
       });
     }
 
-    // High GPA pool
     const topGpa = students.filter(s => s.gpa >= 3.8);
     results.push({
       id: 'c3',
@@ -60,7 +57,7 @@ const runAnalysis = (data, role) => {
   }
 
   if (role === 'university') {
-    // Python activity spike
+
     const pythonStudents = students.filter(s =>
       s.skills?.hard?.some(sk => sk.toLowerCase().includes('python'))
     );
@@ -74,7 +71,6 @@ const runAnalysis = (data, role) => {
       actions: ['Tələbə siyahısına bax', 'Hesabatı endir'],
     });
 
-    // Placement rate insight
     const hired = students.filter(s => s.status === 'Hired' || s.status === 'Internship');
     results.push({
       id: 'u2',
@@ -86,7 +82,6 @@ const runAnalysis = (data, role) => {
       actions: ['Məzun izləmə', 'Sənaye hesabatı'],
     });
 
-    // Company requests
     results.push({
       id: 'u3',
       type: 'partnership',
@@ -99,7 +94,7 @@ const runAnalysis = (data, role) => {
   }
 
   if (role === 'course') {
-    // Interested students
+
     const cyberStudents = students.filter(s =>
       s.skills?.hard?.some(sk => sk.toLowerCase().includes('c++') || sk.toLowerCase().includes('linux') || sk.toLowerCase().includes('network'))
     );
@@ -113,7 +108,6 @@ const runAnalysis = (data, role) => {
       actions: ['Tələbələrə mesaj yaz', 'Kursu tanıt'],
     });
 
-    // Certification demand
     results.push({
       id: 'co2',
       type: 'certificate',
@@ -124,7 +118,6 @@ const runAnalysis = (data, role) => {
       actions: ['Sertifikat əlavə et', 'Proqrama bax'],
     });
 
-    // Revenue insight
     const enrolledCount = students.slice(0, 8).length;
     results.push({
       id: 'co3',
@@ -140,7 +133,6 @@ const runAnalysis = (data, role) => {
   return results;
 };
 
-// ── Provider ──────────────────────────────────────────────────────────────────
 export const AIAgentProvider = ({ children }) => {
   const { data, loading: dataLoading } = useData();
   const { user } = useAuth();
@@ -161,14 +153,13 @@ export const AIAgentProvider = ({ children }) => {
         university: 'Universitet/Tədris müəssisəsi',
         course: 'Kurs/Təlim mərkəzi'
       };
-      
+
       const prompt = `Sən SyncUNI platformasının AI Agentisən. Verilmiş rol üçün Azərbaycanın cari iş bazarı, İT vakansiya trendləri və texnoloji gündəm haqqında qısa, dəqiq və maraqlı bir 'Market Insight' (Bazar İnsaytı) mətni yaz. Mətn maksimum 2 cümlə olmalıdır. Mətnin sonuna bir ədəd emociya əlavə et. Dil: Azərbaycan. Rol: ${roleMap[userRole] || 'İstifadəçi'}.`;
-      
+
       const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(prompt)}?model=mistral&seed=${Math.floor(Math.random()*1000)}&cache=false`);
       if (!res.ok) throw new Error("AI Fetch Error");
       let text = await res.text();
 
-      // Robust cleaning for Pollinations AI deprecation notices
       const cleaningPatterns = [
         /⚠️ \*\*IMPORTANT NOTICE\*\* ⚠️[\s\S]*?normally\./gi,
         /The Pollinations legacy text API[\s\S]*?normally\./gi,
@@ -180,7 +171,6 @@ export const AIAgentProvider = ({ children }) => {
         text = text.replace(pattern, '').trim();
       });
 
-      // If text is still just the notice or empty, use a curated role-based fallback
       if (!text || text.length < 20 || text.includes('pollinations.ai')) {
          const fallbacks = {
            company: "Azərbaycanda IT sektorunda kütləvi rəqəmsallaşma kadr tələbatını 25% artırıb, xüsusilə kiber-təhlükəsizlik mütəxəssisləri diqqət mərkəzindədir. 🚀",
@@ -189,7 +179,7 @@ export const AIAgentProvider = ({ children }) => {
          };
          text = fallbacks[userRole] || "Bazar analizi tamamlandı, platformada aktiv vakansiya uyğunluqları yeniləndi. ✨";
       }
-      
+
       if (text) {
         setGlobalInsight({
           id: 'global_1',
@@ -198,7 +188,7 @@ export const AIAgentProvider = ({ children }) => {
           icon: '🌍',
           type: 'global'
         });
-        // Count global insight in badge if not already dismissed
+
         if (!dismissed.has('global_1')) {
           setUnreadCount(prev => prev + 1);
         }
@@ -214,13 +204,11 @@ export const AIAgentProvider = ({ children }) => {
   const runAgent = useCallback(() => {
     if (!user || user.role === 'student' || dataLoading) return;
     setAgentLoading(true);
-    // Reset counts before new analysis
+
     setUnreadCount(0);
-    
-    // Call Global AI model
+
     fetchGlobalInsights(user.role);
 
-    // Simulate slight async delay (feels live)
     setTimeout(() => {
       const results = runAnalysis(data, user.role);
       setNotifications(results);
@@ -230,12 +218,11 @@ export const AIAgentProvider = ({ children }) => {
     }, 900);
   }, [data, user, dataLoading, dismissed]);
 
-  // Auto-run when data loads
   useEffect(() => {
     if (!dataLoading && user && user.role !== 'student') {
       runAgent();
     }
-  }, [dataLoading]); // eslint-disable-line
+  }, [dataLoading]);
 
   const dismissNotification = (id) => {
     setDismissed(prev => new Set(prev).add(id));

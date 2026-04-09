@@ -80,7 +80,6 @@
     }
   }
 
-  // ── Mobile Controls ───────────────────────────────────
   &__mobile-controls {
     display: none;
     align-items: center;
@@ -97,7 +96,6 @@
     &:hover { background: rgba($primary, 0.08); }
   }
 
-  // ── Mobile Dropdown Menu ──────────────────────────────
   &__mobile-menu {
     display: flex;
     flex-direction: column;
@@ -144,7 +142,6 @@
   }
 }
 
-// ── Responsive Utilities ──────────────────────────────────
 .hide-mobile  { display: flex; }
 .show-mobile  { display: none; }
 

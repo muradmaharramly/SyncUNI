@@ -9,7 +9,7 @@ import './StudentDashboard.scss';
 const StudentDashboard = () => {
   const { user } = useAuth();
   const { data: SYNC_DATA, enrollCourse } = useData();
-  // Find current student or default to first
+
   const st = SYNC_DATA.students.find(s => s.name === user.name) || SYNC_DATA.students[0];
 
   const handleApply = () => {
@@ -27,16 +27,16 @@ const StudentDashboard = () => {
   return (
     <div className="student-bento">
       <div className="bento-grid">
-        
-        {/* Profile Stats & Gap Analysis */}
+
+        {}
         <div className="bento-col main-col">
-          
+
           <motion.div className="bento-panel gap-analysis glass-panel" layout>
             <div className="panel-header">
               <h3>Skill Gap Analysis (Data Architect Vakansiyası üzrə)</h3>
             </div>
             <p className="desc">Tövsiyə edilən vakansiyaya tam uyğunlaşmaq üçün qabaqlamanız lazım olan bacarıqlar:</p>
-            
+
             <div className="gap-bars">
               <div className="bar-item">
                 <div className="bar-label"><span>Mövcud Hard Skills ({st.skills.hard.length})</span> <span>80%</span></div>
@@ -73,16 +73,16 @@ const StudentDashboard = () => {
               )}
             </div>
           </motion.div>
-          
+
         </div>
 
-        {/* Chronological Timeline & Recom */}
+        {}
         <div className="bento-col side-col">
           <motion.div className="bento-panel glass-panel recom-job" layout>
              <h4>Tövsiyə olunan iş: PASHA Bank - Analyst</h4>
              <p>Match Score: <strong className="success">98%</strong></p>
-             <motion.button 
-              className="btn btn--primary" 
+             <motion.button
+              className="btn btn--primary"
               whileHover={{scale: 1.01}} whileTap={{scale: 0.95}}
               onClick={handleApply}
               style={{width: '100%', marginTop: '1rem'}}
@@ -95,7 +95,7 @@ const StudentDashboard = () => {
             <div className="panel-header">
               <h3>Skill Evolution Timeline</h3>
             </div>
-            
+
             <div className="timeline">
               {st.timeline.length > 0 ? st.timeline.map((item, index) => (
                 <div key={index} className="timeline-item">
@@ -108,8 +108,8 @@ const StudentDashboard = () => {
               )) : (
                 <p className="empty">Göstəriləcək tarixçə yoxdur.</p>
               )}
-              
-              {/* Future projection node */}
+
+              {}
               <div className="timeline-item future">
                 <div className="timeline-marker pulse"></div>
                 <div className="timeline-content">

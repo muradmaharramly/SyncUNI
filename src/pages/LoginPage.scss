@@ -9,7 +9,6 @@
   position: relative;
   overflow: hidden;
 
-  // Background ambient glow
   &::before {
     content: '';
     position: absolute;
@@ -36,7 +35,6 @@
     }
   }
 
-  // Left Side Info
   .login-info {
     @media (max-width: 992px) {
       text-align: center;
@@ -110,7 +108,6 @@
     }
   }
 
-  // Right Side Form/Actions
   .login-actions {
     @include card-style;
     padding: $spacing-8;
@@ -121,7 +118,7 @@
 
     .actions-header {
       margin-bottom: $spacing-8;
-      
+
       h2 {
         font-size: 1.8rem;
         margin-bottom: $spacing-2;

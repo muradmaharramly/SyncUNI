@@ -13,15 +13,15 @@ const PRIORITY_COLORS = {
 const fmtTime = (d) => d ? d.toLocaleTimeString('az-AZ', { hour: '2-digit', minute: '2-digit' }) : '—';
 
 const AgentPage = () => {
-  const { 
-    notifications, 
-    globalInsight, 
-    agentLoading, 
-    isGlobalLoading, 
-    lastRunAt, 
-    runAgent, 
-    dismissNotification, 
-    markAllRead 
+  const {
+    notifications,
+    globalInsight,
+    agentLoading,
+    isGlobalLoading,
+    lastRunAt,
+    runAgent,
+    dismissNotification,
+    markAllRead
   } = useAIAgent();
 
   return (
@@ -31,7 +31,7 @@ const AgentPage = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      {/* Header */}
+      {}
       <div className="agent-header">
         <div className="agent-header__left">
           <div className="agent-icon-wrap">
@@ -75,7 +75,7 @@ const AgentPage = () => {
         </div>
       ) : (
         <div className="agent-notifications">
-          {/* Global AI Insights Section */}
+          {}
           <AnimatePresence>
             {(globalInsight || isGlobalLoading) && (
               <motion.div
@@ -123,12 +123,12 @@ const AgentPage = () => {
                   transition={{ duration: 0.35, delay: i * 0.08 }}
                   layout
                 >
-                  {/* Dismiss */}
+                  {}
                   <button className="agent-card__dismiss" onClick={() => dismissNotification(n.id)}>
                     <FiX />
                   </button>
 
-                  {/* Card head */}
+                  {}
                   <div className="agent-card__head">
                     <span className="agent-card__emoji">{n.icon}</span>
                     <div>
@@ -143,10 +143,10 @@ const AgentPage = () => {
                     </div>
                   </div>
 
-                  {/* Body */}
+                  {}
                   <p className="agent-card__body">{n.body}</p>
 
-                  {/* Actions */}
+                  {}
                   <div className="agent-card__actions">
                     {n.actions.map((action, j) => (
                       <button
@@ -164,7 +164,7 @@ const AgentPage = () => {
         </div>
       )}
 
-      {/* Footer status */}
+      {}
       <div className="agent-footer">
         <span className="agent-status-dot" />
         <span>SyncAI Agent aktivdir — hər data yeniləməsində avtomatik işləyir</span>

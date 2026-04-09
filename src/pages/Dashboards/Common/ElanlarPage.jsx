@@ -8,7 +8,6 @@ import {
 import { useAuth } from '../../../context/AuthContext';
 import './ElanlarPage.scss';
 
-// ─── Mock Data ────────────────────────────────────────────────────────────────
 const ELANLAR = [
   {
     id: 'e1', type: 'is-vakansiyasi', tier: 'vip',
@@ -114,7 +113,6 @@ const TYPE_COLORS = {
 const fmt = (n) => n >= 1000 ? `${(n/1000).toFixed(1)}K` : n;
 const fmtDate = (d) => new Date(d).toLocaleDateString('az-AZ', { day:'numeric', month:'short', year:'numeric' });
 
-// ─── Detail Modal ─────────────────────────────────────────────────────────────
 const DetailModal = ({ elan, onClose }) => {
   const typeStyle = TYPE_COLORS[elan.type] || {};
   return (
@@ -170,7 +168,6 @@ const DetailModal = ({ elan, onClose }) => {
   );
 };
 
-// ─── Single Elan Card ─────────────────────────────────────────────────────────
 const ElanCard = ({ elan, onDetail }) => {
   const typeStyle = TYPE_COLORS[elan.type] || {};
   const isVip = elan.tier === 'vip';
@@ -186,7 +183,7 @@ const ElanCard = ({ elan, onDetail }) => {
       {isVip && <div className="vip-badge-corner"><FiStar /> VIP</div>}
 
       <div className="elan-card__header">
-       
+
         <span className="elan-publisher">{elan.publisher.name}</span>
       </div>
 
@@ -217,7 +214,6 @@ const ElanCard = ({ elan, onDetail }) => {
   );
 };
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
 const ElanlarPage = () => {
   const { user } = useAuth();
   const [activeFilter, setActiveFilter] = useState('all');
@@ -240,7 +236,7 @@ const ElanlarPage = () => {
     <motion.div className="elanlar-page"
       initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
     >
-      {/* Header */}
+      {}
       <div className="page-header">
         <div>
           <h2>Elanlar Lövhəsi</h2>
@@ -252,7 +248,7 @@ const ElanlarPage = () => {
         </div>
       </div>
 
-      {/* Search */}
+      {}
       <div className="elan-search glass-panel">
         <FiSearch className="search-icon" />
         <input
@@ -264,7 +260,7 @@ const ElanlarPage = () => {
         {search && <button className="clear-search" onClick={() => setSearch('')}><FiX /></button>}
       </div>
 
-      {/* Filter Tabs */}
+      {}
       <div className="elan-filters">
         {FILTER_TABS.map(tab => (
           <button
@@ -277,12 +273,12 @@ const ElanlarPage = () => {
         ))}
       </div>
 
-      {/* Results count */}
+      {}
       <div className="elan-results-count">
         <span>{filtered.length} elan tapıldı</span>
       </div>
 
-      {/* Cards Grid */}
+      {}
       <AnimatePresence mode="popLayout">
         {filtered.length === 0 ? (
           <motion.div className="elan-empty-state" key="empty"
@@ -298,7 +294,7 @@ const ElanlarPage = () => {
         )}
       </AnimatePresence>
 
-      {/* Detail Modal */}
+      {}
       <AnimatePresence>
         {selectedElan && (
           <DetailModal elan={selectedElan} onClose={() => setSelectedElan(null)} />

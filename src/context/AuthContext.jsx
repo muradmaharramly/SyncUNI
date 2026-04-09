@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (role, redirectFn) => {
-    // Role: 'company', 'university', 'course', 'student'
+
     let fakeUser = null;
     if (role === 'company') {
       fakeUser = { role: 'company', email: 'company@sync.uni', name: 'TechAz Company' };
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     } else if (role === 'student') {
       fakeUser = { role: 'student', email: 'student@sync.uni', name: 'Aysel Məmmədova' };
     }
-    
+
     if (fakeUser) {
       setUser(fakeUser);
       localStorage.setItem('syncuniUser', JSON.stringify(fakeUser));

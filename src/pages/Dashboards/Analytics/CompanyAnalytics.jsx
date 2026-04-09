@@ -7,18 +7,16 @@ import './Analytics.scss';
 const CompanyAnalytics = () => {
   const { data } = useData();
 
-  // Mock Source Performance (Count applicants by Uni)
   const groupedByUni = data.students.reduce((acc, curr) => {
     acc[curr.uni] = (acc[curr.uni] || 0) + 1;
     return acc;
   }, {});
-  
+
   const sourcePerformanceData = Object.keys(groupedByUni).map(uni => ({
     name: uni,
     namizəd: groupedByUni[uni]
   }));
 
-  // Mock Retention Forecast
   const retentionData = [
     { year: '2022', retention: 85, performance: 75 },
     { year: '2023', retention: 88, performance: 80 },
@@ -31,9 +29,9 @@ const CompanyAnalytics = () => {
     <div className="analytics-page">
       <h2>İntellektual Analitika</h2>
       <p className="desc">Qərarlar üçün dərin insight-lar ("Insight Engine")</p>
-      
+
       <div className="analytics-grid">
-        {/* Source Performance */}
+        {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}}>
           <h3>Mənbə Performansı (Univestiylərə Görə)</h3>
           <div className="chart-wrapper">
@@ -49,7 +47,7 @@ const CompanyAnalytics = () => {
           </div>
         </motion.div>
 
-        {/* Retention Forecast */}
+        {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay:0.1}}>
           <h3>İşdə Saxlama və Performans Proqnozu (Retention Forecast)</h3>
           <div className="chart-wrapper">

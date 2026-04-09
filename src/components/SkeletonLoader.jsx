@@ -1,12 +1,10 @@
 import React from 'react';
 import './SkeletonLoader.scss';
 
-/* ── Generic pulsing block ──────────────────────────────────── */
 export const SkeletonBlock = ({ width = '100%', height = '1rem', radius = '8px', style = {} }) => (
   <div className="sk-block" style={{ width, height, borderRadius: radius, ...style }} />
 );
 
-/* ── Stat card skeleton (3-up grid) ────────────────────────── */
 export const SkeletonStatCards = ({ count = 3 }) => (
   <div className="sk-stat-grid">
     {Array.from({ length: count }).map((_, i) => (
@@ -21,7 +19,6 @@ export const SkeletonStatCards = ({ count = 3 }) => (
   </div>
 );
 
-/* ── Table row skeleton ─────────────────────────────────────── */
 export const SkeletonTable = ({ rows = 5, cols = 4 }) => (
   <div className="sk-table">
     {Array.from({ length: rows }).map((_, r) => (
@@ -34,7 +31,6 @@ export const SkeletonTable = ({ rows = 5, cols = 4 }) => (
   </div>
 );
 
-/* ── Card grid skeleton ─────────────────────────────────────── */
 export const SkeletonCardGrid = ({ count = 6 }) => (
   <div className="sk-card-grid">
     {Array.from({ length: count }).map((_, i) => (
@@ -53,7 +49,6 @@ export const SkeletonCardGrid = ({ count = 6 }) => (
   </div>
 );
 
-/* ── Dashboard header skeleton (greeting + stats) ───────────── */
 export const SkeletonDashboardHeader = () => (
   <div className="sk-dash-head">
     <div className="sk-card sk-greeting">

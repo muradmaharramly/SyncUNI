@@ -9,8 +9,8 @@ const CourseDashboard = () => {
   return (
     <div className="course-dashboard">
       <div className="dashboard-grid">
-        
-        {/* Course Listings */}
+
+        {}
         <section className="panel course-listings">
           <div className="panel-header">
             <h2>Kurs Elanları</h2>
@@ -29,11 +29,11 @@ const CourseDashboard = () => {
           </div>
         </section>
 
-        {/* Skill Endorsement */}
+        {}
         <section className="panel skill-endorsement">
           <h2>Bacarıq Təsdiqləməsi (Endorsement)</h2>
           <p className="desc">Kursu bitirən tələbələrə "Badge" (nişan) verərək onların bacarıqlarını təsdiqləyin.</p>
-          
+
           <div className="student-list">
             {SYNC_DATA.students.filter(s => s.verifyStatus && s.verifyStatus.courses.length > 0).map(student => (
               <div key={student.id} className="student-endorse-card">

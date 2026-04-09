@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: $spacing-6;
-    
+
     @media (max-width: 992px) {
       grid-template-columns: 1fr;
     }
@@ -22,50 +22,50 @@
     display: flex;
     flex-direction: column;
     padding: $spacing-6;
-    
+
     .panel-header {
       @include flex-between;
       margin-bottom: $spacing-6;
       border-bottom: 1px solid $border;
       padding-bottom: $spacing-3;
-      
+
       h3 { font-size: $font-lg; color: $text-main; }
     }
   }
 
   .gap-analysis {
     .desc { font-size: $font-sm; color: $text-muted; margin-bottom: $spacing-6; }
-    
+
     .gap-bars {
       display: flex;
       flex-direction: column;
       gap: $spacing-6;
     }
-    
+
     .bar-item {
       .bar-label {
         @include flex-between;
         margin-bottom: $spacing-2;
         font-size: $font-sm;
         font-weight: 500;
-        
+
         .warning { color: $danger; }
       }
-      
+
       .progress-bg {
         height: 12px;
         background: rgba(0,0,0,0.1);
         border-radius: $radius-full;
         overflow: hidden;
       }
-      
+
       .progress-fill {
         height: 100%;
         border-radius: $radius-full;
         &.hard { background: linear-gradient(90deg, $primary, $secondary); }
         &.missing { background: repeating-linear-gradient(45deg, rgba($danger, 0.4), rgba($danger, 0.4) 10px, rgba($danger, 0.2) 10px, rgba($danger, 0.2) 20px); }
       }
-      
+
       .gap-action {
         margin-top: $spacing-3;
         @include flex-center; gap: $spacing-2;
@@ -79,7 +79,7 @@
       flex-wrap: wrap;
       gap: $spacing-4;
     }
-    
+
     .badge-card {
       padding: $spacing-4;
       border-radius: $radius-lg;
@@ -87,17 +87,17 @@
       flex: 1; min-width: 150px;
       text-align: center;
       transition: all 0.2s;
-      
+
       .icon { font-size: 2rem; margin-bottom: $spacing-2; }
       h4 { margin-bottom: $spacing-1; font-size: $font-base; }
       span { font-size: 0.75rem; color: $text-muted; }
-      
+
       &.course {
         background: linear-gradient(135deg, rgba($primary, 0.1), transparent);
         border-color: rgba($primary, 0.2);
         .icon { color: $primary; }
       }
-      
+
       &.uni {
         background: linear-gradient(135deg, rgba($secondary, 0.1), transparent);
         border-color: rgba($secondary, 0.2);
@@ -108,14 +108,14 @@
 
   .timeline-panel {
     flex-grow: 1;
-    
+
     .timeline {
       position: relative;
       padding-left: $spacing-6;
       display: flex;
       flex-direction: column;
       gap: $spacing-6;
-      
+
       &::before {
         content: '';
         position: absolute;
@@ -124,10 +124,10 @@
         background: $border;
       }
     }
-    
+
     .timeline-item {
       position: relative;
-      
+
       .timeline-marker {
         position: absolute;
         left: -$spacing-6;
@@ -137,23 +137,23 @@
         border: 3px solid $bg-card;
         box-shadow: 0 0 0 2px rgba($primary, 0.2);
         transform: translateX(1px);
-        
+
         &.pulse {
           background: $secondary;
           animation: pulse 2s infinite;
         }
       }
-      
+
       .timeline-content {
         background: $hover-bg;
         padding: $spacing-3;
         border-radius: $radius-md;
         border: 1px solid transparent;
-        
+
         .date { font-size: 0.75rem; color: $primary; font-weight: bold; margin-bottom: 4px; display: block; }
         .event { font-size: $font-sm; color: $text-main; }
       }
-      
+
       &.future {
         .timeline-content {
           background: transparent;

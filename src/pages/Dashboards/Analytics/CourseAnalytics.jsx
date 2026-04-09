@@ -7,7 +7,6 @@ import './Analytics.scss';
 const CourseAnalytics = () => {
   const { data } = useData();
 
-  // Mock Performance Data
   const coursePerformanceData = [
     { month: 'Yan', telebeler: 20 },
     { month: 'Fev', telebeler: 25 },
@@ -16,7 +15,6 @@ const CourseAnalytics = () => {
     { month: 'May', telebeler: 60 }
   ];
 
-  // Mock Completion Ratio
   const completionData = [
     { name: 'Uğurla Bitirdi', value: 85, color: '#10B981' },
     { name: 'Yarımçıq Qalan', value: 15, color: '#EF4444' }
@@ -26,9 +24,9 @@ const CourseAnalytics = () => {
     <div className="analytics-page">
       <h2>İntellektual Analitika (Tədris Mərkəzi)</h2>
       <p className="desc">Kurs preformansı və məzuniyyət nisbətləri</p>
-      
+
       <div className="analytics-grid">
-        {/* Enrolled students */}
+        {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}}>
           <h3>Aylıq Qeydiyyat Trendi</h3>
           <div className="chart-wrapper">
@@ -44,7 +42,7 @@ const CourseAnalytics = () => {
           </div>
         </motion.div>
 
-        {/* Completion Ratio */}
+        {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay:0.1}}>
           <h3>Məzuniyyət və Tərk Nisbəti</h3>
           <div className="chart-wrapper" style={{display:'flex', alignItems:'center'}}>

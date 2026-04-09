@@ -25,12 +25,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className={isDashboard ? 'navbar__dashboard-container' : 'container navbar__container'}>
-        {/* Logo */}
+        {}
         <Link to="/" className="navbar__logo" onClick={closeMenu}>
           Sync<span>UNI</span>
         </Link>
 
-        {/* Desktop Centre Links */}
+        {}
         <div className="navbar__menu hide-mobile" style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
           {!user && isHome && (
             <>
@@ -41,7 +41,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Desktop Right Actions */}
+        {}
         <div className="navbar__actions hide-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button className="navbar__theme-toggle" onClick={toggleTheme} aria-label="Toggle Theme">
             {theme === 'dark' ? <FiSun /> : <FiMoon />}
@@ -60,7 +60,7 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile Right: theme + hamburger */}
+        {}
         <div className="navbar__mobile-controls show-mobile">
           <button className="navbar__theme-toggle" onClick={toggleTheme} aria-label="Toggle Theme">
             {theme === 'dark' ? <FiSun /> : <FiMoon />}
@@ -71,7 +71,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
+      {}
       {mobileOpen && (
         <div className="navbar__mobile-menu">
           {!user && isHome && (

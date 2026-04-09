@@ -27,8 +27,6 @@
   border-radius: $radius-xl;
   border: 1px solid rgba(99,102,241,0.3);
 
-  
-
   .agent-pulse {
     position: absolute;
     top: 36%;
@@ -49,8 +47,7 @@
     }
   }
 }
-  
-  // Decorative ambient glows for soft-modern aesthetic
+
   &::before {
     content: '';
     position: absolute;
@@ -62,7 +59,7 @@
     z-index: 0;
     pointer-events: none;
   }
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -101,7 +98,7 @@
       -ms-border-radius: 50px;
       -o-border-radius: 50px;
 }
-    
+
     &.collapsed {
       width: 80px;
       padding: $spacing-6 $spacing-2;
@@ -165,19 +162,19 @@
     padding-left: 0;
     z-index: 10;
     overflow-y: auto;
-    
+
     .dashboard-header-bento {
       margin-bottom: $spacing-6;
       display: grid;
       grid-template-columns: 2fr 3fr;
       gap: $spacing-6;
-      
+
       .greeting-card {
         padding: $spacing-6;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        
+
         h1 {
           font-size: $font-3xl;
           margin-bottom: $spacing-2;
@@ -186,19 +183,19 @@
         }
         p { color: $text-muted; }
       }
-      
+
       .stats-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: $spacing-4;
       }
-      
+
       .stat-card {
         padding: $spacing-4;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        
+
         .icon-wrapper {
           color: $secondary;
           font-size: $font-xl;
@@ -208,7 +205,7 @@
           border-radius: $radius-full;
           @include flex-center;
         }
-        
+
         .stat-info {
           display: flex;
           flex-direction: column;
@@ -219,12 +216,11 @@
     }
 
     &__content {
-      // Content container styles
+
     }
   }
 }
 
-// ── Responsive ───────────────────────────────────────────────
 @media (max-width: 1024px) {
   .dashboard-layout {
     .dashboard-main {

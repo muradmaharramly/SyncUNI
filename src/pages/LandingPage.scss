@@ -25,7 +25,6 @@
   }
 }
 
-// Hero
 .hero {
   padding: calc($spacing-16 * 2) 0;
   text-align: center;
@@ -43,7 +42,7 @@
     &.purple {
       width: 400px;
       height: 400px;
-      background: rgba(99, 102, 241, 0.15); // Softer indigo instead of bright purple
+      background: rgba(99, 102, 241, 0.15);
       top: -100px;
       left: -100px;
     }
@@ -51,7 +50,7 @@
     &.blue {
       width: 300px;
       height: 300px;
-      background: rgba(56, 189, 248, 0.1); // Reduced opacity
+      background: rgba(56, 189, 248, 0.1);
       bottom: -50px;
       right: -50px;
     }
@@ -89,7 +88,7 @@
       font-weight: 800;
       line-height: 1.2;
       margin-bottom: $spacing-6;
-      
+
       span {
         @include text-gradient;
       }
@@ -105,7 +104,7 @@
   &__actions {
     @include flex-center;
     gap: $spacing-4;
-    
+
     .icon {
       margin-left: $spacing-2;
     }
@@ -117,7 +116,6 @@
   }
 }
 
-// Pricing Section
 .pricing {
   &__toggle {
     display: flex;
@@ -125,14 +123,14 @@
     margin-bottom: $spacing-8;
 
     .segmented-control {
-      background: rgba(255, 255, 255, 0.05); // Glass effect
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid $border;
       border-radius: $radius-full;
       padding: $spacing-2;
       display: inline-flex;
       position: relative;
       backdrop-filter: blur(10px);
-      
+
       button {
         padding: $spacing-3 $spacing-6;
         border-radius: $radius-full;
@@ -147,7 +145,7 @@
         }
 
         &.active {
-          background-color: $primary; // Indigo (#6366f1)
+          background-color: $primary;
           color: white;
           box-shadow: 0 4px 15px rgba($primary, 0.4);
         }
@@ -171,7 +169,7 @@
     border-radius: 24px;
     display: flex;
     flex-direction: column;
-    background: $bg-card; /* Handles Dark/Light logic effectively via ThemeContext variables */
+    background: $bg-card;
     border: 1px solid $border;
     backdrop-filter: blur(16px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -179,10 +177,10 @@
     &:hover {
       transform: translateY(-5px);
     }
-    
+
     &.popular {
       border: 2px solid $primary;
-      box-shadow: 0 0 30px rgba(99, 102, 241, 0.15); /* Indigo glow */
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
     }
 
     &.university-card {
@@ -218,14 +216,14 @@
       align-items: baseline;
       gap: $spacing-2;
       margin-bottom: $spacing-4;
-      
+
       h2 {
         font-size: 2.5rem;
         font-weight: 800;
         color: $text-main;
         margin: 0;
       }
-      
+
       span {
         color: $text-muted;
         font-weight: 500;
@@ -234,7 +232,7 @@
 
     .plan-sub {
       font-size: $font-sm;
-      color: $primary; /* Indigo text to stand out */
+      color: $primary;
       font-weight: 500;
       margin-bottom: $spacing-6;
       border-left: 3px solid $primary;
@@ -247,7 +245,7 @@
     .plan-features {
       margin-bottom: $spacing-8;
       flex-grow: 1;
-      
+
       li {
         display: flex;
         align-items: flex-start;
@@ -258,7 +256,7 @@
         line-height: 1.5;
 
         .check-icon {
-          color: $primary; /* Indigo checkbox */
+          color: $primary;
           background-color: rgba($primary, 0.1);
           border-radius: 50%;
           padding: 4px;
@@ -277,7 +275,6 @@
   }
 }
 
-// About / Skills Gap
 .about {
   &__content {
     display: flex;
@@ -308,7 +305,7 @@
       background-color: rgba($primary, 0.15);
       border-radius: 50%;
       padding: 6px;
-      font-size: calc($font-xl + 6px); /* slightly larger to account for padding */
+      font-size: calc($font-xl + 6px);
       flex-shrink: 0;
       box-shadow: 0 4px 10px rgba($primary, 0.1);
     }
@@ -369,7 +366,6 @@
   }
 }
 
-// Services
 .services__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -396,7 +392,6 @@
   }
 }
 
-// Collaborate
 .collaborate__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -426,7 +421,6 @@
   }
 }
 
-// Competitor
 .competitor {
   .table-responsive {
     overflow-x: auto;
@@ -466,7 +460,6 @@
   }
 }
 
-// FAQ
 .faq__list {
   max-width: 800px;
   margin: 0 auto;
@@ -474,13 +467,13 @@
   .faq-item {
     @include card-style;
     margin-bottom: $spacing-4;
-    padding: 0; // handle padding inside
+    padding: 0;
 
     &__header {
       padding: $spacing-4 $spacing-6;
       @include flex-between;
       cursor: pointer;
-      
+
       h3 {
         font-size: $font-lg;
         font-weight: 500;
@@ -502,13 +495,12 @@
       }
       .faq-item__content {
         padding: $spacing-4 $spacing-6;
-        max-height: 200px; // arbitrary enough for expanding
+        max-height: 200px;
       }
     }
   }
 }
 
-// Modern CTA
 .modern-cta {
   padding: $spacing-16 0;
 
@@ -592,11 +584,10 @@
   }
 }
 
-// Footer
 .footer {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding: $spacing-12 0 $spacing-6 0;
-  
+
   &__container {
     display: flex;
     justify-content: space-between;
@@ -650,7 +641,6 @@
   }
 }
 
-// FAQ
 .faq__list {
   max-width: 800px;
   margin: 0 auto;
@@ -658,13 +648,13 @@
   .faq-item {
     @include card-style;
     margin-bottom: $spacing-4;
-    padding: 0; // handle padding inside
+    padding: 0;
 
     &__header {
       padding: $spacing-4 $spacing-6;
       @include flex-between;
       cursor: pointer;
-      
+
       h3 {
         font-size: $font-lg;
         font-weight: 500;
@@ -686,19 +676,18 @@
       }
       .faq-item__content {
         padding: $spacing-4 $spacing-6;
-        max-height: 200px; // arbitrary enough for expanding
+        max-height: 200px;
       }
     }
   }
 }
 
-// Agent Promo
 .agent-promo {
   &__wrapper {
     display: flex;
     align-items: center;
     gap: $spacing-12;
-    
+
     @media (max-width: 992px) {
       flex-direction: column;
       text-align: center;
@@ -896,9 +885,6 @@
   100% { transform: rotate(0deg) scale(1); }
 }
 
-// ── Responsive ──────────────────────────────────────────────────
-
-// Tablet
 @media (max-width: 1024px) {
   .collab__grid { grid-template-columns: repeat(2, 1fr); }
   .pricing__grid { grid-template-columns: repeat(2, 1fr); }
@@ -906,7 +892,6 @@
   .faq__wrapper { gap: 2rem !important; }
 }
 
-// Mobile
 @media (max-width: 768px) {
   .section { padding: $spacing-12 0; }
 
@@ -918,7 +903,6 @@
 
   .hide-mobile { display: none !important; }
 
-  // Hero
   .hero {
     padding: $spacing-16 0;
 
@@ -942,22 +926,17 @@
 
   .floating-badge { display: none; }
 
-  // About
   .about__content { flex-direction: column; }
   .about__text { min-width: unset; }
   .about__visual { min-width: unset; }
 
-  // Skills gap graphic
   .skills-gap-graphic { flex-direction: column; gap: $spacing-4; }
 
-  // Collab
   .collab__grid { grid-template-columns: 1fr; }
 
-  // Competitor table
   .table-responsive { overflow-x: auto; }
   .competitor-table { min-width: 520px; }
 
-  // Pricing toggle
   .pricing__toggle .segmented-control {
     flex-wrap: wrap;
     justify-content: center;
@@ -966,7 +945,6 @@
   }
   .pricing__grid { grid-template-columns: 1fr; }
 
-  // FAQ split-screen → stack
   .faq__wrapper {
     flex-direction: column !important;
     gap: 2rem !important;
@@ -976,14 +954,12 @@
   .faq__list { max-width: 100%; }
   .faq-item__header h3 { font-size: $font-base; }
 
-  // CTA Section
   .modern-cta .cta-content {
     flex-direction: column;
     text-align: center;
     h2 { font-size: $font-2xl; }
   }
 
-  // Footer
   .footer__container {
     flex-direction: column;
     gap: $spacing-8;
@@ -993,7 +969,6 @@
   .footer__links .link-group { align-items: center; }
 }
 
-// Small Mobile
 @media (max-width: 480px) {
   .section { padding: $spacing-8 0; }
 
@@ -1019,4 +994,3 @@
   .receipt-modal { padding: $spacing-5; }
   .elan-detail { padding: $spacing-5; }
 }
-
