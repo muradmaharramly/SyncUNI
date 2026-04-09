@@ -18,7 +18,7 @@ const SettingsPage = () => {
         <p style={{color: 'var(--text-muted)', marginBottom: '2rem'}}>Buradan hesaba aid əməliyyat konfiqurasiyalarını və texniki inteqrasiyaları idarə edə bilərsiniz.</p>
 
         <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
-           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', background: 'rgba(0,0,0,0.2)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)'}}>
+           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', background: 'var(--bg-card)', borderRadius: '1rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)'}}>
              <div>
                <h4 style={{color: 'var(--text-main)', marginBottom: '0.2rem'}}>Sistem Bildirişləri</h4>
                <p style={{fontSize: '0.85rem', color: 'var(--text-muted)'}}>Yeniliklər barədə avtomatik e-poçt alın</p>
@@ -26,7 +26,7 @@ const SettingsPage = () => {
              <input type="checkbox" defaultChecked style={{width: '20px', height: '20px', cursor: 'pointer'}} />
            </div>
 
-           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', background: 'rgba(0,0,0,0.2)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)'}}>
+           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', background: 'var(--bg-card)', borderRadius: '1rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)'}}>
              <div>
                <h4 style={{color: 'var(--text-main)', marginBottom: '0.2rem'}}>API İnteqrasiyası</h4>
                <p style={{fontSize: '0.85rem', color: 'var(--text-muted)'}}>Sizin daxili sistemlərinizə (Məs: 1C, LMS) avtomatik məlumat axını</p>

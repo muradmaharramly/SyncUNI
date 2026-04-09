@@ -70,7 +70,7 @@ const CompanyOperations = () => {
           <p className="desc" style={{marginBottom: 0}}>Tələbələri sütunlar arası sürükləyərək statuslarını yeniləyin (Tab-lara Drag and Drop)</p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem', background: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-card)', padding: '0.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', backdropFilter: 'blur(10px)', boxShadow: 'var(--card-shadow)' }}>
           {stages.map(stage => (
             <div
               key={stage}

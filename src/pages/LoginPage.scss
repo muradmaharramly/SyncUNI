@@ -152,16 +152,19 @@
       align-items: center;
       gap: $spacing-4;
       padding: $spacing-4;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid $border;
       border-radius: $radius-lg;
-      background: rgba(0,0,0,0.2);
+      background: $bg-card;
+      backdrop-filter: blur(10px);
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: $card-shadow-var;
 
       &:hover {
-        background: var(--hover-bg);
+        background: $hover-bg;
         border-color: rgba($primary, 0.3);
-        transform: translateX(4px);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba($primary, 0.1);
       }
 
       &__icon {

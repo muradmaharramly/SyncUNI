@@ -112,7 +112,9 @@
 
         .status-badge {
           font-size: $font-sm; padding: 4px 8px; border-radius: $radius-sm;
-          background: rgba(0,0,0,0.2);
+          background: $hover-bg;
+          border: 1px solid $border;
+          color: $text-muted;
         }
 
         &.accepted { border-color: $success; }

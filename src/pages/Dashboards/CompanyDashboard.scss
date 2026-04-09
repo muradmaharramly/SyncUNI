@@ -49,21 +49,30 @@
 
     .funnel-tabs {
       display: flex;
-      background: rgba(0,0,0,0.2);
+      background: $bg-card;
+      border: 1px solid $border;
       border-radius: $radius-full;
-      padding: 4px;
+      padding: $spacing-1;
+      backdrop-filter: blur(10px);
+      box-shadow: $card-shadow-var;
 
       .tab {
-        padding: $spacing-1 $spacing-4;
+        padding: $spacing-1 $spacing-5;
         border-radius: $radius-full;
         color: $text-muted;
         font-size: $font-sm;
-        font-weight: 500;
+        font-weight: 600;
+        transition: all 0.2s ease;
+
+        &:hover:not(.active) {
+          color: $text-main;
+          background: $hover-bg;
+        }
 
         &.active {
           background: $primary;
           color: white;
-          box-shadow: 0 4px 12px rgba($primary, 0.4);
+          box-shadow: 0 4px 15px rgba($primary, 0.4);
         }
       }
     }

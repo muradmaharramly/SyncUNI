@@ -12,19 +12,19 @@ const ProfilePage = () => {
         <h2 style={{fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--text-main)'}}>İstifadəçi Profili</h2>
 
         <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
-          <div style={{padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)'}}>
-            <span style={{color: 'var(--text-muted)', fontSize: '0.9rem'}}>Ad / Müəssisə Adı:</span>
-            <h3 style={{color: 'var(--text-main)', marginTop: '0.5rem'}}>{user.name}</h3>
+          <div style={{padding: '1.2rem', background: 'var(--bg-card)', borderRadius: '1rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)'}}>
+            <span style={{color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Ad / Müəssisə Adı:</span>
+            <h3 style={{color: 'var(--text-main)', marginTop: '0.5rem', fontSize: '1.2rem'}}>{user.name}</h3>
           </div>
 
-          <div style={{padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)'}}>
-            <span style={{color: 'var(--text-muted)', fontSize: '0.9rem'}}>Elektron Poçt:</span>
-            <h3 style={{color: 'var(--text-main)', marginTop: '0.5rem'}}>{user.email}</h3>
+          <div style={{padding: '1.2rem', background: 'var(--bg-card)', borderRadius: '1rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)'}}>
+            <span style={{color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Elektron Poçt:</span>
+            <h3 style={{color: 'var(--text-main)', marginTop: '0.5rem', fontSize: '1.2rem'}}>{user.email}</h3>
           </div>
 
-          <div style={{padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.05)'}}>
-            <span style={{color: 'var(--text-muted)', fontSize: '0.9rem'}}>Növləndirmə rolu:</span>
-            <h3 style={{color: 'var(--primary-color)', marginTop: '0.5rem'}}>{user.role.toUpperCase()}</h3>
+          <div style={{padding: '1.2rem', background: 'var(--bg-card)', borderRadius: '1rem', border: '1px solid var(--border-color)', boxShadow: 'var(--card-shadow)'}}>
+            <span style={{color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Növləndirmə rolu:</span>
+            <h3 style={{color: 'var(--primary-color)', marginTop: '0.5rem', fontSize: '1.2rem', fontWeight: '800'}}>{user.role.toUpperCase()}</h3>
           </div>
         </div>
 

@@ -195,12 +195,12 @@ const LandingPage = () => {
 
                 {}
                 <div className="feed-item static">
-                  <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>🔒</div>
-                  <div className="feed-item__text">Təhlükəsizlik analizi tamamlandı...</div>
+                  <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>📋</div>
+                  <div className="feed-item__text">Son həftə 12 tələbə təcrübəyə başladı.</div>
                 </div>
                 <div className="feed-item static">
                   <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>📊</div>
-                  <div className="feed-item__text">Həftəlik bazar kəsiyi hazırlandı.</div>
+                  <div className="feed-item__text">Həftəlik bazar payı hesablandı.</div>
                 </div>
               </div>
 
@@ -334,6 +334,8 @@ const LandingPage = () => {
       <section className="modern-cta section">
         <div className="container">
           <div className="cta-card">
+           <div className="glow-shape left"></div>
+            <div className="glow-shape right"></div>
             <div className="cta-badge"> SyncUNI - Karyera və Təhsil Ekosistemi</div>
             <h2>Potensialı Karyeraya Çevir!</h2>
             <p>Data əsaslı platformamızla real potensialınızı üzə çıxarın: Bacarıqlarınıza ən uyğun vakansiyaları tapın və şirkətlərin axtardığı top kadrlar sırasına qoşulun.</p>
