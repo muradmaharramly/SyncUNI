@@ -125,7 +125,7 @@
     .segmented-control {
       background: $bg-card;
       border: 1px solid $border;
-      border-radius: $radius-full;
+      border-radius: $radius-md;
       padding: $spacing-1;
       display: inline-flex;
       position: relative;
@@ -134,14 +134,18 @@
 
       button {
         padding: $spacing-2 $spacing-8;
-        border-radius: $radius-full;
+        border-radius: $radius-sm;
         font-weight: 600;
         font-size: $font-base;
         color: $text-muted;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1;
-
-        &:hover {
+        -webkit-border-radius: $radius-sm;
+        -moz-border-radius: $radius-sm;
+        -ms-border-radius: $radius-sm;
+        -o-border-radius: $radius-sm;
+        &:hover 
+{
           color: $text-main;
         }
 
@@ -197,7 +201,7 @@
       background: $primary;
       color: white;
       padding: 4px 16px;
-      border-radius: $radius-full;
+      border-radius: $radius-sm;
       font-size: $font-sm;
       font-weight: 600;
       letter-spacing: 0.5px;

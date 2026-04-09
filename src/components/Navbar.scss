@@ -33,6 +33,15 @@
   &__actions {
     @include flex-center;
     gap: $spacing-4;
+    a, button{
+      padding: $spacing-1 $spacing-2;
+      font-size: $font-sm;
+      border-radius: $radius-sm;
+      -webkit-border-radius: $radius-sm;
+      -moz-border-radius: $radius-sm;
+      -ms-border-radius: $radius-sm;
+      -o-border-radius: $radius-sm;
+}
   }
 
   .logout {

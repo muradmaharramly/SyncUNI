@@ -28,7 +28,7 @@
     .search-box {
       @include flex-center;
       background: $hover-bg;
-      border-radius: $radius-full;
+      border-radius: $radius-md;
       padding: $spacing-2 $spacing-4;
       border: 1px solid $border;
       flex: 1; min-width: 200px;
@@ -51,14 +51,14 @@
       display: flex;
       background: $bg-card;
       border: 1px solid $border;
-      border-radius: $radius-full;
+      border-radius: $radius-md;
       padding: $spacing-1;
       backdrop-filter: blur(10px);
       box-shadow: $card-shadow-var;
 
       .tab {
         padding: $spacing-1 $spacing-5;
-        border-radius: $radius-full;
+        border-radius: $radius-sm;
         color: $text-muted;
         font-size: $font-sm;
         font-weight: 600;

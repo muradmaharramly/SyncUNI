@@ -92,13 +92,13 @@ const ELANLAR = [
 ];
 
 const FILTER_TABS = [
-  { key: 'all',            label: 'Hamısı',              icon: <FiTag /> },
-  { key: 'kurs',           label: 'Kurslar',             icon: <FiBookOpen /> },
-  { key: 'tedbir',         label: 'Tədbirlər',           icon: <FiZap /> },
-  { key: 'sertifikasiya',  label: 'Sertifikatlaşdırma',  icon: <FiAward /> },
-  { key: 'is-vakansiyasi', label: 'İş Vakansiyaları',    icon: <FiBriefcase /> },
-  { key: 'konulluluq',     label: 'Könüllülük',          icon: <FiHeart /> },
-  { key: 'tecrube',        label: 'Təcrübə / Staj',      icon: <FiStar /> },
+  { key: 'all',            label: 'Hamısı'},
+  { key: 'kurs',           label: 'Kurslar'},
+  { key: 'tedbir',         label: 'Tədbirlər'},
+  { key: 'sertifikasiya',  label: 'Sertifikatlaşdırma'},
+  { key: 'is-vakansiyasi', label: 'İş Vakansiyaları'},
+  { key: 'konulluluq',     label: 'Könüllülük'},
+  { key: 'tecrube',        label: 'Təcrübə / Staj'},
 ];
 
 const TYPE_COLORS = {

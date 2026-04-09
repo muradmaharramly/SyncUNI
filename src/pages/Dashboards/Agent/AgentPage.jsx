@@ -2,6 +2,9 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiRefreshCw, FiX, FiChevronRight, FiClock, FiZap, FiGlobe } from 'react-icons/fi';
 import { useAIAgent } from '../../../context/AIAgentContext';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
+import { PuffLoader } from 'react-spinners';
 import './AgentPage.scss';
 
 const PRIORITY_COLORS = {
@@ -23,6 +26,29 @@ const AgentPage = () => {
     dismissNotification,
     markAllRead
   } = useAIAgent();
+
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleActionClick = (actionStr) => {
+    if (!actionStr) return;
+    const str = actionStr.toLowerCase();
+    const base = `/dashboard/${user?.role || 'company'}`;
+    
+    if (str.includes('namizəd') || str.includes('siyahı') || str.includes('tələbə') || str.includes('məzun') || str.includes('filtrlə')) {
+      navigate(`${base}/operations`);
+    } else if (str.includes('hesabat') || str.includes('analitik') || str.includes('trend')) {
+      navigate(`${base}/analytics`);
+    } else if (str.includes('ayarlar') || str.includes('tənzimləmə')) {
+      navigate(`${base}/settings`);
+    } else if (str.includes('kurs') || str.includes('əlavə') || str.includes('tanıt')) {
+      navigate(`${base}/operations`);
+    } else if (str.includes('sorğu') || str.includes('əməkdaşlıq') || str.includes('mesaj')) {
+       navigate(`${base}/operations`);
+    } else {
+      navigate(`${base}`);
+    }
+  };
 
   return (
     <motion.div
@@ -65,7 +91,7 @@ const AgentPage = () => {
 
       {agentLoading ? (
         <div className="agent-loading-state">
-          <div className="agent-loader" />
+          <PuffLoader color="#6366f1" size={60} />
           <p>AI Agent datanı analiz edir...</p>
         </div>
       ) : notifications.length === 0 ? (
@@ -150,6 +176,7 @@ const AgentPage = () => {
                       <button
                         key={j}
                         className={`agent-action-btn ${j === 0 ? 'primary' : 'ghost'}`}
+                        onClick={() => handleActionClick(action)}
                       >
                         {action} {j === 0 && <FiChevronRight />}
                       </button>

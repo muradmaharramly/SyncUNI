@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 const DataContext = createContext();
 export const useData = () => useContext(DataContext);
 
-const API_URL    = 'https://api.jsonbin.io/v3/b/69d6e1e436566621a891852d';
-const API_KEY    = '$2a$10$1oZRVLo2qmQsi9KWoTEnVeUjl7Rz7FyhavZJfXrLqSD5sfzwp4t3K';
+const API_URL    = import.meta.env.VITE_JSONBIN_URL;
+const API_KEY    = import.meta.env.VITE_JSONBIN_KEY;
 
 const transformStudent = (s) => ({
   id:            s.id?.toUpperCase() ?? s.id,

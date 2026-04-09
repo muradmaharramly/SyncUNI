@@ -51,12 +51,18 @@ const Navbar = () => {
             <div className="navbar__user">
               <span className="navbar__user-role">{user.role}</span>
               <span className="navbar__user-name">{user.name}</span>
-              <button className="btn btn--outline logout" onClick={handleLogout}>
-                <FiLogOut /> Çıxış
-              </button>
+              {isDashboard ? (
+                <button className="btn btn--outline logout" onClick={handleLogout}>
+                  <FiLogOut /> Çıxış
+                </button>
+              ) : (
+                <Link to={`/dashboard/${user.role}`} className="btn btn--primary">
+                  Dashboard
+                </Link>
+              )}
             </div>
           ) : (
-            <Link to="/login" className="btn btn--primary">Giriş</Link>
+            <Link to="/login" className="btn btn--primary">Giriş et</Link>
           )}
         </div>
 
@@ -88,9 +94,15 @@ const Navbar = () => {
                 <span className="navbar__user-role">{user.role}</span>
                 <span className="navbar__user-name">{user.name}</span>
               </div>
-              <button className="mobile-link mobile-link--danger" onClick={handleLogout}>
-                <FiLogOut /> Çıxış
-              </button>
+              {isDashboard ? (
+                <button className="mobile-link mobile-link--danger" onClick={handleLogout}>
+                  <FiLogOut /> Çıxış
+                </button>
+              ) : (
+                <Link to={`/dashboard/${user.role}`} className="mobile-link mobile-link--primary" onClick={closeMenu}>
+                  Dashboard
+                </Link>
+              )}
             </>
           ) : (
             <Link to="/login" className="mobile-link mobile-link--primary" onClick={closeMenu}>
