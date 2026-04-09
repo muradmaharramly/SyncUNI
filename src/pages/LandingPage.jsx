@@ -18,8 +18,8 @@ const LandingPage = () => {
 
   const pricingData = {
     company: [
-      { id: 'c1', title: "Startap Planı", price: "199 AZN", period: "/ay", features: ["3 Aktiv vakansiya", "AI Süni Zəka Birləşdirməsi", "Baza karyera portfelləri"], button: "Şirkət Olaraq Seç" },
-      { id: 'c2', title: "Korporativ Plan", price: "499 AZN", period: "/ay", features: ["Limitsiz vakansiya", "Dərin analitika", "Aktiv HR idarəetməsi"], badge: "Populyar", button: "Şirkət Olaraq Seç" },
+      { id: 'c1', title: "Əsas Plan", price: "199 AZN", period: "/ay", features: ["3 Aktiv vakansiya", "Süni Intellekt Inteqrasiyası", "Baza karyera portfelləri"], button: "Şirkət Olaraq Seç" },
+      { id: 'c2', title: "Korporativ Plan", price: "349 AZN", period: "/ay", features: ["Limitsiz vakansiya", "Dərin analitika", "Aktiv HR idarəetməsi"], badge: "Populyar", button: "Şirkət Olaraq Seç" },
       { id: 'c3', title: "Uğur Komissiyası", price: "5%", period: " / kadrın illik maaşından", features: ["Hər uğurlu işə qəbul üçün xidmət haqqı", "Namizəd zəmanəti", "Fərdi axtarış"], badge: "Nəticəyə Görə", button: "Dəstək Komandası" }
     ],
     university: [

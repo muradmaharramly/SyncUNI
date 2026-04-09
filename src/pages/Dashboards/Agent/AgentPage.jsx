@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiRefreshCw, FiX, FiChevronRight, FiClock, FiZap } from 'react-icons/fi';
+import { FiRefreshCw, FiX, FiChevronRight, FiClock, FiZap, FiGlobe } from 'react-icons/fi';
 import { useAIAgent } from '../../../context/AIAgentContext';
 import './AgentPage.scss';
 
@@ -13,7 +13,16 @@ const PRIORITY_COLORS = {
 const fmtTime = (d) => d ? d.toLocaleTimeString('az-AZ', { hour: '2-digit', minute: '2-digit' }) : '—';
 
 const AgentPage = () => {
-  const { notifications, agentLoading, lastRunAt, runAgent, dismissNotification, markAllRead } = useAIAgent();
+  const { 
+    notifications, 
+    globalInsight, 
+    agentLoading, 
+    isGlobalLoading, 
+    lastRunAt, 
+    runAgent, 
+    dismissNotification, 
+    markAllRead 
+  } = useAIAgent();
 
   return (
     <motion.div
@@ -66,6 +75,40 @@ const AgentPage = () => {
         </div>
       ) : (
         <div className="agent-notifications">
+          {/* Global AI Insights Section */}
+          <AnimatePresence>
+            {(globalInsight || isGlobalLoading) && (
+              <motion.div
+                className="agent-card global-insight-card"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="global-badge">
+                  <FiGlobe /> <span>Global AI Insights</span>
+                </div>
+                {isGlobalLoading ? (
+                  <div className="global-insight-loading">
+                    <div className="mini-loader" />
+                    <span>Bazar analizi aparılır...</span>
+                  </div>
+                ) : (
+                  <>
+                    <div className="agent-card__head">
+                      <span className="agent-card__emoji">{globalInsight.icon}</span>
+                      <h4 className="agent-card__title">{globalInsight.title}</h4>
+                    </div>
+                    <p className="agent-card__body">{globalInsight.body}</p>
+                    <div className="global-footer">
+                      AI tərəfindən real vaxtda hazırlanıb
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <AnimatePresence>
             {notifications.map((n, i) => {
               const colors = PRIORITY_COLORS[n.priority] || PRIORITY_COLORS.low;

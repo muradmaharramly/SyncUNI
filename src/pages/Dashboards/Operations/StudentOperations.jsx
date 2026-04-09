@@ -36,9 +36,22 @@ const StudentOperations = () => {
       try {
         const advancedPrompt = `Persona: Sən peşəkar bir HR mütəxəssisi və karyera kouçusan. Task: Verilən tələbə datasına əsasən CV-nin ən yuxarı hissəsində yerləşəcək 'Profil Xülasəsi' yazmalısan. Format: Mətn maksimum 3-4 cümlədən ibarət olmalıdır. Birinci şəxsin dilindən deyil, neytral və peşəkar (üçüncü şəxs) dilində yazılmalıdır. Akademik uğurlar, texniki bacarıqlar mütləq cümlə içində zərif şəkildə qeyd olunmalıdır. Tone: Korporativ, ciddi, lakin müasir. Language: YALNIZ Azərbaycan dilində. Mətndə 'Mən', 'Mənim' kimi sözlərdən qaçın, birbaşa bacarıqlara və hədəflərə fokuslan. STUDENT_DATA: Adı: ${cvStudent.name}, GPA: ${cvStudent.gpa}, Hədəf Peşə: ${selectedGoal}, Bacarıqlar: ${cvStudent.skills.hard.join(', ')}.`;
         
-        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(advancedPrompt)}`);
+        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(advancedPrompt)}?model=mistral&seed=${Math.floor(Math.random()*1000)}&cache=false`);
         if(!res.ok) throw new Error("API Error");
         let text = await res.text();
+
+        // Clean deprecation notice from legacy API
+        const cleaningPatterns = [
+          /⚠️ \*\*IMPORTANT NOTICE\*\* ⚠️[\s\S]*?normally\./gi,
+          /The Pollinations legacy text API[\s\S]*?normally\./gi,
+          /Note: Anonymous requests[\s\S]*?normally\./gi,
+          /\*\*IMPORTANT NOTICE\*\*[\s\S]*?normally\./gi
+        ];
+
+        cleaningPatterns.forEach(pattern => {
+          text = text.replace(pattern, '').trim();
+        });
+
         
         // Ciddi yoxlanış: Əgər gələn mətndə ingiliscə "pollinations", "migrate", "URL (http)" varsa, bu spamdır!
         if (
