@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiArrowRight, FiCheckCircle, FiChevronDown, FiChevronUp, FiBarChart2, FiUsers, FiTrello } from 'react-icons/fi';
-import { motion } from 'framer-motion';
+import { FiArrowRight, FiCheckCircle, FiChevronDown, FiChevronUp, FiBarChart2, FiUsers, FiTrello, FiZap, FiCpu } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 import './LandingPage.scss';
 
 const LandingPage = () => {
@@ -30,6 +30,22 @@ const LandingPage = () => {
       { id: 'co2', title: "Böyümə Komissiyası", price: "10%", period: " / kurs haqqından", features: ["Hər qazanılan tələbə üçün", "Doğrulanmış sertifikatlar vermə", "Reytinq xidməti"], badge: "Performans", button: "Bizimlə Tərəfdaş Ol" }
     ]
   };
+
+  const agentMocks = [
+    { id: 1, icon: "🎯", color: "#6366f1", text: "PASHA Bank üçün 98% uyğunluq göstərən 3 yeni 'React' mütəxəssisi tapıldı." },
+    { id: 2, icon: "📈", color: "#10b981", text: "ADA University: Bu ay tələbələrin 'Python' bacarığı üzrə aktivliyi 15% artıb." },
+    { id: 3, icon: "🔥", color: "#f59e0b", text: "Step IT: Sizin 'Cybersecurity' kursunuza maraq göstərən 12 potensial tələbə var." },
+    { id: 4, icon: "💎", color: "#8b5cf6", text: "Yeni VIP Elan: 'Senior DevOps' vakansiyası reytinqi 4.8 olan tələbələrə ötürüldü." }
+  ];
+
+  const [visibleAgentMock, setVisibleAgentMock] = useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setVisibleAgentMock(prev => (prev + 1) % agentMocks.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   const toggleFaq = (id) => {
     setOpenFaq(openFaq === id ? null : id);
@@ -118,6 +134,81 @@ const LandingPage = () => {
               <FiUsers className="service-icon" />
               <h3>Kurs İnteqrasiyası</h3>
               <p>Özəl kursların tələbələrə əlavə bacarıq (badge) verməsi və təsdiqləməsi prosesi.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        {/* SyncAI Agent Section */}
+      <section className="agent-promo section bg-alt">
+        <div className="container agent-promo__wrapper">
+          <div className="agent-promo__content">
+            <div className="promo-badge">
+              <FiZap className="icon" /> <span>SyncAI Agent Live</span>
+            </div>
+            <h2>Süni Zəka İlə <br/><span>Proaktiv İdarəetmə</span></h2>
+            <p>SyncAI Agent arxa planda bütün ekosistemi (tələbə, şirkət, kurs datası) real vaxtda analiz edir. Gözlənilmədən önəmli fürsətləri və trendləri sizə bildiriş olaraq çatdırır.</p>
+            
+            <div className="agent-features-list">
+              <div className="f-item">
+                <FiCpu className="f-icon" />
+                <span>Məlumatların saniyələr içində emalı</span>
+              </div>
+              <div className="f-item">
+                <FiZap className="f-icon" />
+                <span>Onəm dərəcəsinə görə ağıllı bildirişlər</span>
+              </div>
+            </div>
+
+            <Link to="/login" className="btn btn--primary">Agent-i Test Et</Link>
+          </div>
+
+          <div className="agent-promo__visual">
+            <div className="feed-emulator glass-card">
+              <div className="feed-header">
+                <div className="dots">
+                  <span className="dot red"></span>
+                  <span className="dot yellow"></span>
+                  <span className="dot green"></span>
+                </div>
+                <div className="title">SyncAI Live Intelligence</div>
+              </div>
+              
+              <div className="feed-content">
+                <AnimatePresence mode="wait">
+                  <motion.div 
+                    key={agentMocks[visibleAgentMock].id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="feed-item"
+                  >
+                    <div className="feed-item__icon" style={{background: agentMocks[visibleAgentMock].color + '20', color: agentMocks[visibleAgentMock].color}}>
+                      {agentMocks[visibleAgentMock].icon}
+                    </div>
+                    <div className="feed-item__text">
+                      {agentMocks[visibleAgentMock].text}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Static background items to make it look like a list */}
+                <div className="feed-item static">
+                  <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>🔒</div>
+                  <div className="feed-item__text">Təhlükəsizlik analizi tamamlandı...</div>
+                </div>
+                <div className="feed-item static">
+                  <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>📊</div>
+                  <div className="feed-item__text">Həftəlik bazar kəsiyi hazırlandı.</div>
+                </div>
+              </div>
+
+              <div className="feed-footer">
+                <div className="status">
+                  <span className="pulse"></span> Monitoring Active
+                </div>
+              </div>
             </div>
           </div>
         </div>
