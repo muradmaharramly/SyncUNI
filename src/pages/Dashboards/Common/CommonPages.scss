@@ -374,3 +374,48 @@
     p { color: var(--text-muted); font-size: 0.75rem; margin: 0; }
   }
 }
+
+// ── Responsive ────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .history-page, .subscription-page {
+    padding: $spacing-4;
+
+    .page-header h2 { font-size: 1.5rem; }
+
+    .history-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .date-filter {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-3;
+      .filter-count { margin-left: 0; }
+    }
+
+    .history-table-container, .payment-history-container {
+      padding: $spacing-4;
+      overflow-x: auto;
+      .history-table { min-width: 480px; }
+    }
+
+    .billing-widget {
+      padding: $spacing-5;
+      .billing-header {
+        flex-direction: column;
+        gap: $spacing-4;
+        .btn { width: 100%; justify-content: center; }
+      }
+      .billing-price h1 { font-size: 2rem; }
+    }
+
+    .upgrade-options .plans-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .receipt-modal {
+    padding: $spacing-5;
+    max-width: 100%;
+  }
+}

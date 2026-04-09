@@ -692,21 +692,127 @@
   }
 }
 
-// Responsive
-@media (max-width: 768px) {
-  .hero h1 {
-    font-size: $font-3xl;
-  }
-  
-  .hide-mobile {
-    display: none;
-  }
+// ── Responsive ──────────────────────────────────────────────────
 
-  .floating-badge {
-    display: none;
-  }
-
-  .about__content {
-    flex-direction: column;
-  }
+// Tablet
+@media (max-width: 1024px) {
+  .collab__grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing__grid { grid-template-columns: repeat(2, 1fr); }
+  .elanlar-grid { grid-template-columns: repeat(2, 1fr); }
+  .faq__wrapper { gap: 2rem !important; }
 }
+
+// Mobile
+@media (max-width: 768px) {
+  .section { padding: $spacing-12 0; }
+
+  .section__header {
+    margin-bottom: $spacing-8;
+    h2 { font-size: $font-2xl; }
+    p  { font-size: $font-base; }
+  }
+
+  .hide-mobile { display: none !important; }
+
+  // Hero
+  .hero {
+    padding: $spacing-16 0;
+
+    &__content h1 {
+      font-size: $font-2xl;
+      br { display: none; }
+    }
+
+    &__content p {
+      font-size: $font-base;
+    }
+
+    &__actions {
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-3;
+
+      .btn { width: 100%; max-width: 300px; justify-content: center; }
+    }
+  }
+
+  .floating-badge { display: none; }
+
+  // About
+  .about__content { flex-direction: column; }
+  .about__text { min-width: unset; }
+  .about__visual { min-width: unset; }
+
+  // Skills gap graphic
+  .skills-gap-graphic { flex-direction: column; gap: $spacing-4; }
+
+  // Collab
+  .collab__grid { grid-template-columns: 1fr; }
+
+  // Competitor table
+  .table-responsive { overflow-x: auto; }
+  .competitor-table { min-width: 520px; }
+
+  // Pricing toggle
+  .pricing__toggle .segmented-control {
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: $radius-xl;
+    button { font-size: $font-sm; padding: $spacing-2 $spacing-4; }
+  }
+  .pricing__grid { grid-template-columns: 1fr; }
+
+  // FAQ split-screen → stack
+  .faq__wrapper {
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
+  .faq__visual { display: none !important; }
+  .faq__content { width: 100% !important; }
+  .faq__list { max-width: 100%; }
+  .faq-item__header h3 { font-size: $font-base; }
+
+  // CTA Section
+  .modern-cta .cta-content {
+    flex-direction: column;
+    text-align: center;
+    h2 { font-size: $font-2xl; }
+  }
+
+  // Footer
+  .footer__container {
+    flex-direction: column;
+    gap: $spacing-8;
+    text-align: center;
+  }
+  .footer__links { flex-direction: column; gap: $spacing-6; }
+  .footer__links .link-group { align-items: center; }
+}
+
+// Small Mobile
+@media (max-width: 480px) {
+  .section { padding: $spacing-8 0; }
+
+  .hero {
+    padding: $spacing-12 0;
+    &__content h1 { font-size: $font-xl; }
+  }
+
+  .container { padding: 0 $spacing-3; }
+
+  .pricing-card { padding: $spacing-5; }
+
+  .elan-card { padding: $spacing-4; }
+
+  .elan-filters {
+    gap: $spacing-1;
+    .filter-tab {
+      padding: $spacing-1 $spacing-3;
+      font-size: 0.75rem;
+    }
+  }
+
+  .receipt-modal { padding: $spacing-5; }
+  .elan-detail { padding: $spacing-5; }
+}
+

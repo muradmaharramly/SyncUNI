@@ -175,28 +175,98 @@
   }
 }
 
-// Ensure responsiveness
-@media (max-width: 992px) {
+// ── Responsive ───────────────────────────────────────────────
+@media (max-width: 1024px) {
   .dashboard-layout {
-    flex-direction: column;
-    
-    .dashboard-sidebar {
-      width: auto;
-      height: auto;
-      position: static;
-      margin: $spacing-4;
-      
-      &__nav {
-        flex-direction: row;
-        overflow-x: auto;
-      }
-    }
-    
     .dashboard-main {
-      padding: $spacing-4;
-      
       .dashboard-header-bento {
         grid-template-columns: 1fr;
+
+        .stats-container {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-layout {
+    flex-direction: column;
+
+    .dashboard-sidebar {
+      width: calc(100% - #{$spacing-8}) !important;
+      height: auto !important;
+      position: sticky;
+      top: 64px;
+      margin: $spacing-3 $spacing-4;
+      padding: $spacing-3 $spacing-4;
+      z-index: 50;
+
+      &.collapsed {
+        width: calc(100% - #{$spacing-8}) !important;
+        padding: $spacing-3 $spacing-4;
+        align-items: flex-start;
+      }
+
+      &__header {
+        margin-bottom: $spacing-4;
+        h3 { font-size: $font-sm; }
+      }
+
+      &__nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: $spacing-2;
+        overflow-x: auto;
+        padding-bottom: $spacing-2;
+        scrollbar-width: none;
+        &::-webkit-scrollbar { display: none; }
+      }
+
+      &__link {
+        flex-shrink: 0;
+        padding: $spacing-2 $spacing-3;
+        font-size: $font-sm;
+
+        span { display: inline; }
+      }
+
+      &__footer {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        padding-top: $spacing-3 !important;
+        margin-top: $spacing-3 !important;
+        gap: $spacing-2 !important;
+      }
+    }
+
+    .dashboard-main {
+      padding: $spacing-4;
+
+      .dashboard-header-bento {
+        grid-template-columns: 1fr;
+        gap: $spacing-4;
+
+        .greeting-card h1 { font-size: $font-2xl; }
+
+        .stats-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-layout {
+    .dashboard-main {
+      padding: $spacing-3;
+
+      .dashboard-header-bento {
+        .stats-container {
+          grid-template-columns: 1fr;
+        }
       }
     }
   }
