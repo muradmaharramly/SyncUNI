@@ -96,7 +96,6 @@ const AgentPage = () => {
                 ) : (
                   <>
                     <div className="agent-card__head">
-                      <span className="agent-card__emoji">{globalInsight.icon}</span>
                       <h4 className="agent-card__title">{globalInsight.title}</h4>
                     </div>
                     <p className="agent-card__body">{globalInsight.body}</p>
@@ -130,7 +129,6 @@ const AgentPage = () => {
 
                   {}
                   <div className="agent-card__head">
-                    <span className="agent-card__emoji">{n.icon}</span>
                     <div>
                       <h4 className="agent-card__title">{n.title}</h4>
                       <span

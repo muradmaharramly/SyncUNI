@@ -195,7 +195,7 @@
 
   &__dismiss {
     position: absolute;
-    top: $spacing-3;
+    bottom: $spacing-3;
     right: $spacing-3;
     color: var(--text-muted);
     border-radius: $radius-md;
@@ -212,11 +212,6 @@
     padding-right: $spacing-6;
   }
 
-  &__emoji {
-    font-size: 1.6rem;
-    flex-shrink: 0;
-    line-height: 1;
-  }
 
   &__title {
     font-size: $font-base;
@@ -224,6 +219,22 @@
     color: var(--text-main);
     margin: 0 0 $spacing-2;
     line-height: 1.3;
+    position: relative;
+    padding-left: 10px;
+    &::before{
+      content:'';
+      left: 0px;
+      position: absolute;
+      top: 30%;
+      background: var(--text-main);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+}
   }
 
   &__body {
@@ -295,6 +306,9 @@
   padding: $spacing-6 !important;
 
   .global-badge {
+    position: absolute;
+    top: $spacing-4;
+    right: $spacing-4;
     display: inline-flex;
     align-items: center;
     gap: 6px;

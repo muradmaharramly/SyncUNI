@@ -24,7 +24,6 @@ const runAnalysis = (data, role) => {
         id: 'c1',
         type: 'match',
         priority: 'high',
-        icon: '🎯',
         title: 'Yüksək Uyğunluqlu React Mütəxəssisləri',
         body: `PASHA Bank üçün ${reactDevs.length} ədəd yüksək uyğunluq (≥85%) göstərən React mütəxəssisi tapıldı. Ən yüksəki: ${reactDevs[0]?.name} (${reactDevs[0]?.matchRate}%).`,
         actions: ['Namizədlərə bax', 'Filtrlə'],
@@ -37,7 +36,6 @@ const runAnalysis = (data, role) => {
         id: 'c2',
         type: 'pipeline',
         priority: 'medium',
-        icon: '📋',
         title: 'Aktiv Namizəd Bazası',
         body: `Hal-hazırda ${active.length} tələbə aktiv olaraq iş axtarır. Son həftə ${Math.floor(active.length * 0.2)} yeni profil əlavə edildi.`,
         actions: ['Siyahıya bax', 'Filter tətbiq et'],
@@ -49,7 +47,6 @@ const runAnalysis = (data, role) => {
       id: 'c3',
       type: 'insight',
       priority: 'low',
-      icon: '📊',
       title: 'Akademik Ekspertiza Hesabatı',
       body: `Platformada GPA ≥ 3.8 olan ${topGpa.length} tələbə mövcuddur. AI modeli bu həftə ${topGpa.length + 3} yeni potensial uyğunluq hesabladı.`,
       actions: ['Hesabatı endir', 'Analitikaya keç'],
@@ -65,7 +62,6 @@ const runAnalysis = (data, role) => {
       id: 'u1',
       type: 'trend',
       priority: 'high',
-      icon: '📈',
       title: 'Python Bacarığı Artımı',
       body: `ADA University: Bu ay tələbələrin "Python" bacarığı üzrə aktivliyi 15% artıb. Hazırda ${pythonStudents.length} tələbə bu texnologiyanı aktiv öyrənir.`,
       actions: ['Tələbə siyahısına bax', 'Hesabatı endir'],
@@ -76,7 +72,6 @@ const runAnalysis = (data, role) => {
       id: 'u2',
       type: 'placement',
       priority: 'medium',
-      icon: '🎓',
       title: 'Məşğulluq Dərəcəsi Yeniləndi',
       body: `Bu rübdə ${hired.length} məzun işə düzəldi və ya staj qazandı. Bu rəqəm ötən rüblə müqayisədə 8% artım göstərir.`,
       actions: ['Məzun izləmə', 'Sənaye hesabatı'],
@@ -86,7 +81,6 @@ const runAnalysis = (data, role) => {
       id: 'u3',
       type: 'partnership',
       priority: 'low',
-      icon: '🤝',
       title: 'Şirkət Tərəfdaşlıq Sorğusu',
       body: `2 şirkət (PASHA Bank, Azercell) universitetinizin CV bazasına çıxış üçün sorğu göndərib. Sorğular "Əməliyyatlar" panelindən idarə oluna bilər.`,
       actions: ['Sorğulara bax', 'Əməkdaşlıq idarəetməsi'],
@@ -102,7 +96,6 @@ const runAnalysis = (data, role) => {
       id: 'co1',
       type: 'demand',
       priority: 'high',
-      icon: '🔥',
       title: 'Kurs Tələbat Analizi',
       body: `Step IT: Sizin "Cybersecurity" kursunuza maraq göstərən ${Math.max(cyberStudents.length, 12)} potensial tələbə namizədi var. AI modeli bu həftə 4 yeni proaktiv uyğunluq tapdı.`,
       actions: ['Tələbələrə mesaj yaz', 'Kursu tanıt'],
@@ -112,7 +105,6 @@ const runAnalysis = (data, role) => {
       id: 'co2',
       type: 'certificate',
       priority: 'medium',
-      icon: '🏆',
       title: 'Sertifikat Tələbi Artıb',
       body: `Bu ay platformada "Sertifikatlaşdırılmış Kurs" axtarışları 32% artıb. Kurslarınıza SyncUNI sertifikatı əlavə etmək tövsiyə olunur.`,
       actions: ['Sertifikat əlavə et', 'Proqrama bax'],
@@ -123,7 +115,6 @@ const runAnalysis = (data, role) => {
       id: 'co3',
       type: 'revenue',
       priority: 'low',
-      icon: '💰',
       title: 'Gəlir Proqnozu',
       body: `Mövcud kurs platforması üzrə aylıq ortalama ${enrolledCount * 45} AZN passiv gəlir potensialı mövcuddur. Böyümə Komissiyası planını aktivləşdirin.`,
       actions: ['Planı dəyiş', 'Analitikaya keç'],
@@ -173,9 +164,9 @@ export const AIAgentProvider = ({ children }) => {
 
       if (!text || text.length < 20 || text.includes('pollinations.ai')) {
          const fallbacks = {
-           company: "Azərbaycanda IT sektorunda kütləvi rəqəmsallaşma kadr tələbatını 25% artırıb, xüsusilə kiber-təhlükəsizlik mütəxəssisləri diqqət mərkəzindədir. 🚀",
-           university: "Yerli universitetlərdə 'EdTech' inteqrasiyası sürətlənir, tələbələrin rəqəmsal sertifikatlara marağı keçən ilə nisbətən kəskin artıb. 🎓",
-           course: "Bazar hazırda qısa müddətli, lakin intensiv 'Bootcamp' təlimlərinə fokuslanıb, Data Science və Bulud texnologiyaları əsas trenddir. 📊"
+           company: "Azərbaycanda IT sektorunda kütləvi rəqəmsallaşma kadr tələbatını 25% artırıb, xüsusilə kiber-təhlükəsizlik mütəxəssisləri diqqət mərkəzindədir. ",
+           university: "Yerli universitetlərdə 'EdTech' inteqrasiyası sürətlənir, tələbələrin rəqəmsal sertifikatlara marağı keçən ilə nisbətən kəskin artıb. ",
+           course: "Bazar hazırda qısa müddətli, lakin intensiv 'Bootcamp' təlimlərinə fokuslanıb, Data Science və Bulud texnologiyaları əsas trenddir. "
          };
          text = fallbacks[userRole] || "Bazar analizi tamamlandı, platformada aktiv vakansiya uyğunluqları yeniləndi. ✨";
       }
@@ -185,7 +176,6 @@ export const AIAgentProvider = ({ children }) => {
           id: 'global_1',
           title: 'Qlobal Bazar İnsaytı',
           body: text,
-          icon: '🌍',
           type: 'global'
         });
 
