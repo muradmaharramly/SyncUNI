@@ -3,10 +3,11 @@ import { useData } from '../../../context/DataContext';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { FiUsers, FiCheck, FiX, FiUploadCloud } from 'react-icons/fi';
+import { SkeletonTable } from '../../../components/SkeletonLoader';
 import './Operations.scss';
 
 const UniversityOperations = () => {
-  const { data, endorseStudent } = useData();
+  const { data, loading, endorseStudent } = useData();
   const [confirmedIds, setConfirmedIds] = useState(new Set());
 
   const handleEndorse = (id) => {
@@ -37,6 +38,13 @@ const UniversityOperations = () => {
 
   return (
     <div className="operations-page">
+      {loading ? (
+        <>
+          <h2 style={{ marginBottom: '1.5rem', opacity: 0.5 }}>Advanced Operations: Academic Control</h2>
+          <SkeletonTable rows={5} cols={4} />
+        </>
+      ) : (
+      <>
       <h2>Advanced Operations: Academic Control</h2>
       <p className="desc">Tələbə referanslarının kütləvi idarəsi və Əməkdaşlıq Tələbləri</p>
       
@@ -91,8 +99,10 @@ const UniversityOperations = () => {
                </div>
              ))}
            </div>
-        </motion.div>
+         </motion.div>
       </div>
+      </>
+      )}
     </div>
   );
 };

@@ -3,10 +3,11 @@ import { useData } from '../../../context/DataContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { FiCheck, FiX, FiCalendar, FiSend } from 'react-icons/fi';
+import { SkeletonTable, SkeletonStatCards } from '../../../components/SkeletonLoader';
 import './Operations.scss';
 
 const CompanyOperations = () => {
-  const { data, updateFunnelStatus, hireStudent } = useData();
+  const { data, loading, updateFunnelStatus, hireStudent } = useData();
   const [activeStage, setActiveStage] = useState('Applicants');
   const [draggedStage, setDraggedStage] = useState(null);
 
@@ -55,6 +56,16 @@ const CompanyOperations = () => {
 
   return (
     <div className="operations-page">
+      {loading ? (
+        <>
+          <h2 style={{ marginBottom: '1.5rem', opacity: 0.5 }}>Advanced Operations: Recruitment Flow</h2>
+          <SkeletonStatCards count={4} />
+          <div style={{ marginTop: '1.5rem' }}>
+            <SkeletonTable rows={6} cols={5} />
+          </div>
+        </>
+      ) : (
+      <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
         <div>
           <h2>Advanced Operations: Recruitment Flow</h2>
@@ -121,6 +132,8 @@ const CompanyOperations = () => {
           <p style={{ color: 'var(--text-muted)' }}>Bu mərhələdə hələ tələbə yoxdur.</p>
         )}
       </div>
+      </>
+      )}
     </div>
   );
 };

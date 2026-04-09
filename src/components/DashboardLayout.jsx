@@ -1,46 +1,48 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { SYNC_DATA } from '../data/dummyData';
+import { useData } from '../context/DataContext';
 import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings, FiClock, FiCreditCard, FiBell } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { SkeletonDashboardHeader } from './SkeletonLoader';
 import './DashboardLayout.scss';
 
 const DashboardLayout = () => {
   const { user } = useAuth();
+  const { data, loading } = useData();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   if (!user) return <Navigate to="/login" replace />;
 
-  // Derive quick stats based on role
+  // Derive quick stats from live API data
   let stats = [];
   if (user.role === 'company') {
-    const comp = SYNC_DATA.companies[0];
+    const comp = data.companies?.[0];
     stats = [
-      { id: 1, label: "Tələbə Bazası", value: SYNC_DATA.students.length, icon: <FiTrendingUp /> },
-      { id: 2, label: "Aktiv Vakansiya", value: comp.activeAds, icon: <FiBriefcase /> },
-      { id: 3, label: "Uyğunluq Reytinqi", value: `${comp.efficiency}%`, icon: <FiAward /> }
+      { id: 1, label: 'Tələbə Bazası',     value: data.students.length,         icon: <FiTrendingUp /> },
+      { id: 2, label: 'Aktiv Vakansiya',   value: comp?.activeAds ?? '—',        icon: <FiBriefcase /> },
+      { id: 3, label: 'Uyğunluq Reytinqi', value: `${comp?.efficiency ?? 0}%`,  icon: <FiAward /> },
     ];
   } else if (user.role === 'university') {
-    const uni = SYNC_DATA.universities[0];
+    const uni = data.universities?.[0];
     stats = [
-      { id: 1, label: "Ümumi Tələbə", value: uni.totalStudents, icon: <FiTrendingUp /> },
-      { id: 2, label: "Məşğulluq Faizi", value: `${uni.placementRate}%`, icon: <FiBriefcase /> },
-      { id: 3, label: "Verilən Referanslar", value: SYNC_DATA.references.length, icon: <FiAward /> }
+      { id: 1, label: 'Ümumi Tələbə',      value: uni?.totalStudents ?? data.students.length, icon: <FiTrendingUp /> },
+      { id: 2, label: 'Məşğulluq Faizi',   value: `${uni?.placementRate ?? 0}%`,              icon: <FiBriefcase /> },
+      { id: 3, label: 'Verilən Referanslar',value: data.references?.length ?? 0,               icon: <FiAward /> },
     ];
   } else if (user.role === 'student') {
-    const st = SYNC_DATA.students[0];
+    const st = data.students?.[0];
     stats = [
-      { id: 1, label: "Sistem Reytinqi", value: st.activityScore, icon: <FiTrendingUp /> },
-      { id: 2, label: "Vakansiya Uyğunluğu", value: `${st.matchRate}%`, icon: <FiBriefcase /> },
-      { id: 3, label: "Öyrənilən Bacarıq", value: st.skills.hard.length + st.skills.soft.length, icon: <FiAward /> }
+      { id: 1, label: 'Sistem Reytinqi',   value: st?.activityScore ?? 0,                                         icon: <FiTrendingUp /> },
+      { id: 2, label: 'Vakansiya Uyğunluğu',value: `${st?.matchRate ?? 0}%`,                                       icon: <FiBriefcase /> },
+      { id: 3, label: 'Öyrənilən Bacarıq', value: (st?.skills.hard.length ?? 0) + (st?.skills.soft.length ?? 0),  icon: <FiAward /> },
     ];
   } else if (user.role === 'course') {
     stats = [
-      { id: 1, label: "Aktiv Kurs", value: 3, icon: <FiTrendingUp /> },
-      { id: 2, label: "Tələbə Sayı", value: 45, icon: <FiBriefcase /> },
-      { id: 3, label: "Bazar Payı", value: "8.5%", icon: <FiAward /> }
+      { id: 1, label: 'Aktiv Kurs',  value: 3,      icon: <FiTrendingUp /> },
+      { id: 2, label: 'Tələbə Sayı', value: 45,     icon: <FiBriefcase /> },
+      { id: 3, label: 'Bazar Payı',  value: '8.5%', icon: <FiAward /> },
     ];
   }
 
@@ -132,33 +134,37 @@ const DashboardLayout = () => {
       
       <main className="dashboard-main">
         {/* Dynamic Global Greeting & Stats Bento */}
-        <motion.div 
-          className="dashboard-header-bento"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="greeting-card glass-panel">
-            <h1>Xoş gəldiniz, <span>{user.name}</span></h1>
-            <p>Bütün analitik datanız və karyera indikatorlarınız burada yenilənir.</p>
-          </div>
-          
-          <div className="stats-container">
-            {stats.map(stat => (
-              <motion.div 
-                key={stat.id} 
-                className="stat-card glass-panel"
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="icon-wrapper">{stat.icon}</div>
-                <div className="stat-info">
-                  <span className="label">{stat.label}</span>
-                  <strong className="value">{stat.value}</strong>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        {loading ? (
+          <SkeletonDashboardHeader />
+        ) : (
+          <motion.div 
+            className="dashboard-header-bento"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="greeting-card glass-panel">
+              <h1>Xoş gəldiniz, <span>{user.name}</span></h1>
+              <p>Bütün analitik datanız və karyera indikatorlarınız burada yenilənir.</p>
+            </div>
+            
+            <div className="stats-container">
+              {stats.map(stat => (
+                <motion.div 
+                  key={stat.id} 
+                  className="stat-card glass-panel"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="icon-wrapper">{stat.icon}</div>
+                  <div className="stat-info">
+                    <span className="label">{stat.label}</span>
+                    <strong className="value">{stat.value}</strong>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* Dashboard Specific Content */}
         <div className="dashboard-main__content">
