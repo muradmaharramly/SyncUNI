@@ -25,7 +25,7 @@ const LoginPage = () => {
       <div className="container login-page__container">
         
         <div className="login-info">
-           <motion.div className="info-badge" initial={{opacity:0, y:-10}} animate={{opacity:1, y:0}}>👋 Xoş gəlmisiniz</motion.div>
+           <motion.div className="info-badge" initial={{opacity:0, y:-10}} animate={{opacity:1, y:0}}>Xoş gəlmişsiniz</motion.div>
            <motion.h1 initial={{opacity:0, y:10}} animate={{opacity:1, y:0}} transition={{delay: 0.1}}>
               Datanın Gücü İlə <br/><span>Karyeranızı İdarə Edin</span>
            </motion.h1>

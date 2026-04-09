@@ -7,6 +7,13 @@ import './Operations.scss';
 
 const UniversityOperations = () => {
   const { data, endorseStudent } = useData();
+  const [confirmedIds, setConfirmedIds] = useState(new Set());
+
+  const handleEndorse = (id) => {
+    endorseStudent(id);
+    setConfirmedIds(prev => new Set(prev).add(id));
+    toast.success('Təsdiqləndi');
+  };
   const [partnershipRequests, setPartnershipRequests] = useState([
     { id: 1, company: 'PASHA Bank', requestedAt: '2 days ago', status: 'Pending' },
     { id: 2, company: 'Azercell', requestedAt: '5 days ago', status: 'Pending' }
@@ -48,7 +55,13 @@ const UniversityOperations = () => {
                {data.students.slice(0, 3).map(st => (
                  <div key={st.id} className="st-strip">
                    <span>{st.name}</span>
-                   <button className="btn btn--outline btn-sm" onClick={() => { endorseStudent(st.id); toast.success('Təsdiqləndi'); }}>Təsdiqlə</button>
+                   <button
+                     className={`btn btn-sm ${confirmedIds.has(st.id) ? 'btn--confirmed' : 'btn--outline'}`}
+                     onClick={() => !confirmedIds.has(st.id) && handleEndorse(st.id)}
+                     disabled={confirmedIds.has(st.id)}
+                   >
+                     {confirmedIds.has(st.id) ? <><FiCheck style={{marginRight: '4px'}} /> Təsdiqlənib</> : 'Təsdiqlə'}
+                   </button>
                  </div>
                ))}
              </div>

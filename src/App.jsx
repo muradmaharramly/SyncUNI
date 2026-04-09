@@ -23,6 +23,8 @@ import CourseAnalytics from './pages/Dashboards/Analytics/CourseAnalytics';
 // Common
 import ProfilePage from './pages/Dashboards/Common/ProfilePage';
 import SettingsPage from './pages/Dashboards/Common/SettingsPage';
+import HistoryPage from './pages/Dashboards/Common/HistoryPage';
+import SubscriptionPage from './pages/Dashboards/Common/SubscriptionPage';
 
 function PrivateRoute({ children, allowedRole }) {
   const { user } = useAuth();
@@ -63,6 +65,8 @@ function App() {
                 <Route path="student/operations" element={<PrivateRoute allowedRole="student"><StudentOperations /></PrivateRoute>} />
 
                 {/* Common Routes */}
+                <Route path=":role/history" element={<HistoryPage />} />
+                <Route path=":role/subscription" element={<SubscriptionPage />} />
                 <Route path=":role/profile" element={<ProfilePage />} />
                 <Route path=":role/settings" element={<SettingsPage />} />
               </Route>

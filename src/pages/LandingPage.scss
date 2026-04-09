@@ -117,6 +117,166 @@
   }
 }
 
+// Pricing Section
+.pricing {
+  &__toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing-8;
+
+    .segmented-control {
+      background: rgba(255, 255, 255, 0.05); // Glass effect
+      border: 1px solid $border;
+      border-radius: $radius-full;
+      padding: $spacing-2;
+      display: inline-flex;
+      position: relative;
+      backdrop-filter: blur(10px);
+      
+      button {
+        padding: $spacing-3 $spacing-6;
+        border-radius: $radius-full;
+        font-weight: 600;
+        font-size: $font-base;
+        color: $text-muted;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+
+        &:hover {
+          color: $text-main;
+        }
+
+        &.active {
+          background-color: $primary; // Indigo (#6366f1)
+          color: white;
+          box-shadow: 0 4px 15px rgba($primary, 0.4);
+        }
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-6;
+    align-items: stretch;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .pricing-card {
+    position: relative;
+    padding: $spacing-8;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    background: $bg-card; /* Handles Dark/Light logic effectively via ThemeContext variables */
+    border: 1px solid $border;
+    backdrop-filter: blur(16px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+    
+    &.popular {
+      border: 2px solid $primary;
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.15); /* Indigo glow */
+    }
+
+    &.university-card {
+      border: 1px dashed $primary;
+      background: linear-gradient(145deg, rgba($bg-card, 0.9) 0%, rgba($primary, 0.05) 100%);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: $primary;
+      color: white;
+      padding: 4px 16px;
+      border-radius: $radius-full;
+      font-size: $font-sm;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba($primary, 0.3);
+      white-space: nowrap;
+    }
+
+    .plan-title {
+      font-size: $font-xl;
+      font-weight: 600;
+      color: $text-main;
+      margin-bottom: $spacing-4;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: $spacing-2;
+      margin-bottom: $spacing-4;
+      
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: $text-main;
+        margin: 0;
+      }
+      
+      span {
+        color: $text-muted;
+        font-weight: 500;
+      }
+    }
+
+    .plan-sub {
+      font-size: $font-sm;
+      color: $primary; /* Indigo text to stand out */
+      font-weight: 500;
+      margin-bottom: $spacing-6;
+      border-left: 3px solid $primary;
+      padding-left: $spacing-3;
+      background: rgba($primary, 0.05);
+      padding: $spacing-2 $spacing-3;
+      border-radius: 0 $radius-md $radius-md 0;
+    }
+
+    .plan-features {
+      margin-bottom: $spacing-8;
+      flex-grow: 1;
+      
+      li {
+        display: flex;
+        align-items: flex-start;
+        gap: $spacing-3;
+        margin-bottom: $spacing-3;
+        color: $text-main;
+        font-size: $font-base;
+        line-height: 1.5;
+
+        .check-icon {
+          color: $primary; /* Indigo checkbox */
+          background-color: rgba($primary, 0.1);
+          border-radius: 50%;
+          padding: 4px;
+          font-size: calc($font-lg + 2px);
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+      }
+    }
+
+    .btn {
+      margin-top: auto;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+}
+
 // About / Skills Gap
 .about {
   &__content {

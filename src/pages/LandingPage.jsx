@@ -6,6 +6,7 @@ import './LandingPage.scss';
 
 const LandingPage = () => {
   const [openFaq, setOpenFaq] = useState(null);
+  const [activeRole, setActiveRole] = useState('company');
 
   const faqs = [
     { id: 1, q: "SyncUNI tam olaraq nədir?", a: "SyncUNI universitetlər, şirkətlər və tələbələri bir araya gətirən, məlumat əsaslı karyera və təhsil ekosistemidir. Məqsədimiz bazardakı 'Skill-gap' (bacarıq boşluğu) problemini riyazi data ilə ölçməkdir." },
@@ -14,6 +15,21 @@ const LandingPage = () => {
     { id: 4, q: "Tədris Mərkəzləri (Kurslar) sistemə necə inteqrasiya olunur?", a: "Rəsmi partnyor kurslar tələbələrin profillərinə keçdikləri təlimlər barədə rəsmi 'Badge' və Sertifikatlar əlavə edə bilərlər. Bu da şirkətlərin namizədlərə olan güvənini artırır." },
     { id: 5, q: "Sistem ödənişlidirmi?", a: "Hazırda baza xidmətlər (Tələbə portfel idarəetməsi və fundamental şirkət profilləri) pulsuzdur. Ətraflı analitika və AI əsaslı tövsiyələr üçün Premium paketlər mövcuddur." }
   ];
+
+  const pricingData = {
+    company: [
+      { id: 'c1', title: "Startap Planı", price: "199 AZN", period: "/ay", features: ["3 Aktiv vakansiya", "AI Süni Zəka Birləşdirməsi", "Baza karyera portfelləri"], button: "Şirkət Olaraq Seç" },
+      { id: 'c2', title: "Korporativ Plan", price: "499 AZN", period: "/ay", features: ["Limitsiz vakansiya", "Dərin analitika", "Aktiv HR idarəetməsi"], badge: "Populyar", button: "Şirkət Olaraq Seç" },
+      { id: 'c3', title: "Uğur Komissiyası", price: "5%", period: " / kadrın illik maaşından", features: ["Hər uğurlu işə qəbul üçün xidmət haqqı", "Namizəd zəmanəti", "Fərdi axtarış"], badge: "Nəticəyə Görə", button: "Dəstək Komandası" }
+    ],
+    university: [
+      { id: 'u1', title: "Tərəfdaşlıq Planı", price: "49 AZN", period: "/ay", sub: "Sizin datanız sistemin ruhudur (İnteqrasiya Endirimi)", features: ["Məzun izləmə sistemi", "Sənaye uyğunluq hesabatı", "Rəqəmsal referans idarəçiliyi"], badge: "Xüsusi Tərəfdaşlıq", button: "Universitet Kimi Qoşul" }
+    ],
+    course: [
+      { id: 'co1', title: "Standart Plan", price: "99 AZN", period: "/ay", features: ["Kursların rəsmi siyahıda görünməsi", "Tələbə hədəfləmə analitikası", "5 ədəd reklam banneri"], button: "Kurs Olaraq Seç" },
+      { id: 'co2', title: "Böyümə Komissiyası", price: "10%", period: " / kurs haqqından", features: ["Hər qazanılan tələbə üçün", "Doğrulanmış sertifikatlar vermə", "Reytinq xidməti"], badge: "Performans", button: "Bizimlə Tərəfdaş Ol" }
+    ]
+  };
 
   const toggleFaq = (id) => {
     setOpenFaq(openFaq === id ? null : id);
@@ -177,13 +193,59 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section className="pricing section">
+        <div className="container">
+          <div className="section__header">
+            <h2>Dinamik Paketlər</h2>
+            <p>Hər rol üçün xüsusi olaraq düşünülmüş və data-ya əsaslanan qiymətləndirmə.</p>
+          </div>
+          
+          <div className="pricing__toggle">
+             <div className="segmented-control">
+                <button className={activeRole === 'company' ? 'active' : ''} onClick={() => setActiveRole('company')}>Şirkətlər Üçün</button>
+                <button className={activeRole === 'university' ? 'active' : ''} onClick={() => setActiveRole('university')}>Universitetlər Üçün</button>
+                <button className={activeRole === 'course' ? 'active' : ''} onClick={() => setActiveRole('course')}>Kurslar Üçün</button>
+             </div>
+          </div>
+
+          <div className="pricing__grid">
+             {pricingData[activeRole].map((plan, i) => (
+                <motion.div 
+                   key={plan.id}
+                   className={`pricing-card glass-card ${plan.badge === 'Popular' ? 'popular' : ''} ${activeRole === 'university' ? 'university-card' : ''}`}
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.4, delay: i * 0.1 }}
+                >
+                   {plan.badge && <div className="card-badge">{plan.badge}</div>}
+                   <h3 className="plan-title">{plan.title}</h3>
+                   <div className="plan-price">
+                      <h2>{plan.price}</h2>
+                      <span>{plan.period}</span>
+                   </div>
+                   {plan.sub && <p className="plan-sub">{plan.sub}</p>}
+                   <ul className="plan-features">
+                      {plan.features.map((feature, j) => (
+                         <li key={j}><FiCheckCircle className="check-icon" /> {feature}</li>
+                      ))}
+                   </ul>
+                   <button className={`btn btn--full ${plan.badge === 'Popular' ? 'btn--primary' : 'btn--outline'}`}>
+                      {plan.button}
+                   </button>
+                </motion.div>
+             ))}
+          </div>
+        </div>
+      </section>
+
       {/* Modern CTA Section */}
       <section className="modern-cta section">
         <div className="container">
           <div className="cta-card">
             <div className="cta-badge"> SyncUNI - Karyera və Təhsil Ekosistemi</div>
-            <h2>Səyahətinizə İndi Başlayın</h2>
-            <p>Data əsaslı platformamız vasitəsilə biliklərinizin tam potensialını kəşf edin və ən uyğun vakansiyanı tapın.</p>
+            <h2>Potensialı Karyeraya Çevir!</h2>
+            <p>Data əsaslı platformamızla real potensialınızı üzə çıxarın: Bacarıqlarınıza ən uyğun vakansiyaları tapın və şirkətlərin axtardığı top kadrlar sırasına qoşulun.</p>
             <Link to="/login" className="btn btn--primary cta-btn" style={{borderRadius: '2rem', padding: '1rem 2rem', fontSize: '1.1rem'}}>
               Başla <FiArrowRight className="icon"/>
             </Link>
@@ -209,7 +271,7 @@ const LandingPage = () => {
           {/* FAQ Content Right Side */}
           <div className="faq__content" style={{flex: 1.5}}>
             <div className="section__header" style={{textAlign: 'left', alignItems: 'flex-start', marginBottom: '2rem'}}>
-              <h2 style={{fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Sualı Şəkilləndirən Fikirlər</h2>
+              <h2 style={{fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Suallarına Cavab Tap</h2>
               <p style={{color: 'var(--text-muted)'}}>Platforma haqqında ən çox soruşulan vacib detallar</p>
             </div>
             <div className="faq__list">

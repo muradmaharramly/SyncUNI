@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SYNC_DATA } from '../data/dummyData';
-import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings } from 'react-icons/fi';
+import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings, FiClock, FiCreditCard } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import './DashboardLayout.scss';
 
@@ -78,6 +78,25 @@ const DashboardLayout = () => {
               <FiTrendingUp /> {isSidebarOpen && <span>Analitika</span>}
             </Link>
           )}
+          
+          <Link 
+            to={`/dashboard/${user.role}/history`} 
+            className={`dashboard-sidebar__link ${location.pathname.includes('/history') ? 'active' : ''}`}
+            title="Tarixçə"
+          >
+            <FiClock /> {isSidebarOpen && <span>Tarixçə</span>}
+          </Link>
+
+          {user.role !== 'student' && (
+            <Link 
+              to={`/dashboard/${user.role}/subscription`} 
+              className={`dashboard-sidebar__link ${location.pathname.includes('/subscription') ? 'active' : ''}`}
+              title="Abunəlik"
+            >
+              <FiCreditCard /> {isSidebarOpen && <span>Abunəlik</span>}
+            </Link>
+          )}
+
         </nav>
         
         <div className="dashboard-sidebar__footer" style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>

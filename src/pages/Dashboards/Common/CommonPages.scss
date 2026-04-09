@@ -1,0 +1,376 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.history-page, .subscription-page {
+  padding: $spacing-6;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .page-header {
+    margin-bottom: $spacing-6;
+    h2 { font-size: 2rem; color: var(--text-main); margin-bottom: $spacing-2; }
+    p  { color: var(--text-muted); font-size: $font-base; }
+  }
+
+  // ── History Stats ──────────────────────────────────────────
+  .history-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-6;
+    margin-bottom: $spacing-6;
+
+    .stat-box {
+      display: flex;
+      align-items: center;
+      gap: $spacing-4;
+      padding: $spacing-5;
+
+      .icon {
+        font-size: 2.5rem;
+        padding: $spacing-3;
+        border-radius: $radius-lg;
+        &.blue   { color: #3b82f6; background: rgba(59,130,246,0.1); }
+        &.green  { color: #10b981; background: rgba(16,185,129,0.1); }
+        &.purple { color: #8b5cf6; background: rgba(139,92,246,0.1); }
+      }
+
+      .info {
+        span { color: var(--text-muted); font-size: $font-sm; font-weight: 500; }
+        h3   { margin: 0; font-size: 1.8rem; color: var(--text-main); }
+      }
+    }
+  }
+
+  // ── Date Range Filter ──────────────────────────────────────
+  .date-filter {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+    flex-wrap: wrap;
+    padding: $spacing-4 $spacing-5;
+    margin-bottom: $spacing-6;
+
+    .filter-icon {
+      color: $primary;
+      font-size: $font-xl;
+      flex-shrink: 0;
+    }
+
+    label {
+      font-size: $font-sm;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    input[type="date"] {
+      padding: $spacing-2 $spacing-3;
+      border-radius: $radius-md;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: $font-sm;
+      font-family: $font-family;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus { border-color: $primary; }
+    }
+
+    .clear-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: $spacing-2;
+      padding: $spacing-2 $spacing-4;
+      background: rgba($primary, 0.1);
+      color: $primary;
+      border-radius: $radius-full;
+      font-size: $font-sm;
+      font-weight: 600;
+      transition: background 0.2s;
+
+      &:hover { background: rgba($primary, 0.2); }
+    }
+
+    .filter-count {
+      margin-left: auto;
+      font-size: $font-sm;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+  }
+
+  // ── History Table wrapper ──────────────────────────────────
+  .history-table-container, .payment-history-container {
+    padding: $spacing-6;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: $spacing-3;
+      margin-bottom: $spacing-5;
+      font-size: 1.25rem;
+      color: var(--text-main);
+      svg { color: $primary; }
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    padding: $spacing-8 0;
+  }
+
+  // ── Shared Table ───────────────────────────────────────────
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      padding: $spacing-4;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+      font-size: $font-sm;
+    }
+
+    td {
+      padding: $spacing-4;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-main);
+      vertical-align: middle;
+      &.candidate-name { font-weight: 500; }
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: $radius-full;
+      font-size: $font-sm;
+      font-weight: 600;
+      &.success  { background: rgba(16,185,129,0.1); color: #10b981; }
+      &.pending  { background: rgba(245,158,11,0.1);  color: #f59e0b; }
+      &.analyzed { background: rgba(59,130,246,0.1);  color: #3b82f6; }
+    }
+
+    // Receipt button inside table
+    .receipt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: $spacing-2;
+      font-size: $font-sm;
+      font-weight: 600;
+      color: $primary;
+      background: rgba($primary, 0.08);
+      border-radius: $radius-md;
+      padding: 4px 12px;
+      transition: background 0.2s, transform 0.15s;
+      svg { font-size: 0.9rem; }
+
+      &:hover {
+        background: rgba($primary, 0.18);
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  // ── Billing Widget ─────────────────────────────────────────
+  .billing-widget {
+    padding: $spacing-8;
+    margin-bottom: $spacing-8;
+    border-top: 4px solid $primary;
+
+    .billing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: $spacing-6;
+
+      .title-area {
+        display: flex;
+        align-items: center;
+        gap: $spacing-4;
+
+        .icon-main {
+          font-size: 3rem;
+          color: $primary;
+          background: rgba(124,58,237,0.1);
+          padding: $spacing-3;
+          border-radius: $radius-lg;
+        }
+
+        h3  { margin: 0 0 4px 0; font-size: 1.5rem; color: var(--text-main); }
+
+        .badge {
+          display: inline-block;
+          background: rgba(16,185,129,0.15);
+          color: #10b981 !important;
+          padding: 2px 10px;
+          border-radius: $radius-full;
+          font-size: $font-sm;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .billing-price {
+      display: flex;
+      align-items: baseline;
+      gap: $spacing-2;
+      margin-bottom: $spacing-4;
+      h1   { font-size: 3rem; margin: 0; color: var(--text-main); }
+      span { color: var(--text-muted); font-size: 1.25rem; }
+    }
+
+    .billing-note {
+      color: var(--text-muted);
+      font-size: $font-sm;
+      margin: 0;
+      strong { color: var(--text-main); }
+    }
+  }
+
+  // ── Upgrade Plans ──────────────────────────────────────────
+  .upgrade-options {
+    overflow: hidden;
+    margin-bottom: $spacing-8;
+
+    h3 { font-size: 1.25rem; color: var(--text-main); margin-bottom: $spacing-4; }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: $spacing-6;
+    }
+
+    .mini-plan-card {
+      padding: $spacing-6;
+      display: flex;
+      flex-direction: column;
+
+      h4 { color: $primary; margin: 0 0 $spacing-2 0; font-size: 1.1rem; }
+
+      h2 {
+        font-size: 2rem;
+        margin: 0 0 $spacing-4 0;
+        color: var(--text-main);
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        span { font-size: 1rem; color: var(--text-muted); font-weight: normal; }
+      }
+
+      ul {
+        margin-bottom: $spacing-6;
+        flex-grow: 1;
+
+        li {
+          display: flex;
+          align-items: flex-start;
+          gap: $spacing-2;
+          margin-bottom: $spacing-3;
+          color: var(--text-muted);
+          font-size: $font-sm;
+          .check { color: $primary; margin-top: 2px; flex-shrink: 0; }
+        }
+      }
+    }
+  }
+}
+
+// ── Receipt Modal ────────────────────────────────────────────
+.receipt-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-6;
+}
+
+.receipt-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: $spacing-8;
+  border-radius: $radius-xl;
+  .status-badge{
+     &.success  {color: #10b981; }
+      &.pending  {color: #f59e0b; }
+      &.analyzed {color: #3b82f6; }
+  }
+
+  .receipt-close {
+    position: absolute;
+    top: $spacing-4;
+    right: $spacing-4;
+    background: rgba(255,255,255,0.05);
+    border-radius: $radius-md;
+    padding: $spacing-2;
+    color: var(--text-muted);
+    transition: background 0.2s, color 0.2s;
+    &:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+  }
+
+  .receipt-header {
+    text-align: center;
+    margin-bottom: $spacing-4;
+    h2 {
+      font-size: 1.8rem;
+      color: var(--text-main);
+      margin: 0;
+      span { color: $primary; }
+    }
+    .receipt-sub {
+      color: var(--text-muted);
+      font-size: $font-sm;
+      margin: $spacing-1 0 0;
+    }
+  }
+
+  .receipt-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: $spacing-4 0;
+  }
+
+  .receipt-body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      span   { color: var(--text-muted); font-size: $font-sm; }
+      strong { color: var(--text-main);  font-size: $font-sm; font-weight: 600; }
+    }
+  }
+
+  .receipt-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing-4;
+    span { color: var(--text-muted); font-weight: 600; }
+    h2 { margin: 0; font-size: 1.8rem; color: $primary; }
+  }
+
+  .receipt-footer {
+    margin-top: $spacing-4;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-2;
+
+    p { color: var(--text-muted); font-size: 0.75rem; margin: 0; }
+  }
+}
