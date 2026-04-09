@@ -25,6 +25,7 @@ import ProfilePage from './pages/Dashboards/Common/ProfilePage';
 import SettingsPage from './pages/Dashboards/Common/SettingsPage';
 import HistoryPage from './pages/Dashboards/Common/HistoryPage';
 import SubscriptionPage from './pages/Dashboards/Common/SubscriptionPage';
+import ElanlarPage from './pages/Dashboards/Common/ElanlarPage';
 
 function PrivateRoute({ children, allowedRole }) {
   const { user } = useAuth();
@@ -67,6 +68,7 @@ function App() {
                 {/* Common Routes */}
                 <Route path=":role/history" element={<HistoryPage />} />
                 <Route path=":role/subscription" element={<SubscriptionPage />} />
+                <Route path=":role/elanlar" element={<ElanlarPage />} />
                 <Route path=":role/profile" element={<ProfilePage />} />
                 <Route path=":role/settings" element={<SettingsPage />} />
               </Route>

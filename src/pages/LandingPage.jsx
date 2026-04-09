@@ -128,7 +128,7 @@ const LandingPage = () => {
         <div className="container">
           <div className="section__header">
             <h2>Platformaya Qoşulun</h2>
-            <p>Siz kimsiniz və təklifimiz nələrdir?</p>
+            <p>Kimlərlə işləyirik və təklifimiz nələrdir?</p>
           </div>
           <div className="collaborate__grid">
             <div className="collab-card">

@@ -43,7 +43,7 @@ const Navbar = () => {
             <div className="navbar__user">
               <span className="navbar__user-role">{user.role}</span>
               <span className="navbar__user-name">{user.name}</span>
-              <button className="btn btn--outline" onClick={handleLogout}>
+              <button className="btn btn--outline logout" onClick={handleLogout}>
                 <FiLogOut /> Çıxış
               </button>
             </div>

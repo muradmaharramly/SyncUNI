@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { SYNC_DATA } from '../data/dummyData';
-import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings, FiClock, FiCreditCard } from 'react-icons/fi';
+import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings, FiClock, FiCreditCard, FiBell } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import './DashboardLayout.scss';
 
@@ -76,6 +76,16 @@ const DashboardLayout = () => {
               title="Analitika"
             >
               <FiTrendingUp /> {isSidebarOpen && <span>Analitika</span>}
+            </Link>
+          )}
+
+          {(user.role === 'university' || user.role === 'student') && (
+            <Link 
+              to={`/dashboard/${user.role}/elanlar`} 
+              className={`dashboard-sidebar__link ${location.pathname.includes('/elanlar') ? 'active' : ''}`}
+              title="Elanlar"
+            >
+              <FiBell /> {isSidebarOpen && <span>Elanlar</span>}
             </Link>
           )}
           

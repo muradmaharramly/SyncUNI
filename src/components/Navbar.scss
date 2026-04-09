@@ -35,7 +35,15 @@
     @include flex-center;
     gap: $spacing-6;
   }
-
+  .logout{
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    &:hover{
+      color: red;
+      border-color: red;
+    }
+  }
   &__theme-toggle {
     font-size: $font-xl;
     color: $text-muted;
