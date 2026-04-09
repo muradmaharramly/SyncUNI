@@ -52,6 +52,21 @@
     padding: $spacing-6;
     z-index: 10;
     transition: width 0.3s ease;
+
+    .agent-badge{
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      border-radius: 50px;
+      background-color: var(--primary-color);
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      -ms-border-radius: 50px;
+      -o-border-radius: 50px;
+}
     
     &.collapsed {
       width: 80px;

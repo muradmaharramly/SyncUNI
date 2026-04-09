@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Outlet, Link, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useData } from '../context/DataContext';
-import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings, FiClock, FiCreditCard, FiBell } from 'react-icons/fi';
+import { useAIAgent } from '../context/AIAgentContext';
+import { FiHome, FiTrendingUp, FiBriefcase, FiAward, FiMenu, FiX, FiUser, FiSettings, FiClock, FiCreditCard, FiBell, FiZap } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { SkeletonDashboardHeader } from './SkeletonLoader';
 import './DashboardLayout.scss';
@@ -10,6 +11,7 @@ import './DashboardLayout.scss';
 const DashboardLayout = () => {
   const { user } = useAuth();
   const { data, loading } = useData();
+  const { unreadCount } = useAIAgent();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -88,6 +90,24 @@ const DashboardLayout = () => {
               title="Elanlar"
             >
               <FiBell /> {isSidebarOpen && <span>Elanlar</span>}
+            </Link>
+          )}
+
+          {/* SyncAI Agent — yalnız company, university, course üçün */}
+          {user.role !== 'student' && (
+            <Link
+              to={`/dashboard/${user.role}/agent`}
+              className={`dashboard-sidebar__link agent-link ${location.pathname.includes('/agent') ? 'active' : ''}`}
+              title="SyncAI Agent"
+            >
+              <span className="agent-link__icon-wrap">
+                <FiZap />
+                {unreadCount > 0 && <span className="agent-pulse-dot" />}
+              </span>
+              {isSidebarOpen && <span>AI Agent</span>}
+              {isSidebarOpen && unreadCount > 0 && (
+                <span className="agent-badge">{unreadCount}</span>
+              )}
             </Link>
           )}
           

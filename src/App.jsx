@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { DataProvider } from './context/DataContext';
+import { AIAgentProvider } from './context/AIAgentContext';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
@@ -27,6 +29,9 @@ import HistoryPage from './pages/Dashboards/Common/HistoryPage';
 import SubscriptionPage from './pages/Dashboards/Common/SubscriptionPage';
 import ElanlarPage from './pages/Dashboards/Common/ElanlarPage';
 
+// Agent
+import AgentPage from './pages/Dashboards/Agent/AgentPage';
+
 function PrivateRoute({ children, allowedRole }) {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
@@ -38,43 +43,48 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
-          <Navbar />
-          <div className="app-content">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              
-              <Route path="/dashboard" element={<DashboardLayout />}>
-                {/* Company Routes */}
-                <Route path="company" element={<PrivateRoute allowedRole="company"><CompanyDashboard /></PrivateRoute>} />
-                <Route path="company/operations" element={<PrivateRoute allowedRole="company"><CompanyOperations /></PrivateRoute>} />
-                <Route path="company/analytics" element={<PrivateRoute allowedRole="company"><CompanyAnalytics /></PrivateRoute>} />
+        <DataProvider>
+          <AIAgentProvider>
+            <Router>
+              <Navbar />
+              <div className="app-content">
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  
+                  <Route path="/dashboard" element={<DashboardLayout />}>
+                    {/* Company Routes */}
+                    <Route path="company" element={<PrivateRoute allowedRole="company"><CompanyDashboard /></PrivateRoute>} />
+                    <Route path="company/operations" element={<PrivateRoute allowedRole="company"><CompanyOperations /></PrivateRoute>} />
+                    <Route path="company/analytics" element={<PrivateRoute allowedRole="company"><CompanyAnalytics /></PrivateRoute>} />
 
-                {/* University Routes */}
-                <Route path="university" element={<PrivateRoute allowedRole="university"><UniversityDashboard /></PrivateRoute>} />
-                <Route path="university/operations" element={<PrivateRoute allowedRole="university"><UniversityOperations /></PrivateRoute>} />
-                <Route path="university/analytics" element={<PrivateRoute allowedRole="university"><UniversityAnalytics /></PrivateRoute>} />
+                    {/* University Routes */}
+                    <Route path="university" element={<PrivateRoute allowedRole="university"><UniversityDashboard /></PrivateRoute>} />
+                    <Route path="university/operations" element={<PrivateRoute allowedRole="university"><UniversityOperations /></PrivateRoute>} />
+                    <Route path="university/analytics" element={<PrivateRoute allowedRole="university"><UniversityAnalytics /></PrivateRoute>} />
 
-                {/* Course Routes */}
-                <Route path="course" element={<PrivateRoute allowedRole="course"><CourseDashboard /></PrivateRoute>} />
-                <Route path="course/operations" element={<PrivateRoute allowedRole="course"><CourseOperations /></PrivateRoute>} />
-                <Route path="course/analytics" element={<PrivateRoute allowedRole="course"><CourseAnalytics /></PrivateRoute>} />
-                
-                {/* Student Routes */}
-                <Route path="student" element={<PrivateRoute allowedRole="student"><StudentDashboard /></PrivateRoute>} />
-                <Route path="student/operations" element={<PrivateRoute allowedRole="student"><StudentOperations /></PrivateRoute>} />
+                    {/* Course Routes */}
+                    <Route path="course" element={<PrivateRoute allowedRole="course"><CourseDashboard /></PrivateRoute>} />
+                    <Route path="course/operations" element={<PrivateRoute allowedRole="course"><CourseOperations /></PrivateRoute>} />
+                    <Route path="course/analytics" element={<PrivateRoute allowedRole="course"><CourseAnalytics /></PrivateRoute>} />
+                    
+                    {/* Student Routes */}
+                    <Route path="student" element={<PrivateRoute allowedRole="student"><StudentDashboard /></PrivateRoute>} />
+                    <Route path="student/operations" element={<PrivateRoute allowedRole="student"><StudentOperations /></PrivateRoute>} />
 
-                {/* Common Routes */}
-                <Route path=":role/history" element={<HistoryPage />} />
-                <Route path=":role/subscription" element={<SubscriptionPage />} />
-                <Route path=":role/elanlar" element={<ElanlarPage />} />
-                <Route path=":role/profile" element={<ProfilePage />} />
-                <Route path=":role/settings" element={<SettingsPage />} />
-              </Route>
-            </Routes>
-          </div>
-        </Router>
+                    {/* Common Routes */}
+                    <Route path=":role/history" element={<HistoryPage />} />
+                    <Route path=":role/subscription" element={<SubscriptionPage />} />
+                    <Route path=":role/elanlar" element={<ElanlarPage />} />
+                    <Route path=":role/agent" element={<AgentPage />} />
+                    <Route path=":role/profile" element={<ProfilePage />} />
+                    <Route path=":role/settings" element={<SettingsPage />} />
+                  </Route>
+                </Routes>
+              </div>
+            </Router>
+          </AIAgentProvider>
+        </DataProvider>
       </AuthProvider>
     </ThemeProvider>
   );
