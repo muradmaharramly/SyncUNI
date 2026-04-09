@@ -15,6 +15,40 @@
   min-height: calc(100vh - 73px);
   background-color: $bg;
   position: relative;
+  .agent-icon-wrap-sidebar {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(167,139,250,0.1));
+  border-radius: $radius-xl;
+  border: 1px solid rgba(99,102,241,0.3);
+
+  
+
+  .agent-pulse {
+    position: absolute;
+    top: 36%;
+    right: 36%;
+    width: 6px;
+    height: 6px;
+    background: #6366f1;
+    border-radius: 50%;
+    border: 2px solid var(--bg-card);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #6366f1;
+      border-radius: 50%;
+      animation: pulse-ring 1.8s ease-out infinite;
+    }
+  }
+}
   
   // Decorative ambient glows for soft-modern aesthetic
   &::before {
@@ -54,8 +88,8 @@
     transition: width 0.3s ease;
 
     .agent-badge{
-      width: 30px;
-      height: 30px;
+      width: 22px;
+      height: 22px;
       display: flex;
       justify-content: center;
       align-items: center;
