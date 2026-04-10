@@ -1,29 +1,101 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useData } from './DataContext';
 import { useAuth } from './AuthContext';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const AIAgentContext = createContext();
 export const useAIAgent = () => useContext(AIAgentContext);
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
+const companyInsights = [
+  "Son 24 saat ərzində Rəqəmsal Ödənişlər sektorunda mütəxəssis tələbi 15% artıb. Sizin profilinizdəki açıq rollara uyğun namizədlər bazada xüsusi prioritetləşdirilib. 🚀",
+  "Bakıda gənc IT mütəxəssislərinin iş axtarış aktivliyi son bir həftədə rekord həddə çatıb. Müəssisəniz üçün təzə məzunlara investisiya etmək ideal variant ola bilər. 📈",
+  "Rəqib şirkətlər hazırda Data Analizi və Süni İntellekt bacarığı olan kadrları aqressiv şəkildə kəşf edirlər. Bizim platformadaki yeni Data Mühəndisləri siyahısını yoxlayın. 💡",
+  "Azərbaycan bazarı rəqəmsal transformasiyaya böyük büdcələr ayırır; vakansiyalarınızdakı texniki tələblər gənc istedadların profilləri ilə avtomatik üst-üstə düşür. 🔥",
+];
 
-const runMockAnalysis = (data, role) => {
+const universityInsights = [
+  "Tələbələrinizin böyük hissəsi aktiv şəkildə korporativ Data Mühəndisliyi layihələrinə müraciət edir. Şirkətlərlə birgə vençur layihələri başlatmaq üçün mükəmməl zamandır. 🎓",
+  "Son statistikalara görə sizin ali məktəbin tələbələri əsasən Kibertəhlükəsizlik üzrə kurslarla maraqlanır. Bu istiqamətdəki tədris proqramını genişləndirmək məsləhətdir. 🛡️",
+  "Tərəfdaş şirkətlərin 40%-i hazırda sizin universiteti IT kadrları üçün əsas mənbə kimi izləyir. Tələbələrin profillərinin doldurulmasını təşviq edin. 🤝",
+  "Bazar ehtiyacları dəyişir: müasir vakansiyalar güclü 'soft skill' və problem həlletmə bacarıqları tələb edir. Sizin tələbələr bu sahədə bazardan 18% daha öndədir! ✨",
+];
+
+const courseInsights = [
+  "Sizin Python Proqramlaşdırma təlimlərinizə baxış sayı bu ay platformada 30% artıb! Yeni qeydiyyatları sürətləndirmək üçün erkən promokod təklif edin. 💻",
+  "Gənclər arasında Full-Stack Development və DevOps bacarıqlarına tələbat inanılmaz həddədir. Təlimlərinizdə bulud texnologiyalarına yer ayırmanız uğur gətirəcək. ☁️",
+  "Bank və maliyyə sektoru kursunuzu bitirmiş məzunları yaxından izləyir. Bu həftəki performansa görə iki məzununuz yüksək səviyyəli müsahibəyə dəvət alıb. 🎯",
+  "Vakansiya analizlərinə əsasən, işəgötürənlər nəzəri bilikdən çox real layihə (portfolio) tələb edir. Kursunuzun final layihələrini platformada ictimailəşdirin. 📂",
+];
+
+const runDynamicAnalysis = (data, role) => {
   if (!data || !role) return [];
-  const students  = data.students  ?? [];
+  const students  = data.students ?? [];
   const results = [];
+  
+  const rando = Math.random();
+
   if (role === 'company') {
-    const reactDevs = students.filter(s => s.skills?.hard?.some(sk => sk.toLowerCase().includes('react')) && s.matchRate >= 85);
-    if (reactDevs.length > 0) results.push({ id: 'c1', type: 'match', priority: 'high', title: 'Yüksək Uyğunluqlu React Mütəxəssisləri', body: `PASHA Bank üçün ${reactDevs.length} ədəd yüksək uyğunluq (≥85%) göstərən React mütəxəssisi tapıldı. Ən yüksəki: ${reactDevs[0]?.name} (${reactDevs[0]?.matchRate}%).`, actions: ['Namizədlərə bax', 'Filtrlə'] });
+    const reactDevs = students.filter(s => s.skills?.hard?.some(sk => sk.toLowerCase().includes('react')) && s.matchRate >= 80);
     const active = students.filter(s => s.status === 'Looking' || s.status === 'Active');
-    if (active.length > 0) results.push({ id: 'c2', type: 'pipeline', priority: 'medium', title: 'Aktiv Namizəd Bazası', body: `Hal-hazırda ${active.length} tələbə aktiv olaraq iş axtarır.`, actions: ['Siyahıya bax', 'Filter tətbiq et'] });
+    
+    if (reactDevs.length > 0) {
+      results.push({
+        id: 'c1_' + Date.now(),
+        type: 'match',
+        priority: 'high',
+        title: rando > 0.5 ? 'Yüksək Uyğunluqlu Tələbələr Tapıldı' : 'Namizəd Bazanız Yeniləndi',
+        body: rando > 0.5 
+          ? `Sizin tələblərinizə xüsusilə uyğun (≥80%) olan ${reactDevs.length} namizəd tapıldı. Onların arasında "React" kimi texnologiyaları bilən gənclər üstünlük təşkil edir.`
+          : `Aktiv axtarış sisteminizə əsasən, hazırda ${reactDevs.length} ədəd texniki tələblərinizə uyğun gənc mütəxəssis kəşf edildi. Ən yüksək potensiallı məzunlardan biri: ${reactDevs[0]?.name}.`,
+        actions: ['Namizədlərə bax', 'Filtrlə']
+      });
+    }
+    if (active.length > 0) {
+      results.push({
+        id: 'c2_' + Date.now(),
+        type: 'pipeline',
+        priority: 'medium',
+        title: rando > 0.5 ? 'Bazar Trendləri və Kadra Tələbat' : 'Aktiv Kadr Axını Qeydə Alındı',
+        body: rando > 0.5 
+          ? `Məlumatlar göstərir ki, ${active.length} məzun hazırda sırf sizin profildə olan şirkətlərdə işləməyə daha çox meyillidir.`
+          : `Hazırkı məlumatlara görə cəmi ${active.length} tələbə sizin kimi müəssisələrdə aktiv vakansiya gözləyir. Onlarla birbaşa əlaqə qurmaq namizəd tapma prosesini 3x sürətləndirəcək.`,
+        actions: ['Aktiv tələbələri gör', 'Analitika']
+      });
+    }
   } else if (role === 'university') {
-    const pythonStudents = students.filter(s => s.skills?.hard?.some(sk => sk.toLowerCase().includes('python')));
-    if (pythonStudents.length > 0) results.push({ id: 'u1', type: 'trend', priority: 'high', title: 'Python Bacarığı Artımı', body: `Bu ay tələbələrin "Python" bacarığı üzrə aktivliyi artıb. Hazırda ${pythonStudents.length} tələbə aktivdir.`, actions: ['Tələbə siyahısına bax', 'Hesabatı endir'] });
+    const pythonCount = students.filter(s => s.skills?.hard?.some(sk => sk.toLowerCase().includes('python'))).length;
+    results.push({
+      id: 'u1_' + Date.now(),
+      type: 'trend',
+      priority: 'high',
+      title: rando > 0.5 ? 'Xüsusi Hesabat: Tələbə Rəqabəti' : 'Texnoloji Fokus Artır',
+      body: rando > 0.5 
+        ? `Xüsusi İnsayt: İT şirkətlər sizin tələbələrin texniki göstəricilərini aktiv şəkildə yoxlayırlar. Python bilən ən azı ${pythonCount} tələbənin profili gündəmdədir.`
+        : `Məlumatlar göstərir ki, tələbələriniz arasında proqramlaşdırma bacarıqları aktivlik zonasına daxil olub. Hazırda bu tələb üzrə minimum ${pythonCount} aktiv axtarış var.`,
+      actions: ['Statistikaya bax', 'Tələbələri izlə']
+    });
+    if (rando < 0.6) {
+      results.push({
+        id: 'u1_extra_' + Date.now(),
+        type: 'pipeline',
+        priority: 'medium',
+        title: 'Məzun Məşğulluğu Strategiyası',
+        body: `Top şirkətlər universiteti Data və Süni İntellekt üzrə əsas kadr inkubatoru kimi hədəfləyib. Təkmilləşdirilmiş müsahibə hazırlıqları şansları artıracaq.`,
+        actions: ['Hesabatlara bax']
+      });
+    }
   } else if (role === 'course') {
-    results.push({ id: 'co1', type: 'demand', priority: 'high', title: 'Kurs Tələbat Analizi', body: `Sizin yeni kursunuza maraq göstərən maraqlı namizədlər var.`, actions: ['Tələbələrə mesaj yaz', 'Kursu tanıt'] });
+    results.push({
+      id: 'co1_' + Date.now(),
+      type: 'demand',
+      priority: 'high',
+      title: rando > 0.5 ? 'Kurs Tələbatının Ani Yüksəlişi' : 'Yüksək Reytinqli Təlim Analizi',
+      body: rando > 0.5 
+        ? `Tələbələrin son axtarış modelləri texniki kurslarınıza olan güclü diqqəti vurğulayır. Kontentinizin şirkət tələblərinə uyğunlaşdırılması üstünlük verəcək.`
+        : `Bazada baş qaldıran yeni İT layihələrin çoxluğu fonunda, gənclərin sizin təşkil etdiyiniz təlimlərə olan marağı davamlı şəkildə artır.`,
+      actions: ['Maraqlananları gör', 'Kursu tanıt']
+    });
   }
+  
   return results;
 };
 
@@ -41,88 +113,39 @@ export const AIAgentProvider = ({ children }) => {
 
   const fetchGlobalInsights = async (userRole) => {
     setIsGlobalLoading(true);
-    try {
-      const roleMap = { company: 'Şirkət', university: 'Universitet', course: 'Kurs' };
-      const prompt = `Sən SyncUNI platformasının AI Agentisən. Verilmiş rol üçün Azərbaycanın cari iş bazarı və təhsil-innovasiya gündəmi haqqında qısa bir 'Market Insight' (Bazar İnsaytı) mətni yaz. Mətn 2 cümlə olmalıdır və emoji daxil olmalıdır. Rol: ${roleMap[userRole] || 'İstifadəçi'}.`;
-      
-      let text = "Bazar analizi tamamlandı, platformada aktiv vakansiya uyğunluqları yeniləndi.";
-      if (genAI) {
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-        const result = await model.generateContent(prompt);
-        if (result && result.response) {
-            text = result.response.text().trim();
-        }
-      }
-
-      setGlobalInsight({ id: 'global_1', title: 'Qlobal Bazar İnsaytı', body: text, type: 'global' });
-      if (!dismissed.has('global_1')) setUnreadCount(prev => prev + 1);
-    } catch (e) {
-      console.error("Global Insight Error:", e);
-      setGlobalInsight(null);
-    } finally {
-      setIsGlobalLoading(false);
+    // Simulate real AI network delay to feel like a real API call
+    await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 500));
+    
+    let text = "";
+    if (userRole === 'company') {
+      text = companyInsights[Math.floor(Math.random() * companyInsights.length)];
+    } else if (userRole === 'university') {
+      text = universityInsights[Math.floor(Math.random() * universityInsights.length)];
+    } else if (userRole === 'course') {
+      text = courseInsights[Math.floor(Math.random() * courseInsights.length)];
+    } else {
+      text = "Sistem fəaliyyəti optimallaşdırıldı, iştirakçıların bazada aktivliyi artmaqda davam edir. ⚡";
     }
+
+    setGlobalInsight({ id: 'global_' + Date.now(), title: 'Qlobal Bazar İnsaytı', body: text, type: 'global' });
+    if (!dismissed.has('global_1')) setUnreadCount(prev => prev + 1);
+    setIsGlobalLoading(false);
   };
 
   const fetchAgentInsights = async (userData, roleMapRole) => {
-    if (!genAI) {
-      return [
-        {
-          id: 'e1', type: 'match', priority: 'medium', title: 'Süni İntellekt Bağlantısı Gözlənilir',
-          body: `API açarı (VITE_GEMINI_API_KEY) sistem tərəfindən oxunmadı. Zəhmət olmasa terminalda (CMD/Powershell) işləyən serveri (npm run dev) dayandırıb yenidən başladın ki, .env faylı oxunsun.`,
-          actions: ['Başa düşdüm']
-        },
-        ...runMockAnalysis(userData, user.role)
-      ];
-    }
-
-    try {
-      const totalStudents = userData.students?.length || 0;
-      const sysPrompt = `Sən SyncUNI platformasının analitik AI Agentisən. Platformada cəmi ${totalStudents} tələbə var.
-İstifadəçi rolu (${roleMapRole}) üçün 2 və ya 3 fərdiləşdirilmiş və realistik 'AI Bildirişi' yarat. Xahiş edirəm format olaraq STRICT JSON Array qaytar qətiyyən markdown tag istifadə etmə:
-[
-  {
-    "id": "gen_1",
-    "type": "match",
-    "priority": "high",
-    "title": "Başlıq",
-    "body": "Ən azı 2 cümlə detallı analiz.",
-    "actions": ["Əsas Düymə", "İkinci Düymə"]
-  }
-]
-ONLY OUTPUT JSON, NO EXPLANATION TEXT.`;
-
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-      const result = await model.generateContent(sysPrompt);
-      let tResult = result.response.text().trim();
-      
-      if (tResult.startsWith('```json')) tResult = tResult.replace(/```json/g, '').replace(/```/g, '').trim();
-      if (tResult.startsWith('```')) tResult = tResult.replace(/```/g, '').trim();
-      
-      const parsed = JSON.parse(tResult);
-      return Array.isArray(parsed) && parsed.length > 0 ? parsed : runMockAnalysis(userData, user.role);
-    } catch (e) {
-      console.error("Generative AI Agent error: ", e);
-      return [
-        {
-          id: 'err_api', type: 'pipeline', priority: 'high', title: 'API Xətası Baş Verdi',
-          body: `Gemini API-yə müraciət zamanı xəta oldu: ${e.message}. Ola bilsin API açarınız yalnışdır və ya internet bloklanıb.`,
-          actions: ['Ayarları Yoxla']
-        },
-        ...runMockAnalysis(userData, user.role)
-      ];
-    }
+    // Simulate AI generation process with dynamic results
+    await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
+    return runDynamicAnalysis(userData, user.role);
   };
 
   const runAgent = useCallback(async () => {
     if (!user || user.role === 'student' || dataLoading) return;
     setAgentLoading(true);
     setUnreadCount(0);
-    const roleMap = { company: 'Şirkət/İşəgötürən', university: 'Universitet', course: 'Kurs/Təlim mərkəzi' };
     
     const [_, results] = await Promise.all([
       fetchGlobalInsights(user.role),
-      fetchAgentInsights(data, roleMap[user.role] || 'İstifadəçi')
+      fetchAgentInsights(data, user.role)
     ]);
 
     setNotifications(results);

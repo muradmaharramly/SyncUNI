@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 import { PuffLoader } from 'react-spinners';
 import './AgentPage.scss';
+import { RiRefreshLine } from 'react-icons/ri';
 
 const PRIORITY_COLORS = {
   high:   { bg: 'rgba(239,68,68,0.08)',   border: 'rgba(239,68,68,0.25)',   dot: '#ef4444',  label: 'Yüksək' },
@@ -84,7 +85,7 @@ const AgentPage = () => {
             disabled={agentLoading}
             title="Yenidən analiz et"
           >
-            <FiRefreshCw />
+            <RiRefreshLine />
           </button>
         </div>
       </div>
