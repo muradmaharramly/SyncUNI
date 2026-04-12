@@ -5,6 +5,8 @@ import { useAuth } from './AuthContext';
 const AIAgentContext = createContext();
 export const useAIAgent = () => useContext(AIAgentContext);
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const companyInsights = [
   "Son 24 saat ərzində Rəqəmsal Ödənişlər sektorunda mütəxəssis tələbi 15% artıb. Sizin profilinizdəki açıq rollara uyğun namizədlər bazada xüsusi prioritetləşdirilib. 🚀",
   "Bakıda gənc IT mütəxəssislərinin iş axtarış aktivliyi son bir həftədə rekord həddə çatıb. Müəssisəniz üçün təzə məzunlara investisiya etmək ideal variant ola bilər. 📈",
@@ -113,18 +115,26 @@ export const AIAgentProvider = ({ children }) => {
 
   const fetchGlobalInsights = async (userRole) => {
     setIsGlobalLoading(true);
-    // Simulate real AI network delay to feel like a real API call
-    await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 500));
-    
     let text = "";
-    if (userRole === 'company') {
-      text = companyInsights[Math.floor(Math.random() * companyInsights.length)];
-    } else if (userRole === 'university') {
-      text = universityInsights[Math.floor(Math.random() * universityInsights.length)];
-    } else if (userRole === 'course') {
-      text = courseInsights[Math.floor(Math.random() * courseInsights.length)];
-    } else {
-      text = "Sistem fəaliyyəti optimallaşdırıldı, iştirakçıların bazada aktivliyi artmaqda davam edir. ⚡";
+
+    try {
+      const res = await fetch(`${API_URL}/ai/global`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userRole })
+      });
+      const data = await res.json();
+      text = data.text;
+    } catch (error) {
+      console.error("AI Global Insight fetch error:", error);
+    }
+
+    if (!text) {
+      // Fallback
+      if (userRole === 'company') text = companyInsights[Math.floor(Math.random() * companyInsights.length)];
+      else if (userRole === 'university') text = universityInsights[Math.floor(Math.random() * universityInsights.length)];
+      else if (userRole === 'course') text = courseInsights[Math.floor(Math.random() * courseInsights.length)];
+      else text = "Sistem fəaliyyəti optimallaşdırıldı, aktivlik artmaqda davam edir (Süni İntellekt Bağlantısı Yoxdur).";
     }
 
     setGlobalInsight({ id: 'global_' + Date.now(), title: 'Qlobal Bazar İnsaytı', body: text, type: 'global' });
@@ -133,9 +143,30 @@ export const AIAgentProvider = ({ children }) => {
   };
 
   const fetchAgentInsights = async (userData, roleMapRole) => {
-    // Simulate AI generation process with dynamic results
-    await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
-    return runDynamicAnalysis(userData, user.role);
+    try {
+      const summary = {
+        totalStudents: userData.students?.length || 0,
+        activeStudents: userData.students?.filter(s => s.status === 'Looking' || s.status === 'Active').length || 0,
+        studentsWithReact: userData.students?.filter(s => s.skills?.hard?.some(sk => sk.toLowerCase().includes('react'))).length || 0,
+        studentsWithPython: userData.students?.filter(s => s.skills?.hard?.some(sk => sk.toLowerCase().includes('python'))).length || 0,
+      };
+
+      const res = await fetch(`${API_URL}/ai/personalized`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ summary, userRole: roleMapRole })
+      });
+      const data = await res.json();
+      
+      if (!data.success) {
+        return runDynamicAnalysis(userData, roleMapRole);
+      }
+      
+      return data.insights.map((p, ix) => ({ ...p, id: 'ai_' + Date.now() + '_' + ix }));
+    } catch (e) {
+      console.error("AI Agent Endpoint fetch error:", e);
+      return runDynamicAnalysis(userData, roleMapRole);
+    }
   };
 
   const runAgent = useCallback(async () => {

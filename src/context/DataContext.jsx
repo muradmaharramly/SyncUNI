@@ -5,8 +5,7 @@ import toast from 'react-hot-toast';
 const DataContext = createContext();
 export const useData = () => useContext(DataContext);
 
-const API_URL    = import.meta.env.VITE_JSONBIN_URL;
-const API_KEY    = import.meta.env.VITE_JSONBIN_KEY;
+const API_URL    = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const transformStudent = (s) => ({
   id:            s.id?.toUpperCase() ?? s.id,
@@ -45,9 +44,7 @@ export const DataProvider = ({ children }) => {
   const fetchApiData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(API_URL, {
-        headers: { 'X-Master-Key': API_KEY },
-      });
+      const res = await fetch(`${API_URL}/ecosystem`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const json = await res.json();
@@ -57,11 +54,19 @@ export const DataProvider = ({ children }) => {
 
       const apiStudents  = (eco.students      ?? []).map(transformStudent);
       const apiJobs      = (eco.job_listings  ?? []).map(transformJob);
+      
+      // Also grab others if needed or keep using dummy for them, but let's map them
+      const companies = eco.companies || prev.companies;
+      const universities = eco.universities || prev.universities;
+      const courses = eco.courses || prev.courses;
 
       setData(prev => ({
         ...prev,
         students:     apiStudents,
         job_listings: apiJobs,
+        companies:    companies,
+        universities: universities,
+        courses:      courses
       }));
       setApiOk(true);
     } catch (err) {
@@ -77,7 +82,15 @@ export const DataProvider = ({ children }) => {
 
   useEffect(() => { fetchApiData(); }, [fetchApiData]);
 
-  const hireStudent = (studentId) => {
+  const hireStudent = async (studentId) => {
+    try {
+      await fetch(`${API_URL}/students/${studentId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'Hired', matchRateIncrease: 5 })
+      });
+    } catch(e) { console.error("Hire API error", e); }
+    
     setData(prev => ({
       ...prev,
       students:     prev.students.map(s =>
@@ -91,9 +104,18 @@ export const DataProvider = ({ children }) => {
     toast.success('Namizəd işə qəbul edildi! Analitika yeniləndi ✅');
   };
 
-  const updateFunnelStatus = (studentId, newStage) => {
+  const updateFunnelStatus = async (studentId, newStage) => {
     const statusMap = { Applicants: 'Looking', Interview: 'Active', Verified: 'Active', Offer: 'Hired' };
     const exactStatus = statusMap[newStage] || 'Active';
+    
+    try {
+      await fetch(`${API_URL}/students/${studentId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: exactStatus, funnelStage: newStage })
+      });
+    } catch(e) { console.error("Funnel API error", e); }
+
     setData(prev => ({
       ...prev,
       students: prev.students.map(s =>
@@ -103,7 +125,11 @@ export const DataProvider = ({ children }) => {
     toast.success(`Namizəd ${newStage} mərhələsinə keçirildi.`);
   };
 
-  const endorseStudent = (studentId) => {
+  const endorseStudent = async (studentId) => {
+    try {
+      await fetch(`${API_URL}/students/${studentId}/endorse`, { method: 'PUT' });
+    } catch(e) { console.error("Endorse API error", e); }
+
     setData(prev => ({
       ...prev,
       students: prev.students.map(s =>
