@@ -125,7 +125,7 @@ const LoginPage = () => {
                       </button>
                     </div>
                   </div>
-                  <motion.button type="submit" className="lf-submit" disabled={loading}
+                  <motion.button type="submit" className="lf-submit btn--primary" disabled={loading}
                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                     {loading ? <span className="lf-spinner" /> : 'Daxil Ol'}
                     {!loading && <FiArrowRight />}

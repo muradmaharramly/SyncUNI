@@ -206,7 +206,7 @@ const RegisterPage = () => {
                     </div>
                   )}
 
-                  <button type="submit" className="lf-submit" disabled={loading}>
+                  <button type="submit" className="lf-submit btn--primary" disabled={loading}>
                     {loading ? <span className="lf-spinner" /> : 'Qeydiyyatdan Keç'}
                   </button>
                 </form>

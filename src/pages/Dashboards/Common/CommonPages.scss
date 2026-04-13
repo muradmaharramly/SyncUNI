@@ -41,6 +41,7 @@
 
   .date-filter {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: $spacing-4;
     flex-wrap: wrap;
@@ -51,6 +52,12 @@
       color: $primary;
       font-size: $font-xl;
       flex-shrink: 0;
+    }
+    .filter-right{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: $spacing-2;
     }
 
     label {
@@ -90,7 +97,6 @@
     }
 
     .filter-count {
-      margin-left: auto;
       font-size: $font-sm;
       color: var(--text-muted);
       font-weight: 500;
@@ -143,10 +149,14 @@
     .status-badge {
       display: inline-block;
       padding: 4px 12px;
-      border-radius: $radius-full;
       font-size: $font-sm;
       font-weight: 600;
-      &.success  { background: rgba(16,185,129,0.1); color: #10b981; }
+      border-radius: $radius-sm;
+      -webkit-border-radius: $radius-sm;
+      -moz-border-radius: $radius-sm;
+      -ms-border-radius: $radius-sm;
+      -o-border-radius: $radius-sm;
+       &.success{ background: rgba(16,185,129,0.1); color: #10b981; }
       &.pending  { background: rgba(245,158,11,0.1);  color: #f59e0b; }
       &.analyzed { background: rgba(59,130,246,0.1);  color: #3b82f6; }
     }
@@ -290,7 +300,11 @@
   width: 100%;
   max-width: 480px;
   padding: $spacing-8;
-  border-radius: $radius-xl;
+  border-radius: $radius-sm;
+      -webkit-border-radius: $radius-sm;
+      -moz-border-radius: $radius-sm;
+      -ms-border-radius: $radius-sm;
+      -o-border-radius: $radius-sm;
   .status-badge{
      &.success  {color: #10b981; }
       &.pending  {color: #f59e0b; }

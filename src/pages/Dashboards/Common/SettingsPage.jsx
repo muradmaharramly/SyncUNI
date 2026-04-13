@@ -39,7 +39,7 @@ const SettingsPage = () => {
                <h4 style={{color: '#ef4444', marginBottom: '0.2rem'}}>Təhlükəli Zona</h4>
                <p style={{fontSize: '0.85rem', color: 'var(--text-muted)'}}>Bütün hesabatlarınızı və tarixcənizi ləğv edir</p>
              </div>
-             <button style={{padding: '0.5rem 1rem', background: '#ef4444', color: 'white', border: 'none', borderRadius: '2rem', cursor: 'pointer', fontWeight: 'bold'}}>Hesabı Sıfırla</button>
+             <button style={{padding: '0.5rem 1rem', background: '#ef4444', color: 'white', border: 'none', borderRadius: '0.4rem', cursor: 'pointer', fontWeight: 'bold'}}>Hesabı Sıfırla</button>
            </div>
         </div>
       </div>

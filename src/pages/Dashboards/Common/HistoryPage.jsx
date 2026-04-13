@@ -61,7 +61,9 @@ const HistoryPage = () => {
 
       {}
       <div className="date-filter glass-panel">
-        <FiFilter className="filter-icon" />
+        <span className="filter-count">{filtered.length} nəticə</span>
+        <div className='filter-right'>
+          <FiFilter className="filter-icon" />
         <label>Başlanğıc:</label>
         <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
         <label>Son:</label>
@@ -71,7 +73,8 @@ const HistoryPage = () => {
             <FiX /> Sıfırla
           </button>
         )}
-        <span className="filter-count">{filtered.length} nəticə</span>
+        </div>
+        
       </div>
 
       {}

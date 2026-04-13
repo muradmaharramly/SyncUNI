@@ -203,7 +203,7 @@ const ElanCard = ({ elan, onDetail }) => {
         </div>
         <div className="elan-actions">
           <button className="btn-detail" onClick={() => onDetail(elan)}>
-            <FiExternalLink /> Ətraflı
+             Ətraflı
           </button>
           <button className="btn btn--primary btn-cta">
             {elan.cta} <FiArrowRight />

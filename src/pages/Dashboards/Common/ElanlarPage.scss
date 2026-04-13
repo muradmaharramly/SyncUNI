@@ -94,7 +94,7 @@
       }
 
       &.active {
-        background: $primary;
+        background: linear-gradient(135deg, $primary, $secondary);  
         color: white;
         border-color: $primary;
         box-shadow: 0 4px 12px rgba($primary, 0.35);
@@ -215,7 +215,10 @@
           gap: 4px;
           font-size: 0.78rem;
           color: var(--text-muted);
-          svg { font-size: 0.8rem; }
+          svg { 
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+           }
         }
       }
 
