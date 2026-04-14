@@ -95,6 +95,7 @@
   }
 }
 
+
 .login-actions {
   width: 100%;
   max-width: 550px;
@@ -363,4 +364,17 @@
       text-decoration: underline;
     }
   }
+}
+
+@media  (max-width: 768pc) {
+  .login-info{
+    display: none;
+  }
+  .login-page{
+    padding: $spacing-4 0;
+  }
+  .login-actions{
+    padding: $spacing-6;
+    
+  }  
 }
