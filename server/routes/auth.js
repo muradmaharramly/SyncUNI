@@ -2,15 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { db, dbRun, dbAll } = require('../db');
-
-const JWT_SECRET = process.env.JWT_SECRET || 'syncuni_jwt_secret_2026';
-const SALT_ROUNDS = 10;
-
-// Helper to get one row
-const dbGet = (query, params) => new Promise((resolve, reject) => {
-    db.get(query, params, (err, row) => err ? reject(err) : resolve(row));
-});
+const { dbRun, dbAll, dbGet } = require('../db');
 
 // ─── REGISTER ────────────────────────────────────────────────────────────────
 // Register: University, Company, Course
@@ -34,7 +26,7 @@ router.post('/register', async (req, res) => {
 
         const password_hash = await bcrypt.hash(password, SALT_ROUNDS);
         const result = await dbRun(
-            'INSERT INTO auth_users (email, password_hash, role, name, size_range) VALUES (?, ?, ?, ?, ?)',
+            'INSERT INTO auth_users (email, password_hash, role, name, size_range) VALUES (?, ?, ?, ?, ?) RETURNING id',
             [email, password_hash, role, name, sizeRange || null]
         );
 

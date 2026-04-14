@@ -1,85 +1,124 @@
-const sqlite3 = require('sqlite3').verbose();
+const { Pool } = require('pg');
 const path = require('path');
 const fs = require('fs');
 
-const dbPath = path.join(__dirname, 'database.sqlite');
-const db = new sqlite3.Database(dbPath);
+const isProduction = process.env.NODE_ENV === 'production';
 
-db.serialize(() => {
-    // Auth: registered orgs and users
-    db.run(`CREATE TABLE IF NOT EXISTS auth_users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT UNIQUE NOT NULL,
-        password_hash TEXT NOT NULL,
-        role TEXT NOT NULL,
-        name TEXT NOT NULL,
-        org_id TEXT,
-        size_range TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`);
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: isProduction ? { rejectUnauthorized: false } : false
+});
 
-    // Students added by universities (pending activation)
-    db.run(`CREATE TABLE IF NOT EXISTS invited_students (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        uni_id INTEGER NOT NULL,
-        uni_name TEXT NOT NULL,
-        is_activated INTEGER DEFAULT 0,
-        password_hash TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`);
+// Helper to convert SQLite "?" placeholders to PostgreSQL "$1, $2, ..."
+const convertPlaceholders = (sql) => {
+    let index = 1;
+    return sql.replace(/\?/g, () => `$${index++}`);
+};
 
-    db.run(`CREATE TABLE IF NOT EXISTS students (
-        id TEXT PRIMARY KEY,
-        name TEXT,
-        uni TEXT,
-        major TEXT,
-        gpa REAL,
-        skills TEXT,
-        verifyStatus TEXT,
-        activityScore INTEGER,
-        matchRate INTEGER,
-        status TEXT,
-        timeline TEXT
-    )`);
+const dbRun = async (query, params = []) => {
+    const formattedSql = convertPlaceholders(query);
+    const res = await pool.query(formattedSql, params);
+    // Mimic SQLite result structure (lastID, changes)
+    // Note: To get lastID, the query should have RETURNING id
+    return { 
+        lastID: res.rows[0]?.id || null, 
+        changes: res.rowCount 
+    };
+};
 
-    db.run(`CREATE TABLE IF NOT EXISTS companies (
-        id TEXT PRIMARY KEY,
-        name TEXT,
-        industry TEXT,
-        activeRoles INTEGER,
-        hired INTEGER,
-        efficiency REAL
-    )`);
+const dbAll = async (query, params = []) => {
+    const formattedSql = convertPlaceholders(query);
+    const res = await pool.query(formattedSql, params);
+    return res.rows;
+};
 
-    db.run(`CREATE TABLE IF NOT EXISTS courses (
-        id TEXT PRIMARY KEY,
-        name TEXT,
-        instructor TEXT,
-        category TEXT,
-        rating REAL,
-        enrolled INTEGER
-    )`);
-    
-    db.run(`CREATE TABLE IF NOT EXISTS universities (
-        id TEXT PRIMARY KEY,
-        name TEXT,
-        activeStudents INTEGER,
-        placementRate REAL,
-        events INTEGER
-    )`);
+const dbGet = async (query, params = []) => {
+    const rows = await dbAll(query, params);
+    return rows[0] || null;
+};
 
-    db.run(`CREATE TABLE IF NOT EXISTS job_listings (
-        id TEXT PRIMARY KEY,
-        company TEXT,
-        title TEXT,
-        type TEXT,
-        applicants INTEGER
-    )`);
+// Initialize Database Tables
+const initDb = async () => {
+    try {
+        await pool.query('BEGIN');
 
-    db.get('SELECT COUNT(*) as cnt FROM students', (err, row) => {
-        if (row && row.cnt === 0) {
+        // Auth: registered orgs and users
+        await pool.query(`CREATE TABLE IF NOT EXISTS auth_users (
+            id SERIAL PRIMARY KEY,
+            email TEXT UNIQUE NOT NULL,
+            password_hash TEXT NOT NULL,
+            role TEXT NOT NULL,
+            name TEXT NOT NULL,
+            org_id TEXT,
+            size_range TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )`);
+
+        // Students added by universities (pending activation)
+        await pool.query(`CREATE TABLE IF NOT EXISTS invited_students (
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            uni_id INTEGER NOT NULL,
+            uni_name TEXT NOT NULL,
+            is_activated INTEGER DEFAULT 0,
+            password_hash TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )`);
+
+        await pool.query(`CREATE TABLE IF NOT EXISTS students (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            uni TEXT,
+            major TEXT,
+            gpa REAL,
+            skills TEXT,
+            verifyStatus TEXT,
+            activityScore INTEGER,
+            matchRate INTEGER,
+            status TEXT,
+            timeline TEXT
+        )`);
+
+        await pool.query(`CREATE TABLE IF NOT EXISTS companies (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            industry TEXT,
+            activeRoles INTEGER,
+            hired INTEGER,
+            efficiency REAL
+        )`);
+
+        await pool.query(`CREATE TABLE IF NOT EXISTS courses (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            instructor TEXT,
+            category TEXT,
+            rating REAL,
+            enrolled INTEGER
+        )`);
+        
+        await pool.query(`CREATE TABLE IF NOT EXISTS universities (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            activeStudents INTEGER,
+            placementRate REAL,
+            events INTEGER
+        )`);
+
+        await pool.query(`CREATE TABLE IF NOT EXISTS job_listings (
+            id TEXT PRIMARY KEY,
+            company TEXT,
+            title TEXT,
+            type TEXT,
+            applicants INTEGER
+        )`);
+
+        await pool.query('COMMIT');
+
+        // Seeding logic
+        const countRes = await pool.query('SELECT COUNT(*) FROM students');
+        if (parseInt(countRes.rows[0].count) === 0) {
             console.log("Seeding database...");
             const dataPath = path.join(__dirname, '../src/data/dummyData.js');
             try {
@@ -89,79 +128,67 @@ db.serialize(() => {
                 
                 let parsed;
                 try {
-                parsed = eval('(' + jsonStr + ')');
+                    parsed = eval('(' + jsonStr + ')');
                 } catch(e) {
-                console.error("Failed to parse dummy data for seeding.", e);
-                return;
+                    console.error("Failed to parse dummy data for seeding.", e);
+                    return;
                 }
                 
-                const insertStudent = db.prepare('INSERT INTO students VALUES (?,?,?,?,?,?,?,?,?,?,?)');
                 if (parsed.students) {
-                    parsed.students.forEach(s => {
-                        insertStudent.run(
+                    for (const s of parsed.students) {
+                        await pool.query('INSERT INTO students VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [
                             s.id, s.name, s.uni, s.major, s.gpa,
                             JSON.stringify(s.skills || {}),
                             JSON.stringify(s.verifyStatus || {}),
                             s.activityScore, s.matchRate, s.status,
                             JSON.stringify(s.timeline || [])
-                        );
-                    });
+                        ]);
+                    }
                 }
-                insertStudent.finalize();
 
-                const insertJob = db.prepare('INSERT INTO job_listings VALUES (?,?,?,?,?)');
                 if (parsed.job_listings) {
-                    parsed.job_listings.forEach(j => {
-                        insertJob.run(j.id, j.company, j.title, j.type, j.applicants || 0);
-                    });
+                    for (const j of parsed.job_listings) {
+                        await pool.query('INSERT INTO job_listings VALUES ($1, $2, $3, $4, $5)', [
+                            j.id, j.company, j.title, j.type, j.applicants || 0
+                        ]);
+                    }
                 }
-                insertJob.finalize();
 
-                const insertCompany = db.prepare('INSERT INTO companies VALUES (?,?,?,?,?,?)');
                 if (parsed.companies) {
-                    parsed.companies.forEach(c => {
-                        insertCompany.run(c.id, c.name, c.industry, c.activeRoles, c.hired, c.efficiency);
-                    });
+                    for (const c of parsed.companies) {
+                        await pool.query('INSERT INTO companies VALUES ($1, $2, $3, $4, $5, $6)', [
+                            c.id, c.name, c.industry, c.activeRoles, c.hired, c.efficiency
+                        ]);
+                    }
                 }
-                insertCompany.finalize();
                 
-                const insertUni = db.prepare('INSERT INTO universities VALUES (?,?,?,?,?)');
                 if (parsed.universities) {
-                    parsed.universities.forEach(u => {
-                        insertUni.run(u.id, u.name, u.activeStudents, u.placementRate, u.events);
-                    });
+                    for (const u of parsed.universities) {
+                        await pool.query('INSERT INTO universities VALUES ($1, $2, $3, $4, $5)', [
+                            u.id, u.name, u.activeStudents, u.placementRate, u.events
+                        ]);
+                    }
                 }
-                insertUni.finalize();
 
-                const insertCourse = db.prepare('INSERT INTO courses VALUES (?,?,?,?,?,?)');
                 if (parsed.courses) {
-                    parsed.courses.forEach(c => {
-                        insertCourse.run(c.id, c.name, c.instructor, c.category, c.rating, c.enrolled);
-                    });
+                    for (const c of parsed.courses) {
+                        await pool.query('INSERT INTO courses VALUES ($1, $2, $3, $4, $5, $6)', [
+                            c.id, c.name, c.instructor, c.category, c.rating, c.enrolled
+                        ]);
+                    }
                 }
-                insertCourse.finalize();
 
                 console.log("Database seeded successfully!");
             } catch(err) {
                 console.error("Error seeding DB", err);
             }
         }
-    });
+    } catch (err) {
+        await pool.query('ROLLBACK');
+        console.error('Initialization error:', err);
+    }
+};
 
-});
+initDb();
 
-const dbRun = (query, params) => new Promise((resolve, reject) => {
-    db.run(query, params, function(err) {
-        if (err) reject(err);
-        else resolve({ lastID: this.lastID, changes: this.changes });
-    });
-});
-
-const dbAll = (query, params) => new Promise((resolve, reject) => {
-    db.all(query, params, (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows);
-    });
-});
-
-module.exports = { db, dbRun, dbAll };
+module.exports = { pool, dbRun, dbAll, dbGet };
