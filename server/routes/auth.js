@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { dbRun, dbAll, dbGet } = require('../db');
 
+const JWT_SECRET = process.env.JWT_SECRET || 'syncuni_jwt_secret_2026';
+const SALT_ROUNDS = 10;
+
 // ─── REGISTER ────────────────────────────────────────────────────────────────
 // Register: University, Company, Course
 router.post('/register', async (req, res) => {

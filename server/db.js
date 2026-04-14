@@ -184,8 +184,12 @@ const initDb = async () => {
             }
         }
     } catch (err) {
+        if (err.message && err.message.includes('already exists')) {
+             console.log('Tables already exist, skipping initialization.');
+        } else {
+             console.error('Initialization error:', err);
+        }
         await pool.query('ROLLBACK');
-        console.error('Initialization error:', err);
     }
 };
 

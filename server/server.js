@@ -25,10 +25,11 @@ app.use('/api/auth', authRoutes);
 
 // Global Error Handler (CORS xətalarının qarşısını almaq üçün)
 app.use((err, req, res, next) => {
-    console.error('Server error:', err);
+    console.error('Server error detail:', err);
     res.status(500).json({ 
         error: 'Daxili server xətası baş verdi.', 
-        details: process.env.NODE_ENV === 'development' ? err.message : undefined 
+        message: err.message, 
+        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
     });
 });
 
