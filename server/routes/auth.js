@@ -33,6 +33,26 @@ router.post('/register', async (req, res) => {
             [email, password_hash, role, name, sizeRange || null]
         );
 
+        const userId = result.lastID.toString();
+
+        // Sync with suitable tables
+        if (role === 'company') {
+            await dbRun(
+                'INSERT INTO companies (id, name, industry, activeRoles, hired, efficiency) VALUES (?, ?, ?, ?, ?, ?)',
+                [userId, name, 'Technology', 0, 0, 0]
+            );
+        } else if (role === 'university') {
+            await dbRun(
+                'INSERT INTO universities (id, name, activeStudents, placementRate, events) VALUES (?, ?, ?, ?, ?)',
+                [userId, name, 0, 0, 0]
+            );
+        } else if (role === 'course') {
+            await dbRun(
+                'INSERT INTO courses (id, name, instructor, category, rating, enrolled) VALUES (?, ?, ?, ?, ?, ?)',
+                [userId, name, name, 'General', 5.0, 0]
+            );
+        }
+
         const token = jwt.sign(
             { id: result.lastID, email, role, name },
             JWT_SECRET,
