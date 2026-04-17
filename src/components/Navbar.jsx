@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { FiSun, FiMoon, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import Modal from './Common/Modal';
 import './Navbar.scss';
 
 const Navbar = () => {
@@ -11,10 +12,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const handleLogout = () => {
+  const confirmLogout = () => {
     logout(navigate);
     setMobileOpen(false);
+    setShowLogoutModal(false);
   };
 
   const isDashboard = location.pathname.startsWith('/dashboard');
@@ -23,6 +26,7 @@ const Navbar = () => {
   const closeMenu = () => setMobileOpen(false);
 
   return (
+    <>
     <nav className="navbar">
       <div className={isDashboard ? 'navbar__dashboard-container' : 'container navbar__container'}>
         {}
@@ -52,7 +56,7 @@ const Navbar = () => {
               <span className="navbar__user-role">{user.role}</span>
               <span className="navbar__user-name">{user.name}</span>
               {isDashboard ? (
-                <button className="btn btn--outline logout" onClick={handleLogout}>
+                <button className="btn btn--outline logout" onClick={() => setShowLogoutModal(true)}>
                   <FiLogOut /> Çıxış
                 </button>
               ) : (
@@ -95,7 +99,7 @@ const Navbar = () => {
                 <span className="navbar__user-name">{user.name}</span>
               </div>
               {isDashboard ? (
-                <button className="mobile-link mobile-link--danger" onClick={handleLogout}>
+                <button className="mobile-link mobile-link--danger" onClick={() => setShowLogoutModal(true)}>
                   <FiLogOut /> Çıxış
                 </button>
               ) : (
@@ -112,7 +116,24 @@ const Navbar = () => {
         </div>
       )}
     </nav>
-  );
+    
+    {/* LOGOUT CONFIRMATION MODAL */}
+    <Modal 
+      isOpen={showLogoutModal} 
+      onClose={() => setShowLogoutModal(false)}
+      title="Sistemdən Çıxış"
+      size="small"
+      footer={(
+        <>
+          <button className="btn btn--outline" onClick={() => setShowLogoutModal(false)}>İmtina</button>
+          <button className="btn btn--primary" style={{ background: 'var(--danger)' }} onClick={confirmLogout}>Çıxış Et</button>
+        </>
+      )}
+    >
+      <p>Sistemdən çıxmaq istədiyinizə əminsiniz? Yenidən daxil olmaq üçün e-poçt və şifrənizi daxil etməli olacaqsınız.</p>
+    </Modal>
+  </>
+);
 };
 
 export default Navbar;

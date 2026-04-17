@@ -92,26 +92,26 @@ const ELANLAR = [
 ];
 
 const FILTER_TABS = [
-  { key: 'all',            label: 'Hamısı'},
-  { key: 'kurs',           label: 'Kurslar'},
-  { key: 'tedbir',         label: 'Tədbirlər'},
-  { key: 'sertifikasiya',  label: 'Sertifikatlaşdırma'},
-  { key: 'is-vakansiyasi', label: 'İş Vakansiyaları'},
-  { key: 'konulluluq',     label: 'Könüllülük'},
-  { key: 'tecrube',        label: 'Təcrübə / Staj'},
+  { key: 'all', label: 'Hamısı' },
+  { key: 'kurs', label: 'Kurslar' },
+  { key: 'tedbir', label: 'Tədbirlər' },
+  { key: 'sertifikasiya', label: 'Sertifikatlaşdırma' },
+  { key: 'is-vakansiyasi', label: 'İş Vakansiyaları' },
+  { key: 'konulluluq', label: 'Könüllülük' },
+  { key: 'tecrube', label: 'Təcrübə / Staj' },
 ];
 
 const TYPE_COLORS = {
-  kurs:           { bg: 'rgba(59,130,246,0.12)',  color: '#3b82f6' },
-  tedbir:         { bg: 'rgba(245,158,11,0.12)',  color: '#f59e0b' },
-  sertifikasiya:  { bg: 'rgba(139,92,246,0.12)',  color: '#8b5cf6' },
-  'is-vakansiyasi':{ bg: 'rgba(16,185,129,0.12)', color: '#10b981' },
-  konulluluq:     { bg: 'rgba(236,72,153,0.12)',  color: '#ec4899' },
-  tecrube:        { bg: 'rgba(249,115,22,0.12)',  color: '#f97316' },
+  kurs: { bg: 'rgba(59,130,246,0.12)', color: '#3b82f6' },
+  tedbir: { bg: 'rgba(245,158,11,0.12)', color: '#f59e0b' },
+  sertifikasiya: { bg: 'rgba(139,92,246,0.12)', color: '#8b5cf6' },
+  'is-vakansiyasi': { bg: 'rgba(16,185,129,0.12)', color: '#10b981' },
+  konulluluq: { bg: 'rgba(236,72,153,0.12)', color: '#ec4899' },
+  tecrube: { bg: 'rgba(249,115,22,0.12)', color: '#f97316' },
 };
 
-const fmt = (n) => n >= 1000 ? `${(n/1000).toFixed(1)}K` : n;
-const fmtDate = (d) => new Date(d).toLocaleDateString('az-AZ', { day:'numeric', month:'short', year:'numeric' });
+const fmt = (n) => n >= 1000 ? `${(n / 1000).toFixed(1)}K` : n;
+const fmtDate = (d) => new Date(d).toLocaleDateString('az-AZ', { day: 'numeric', month: 'short', year: 'numeric' });
 
 const DetailModal = ({ elan, onClose }) => {
   const typeStyle = TYPE_COLORS[elan.type] || {};
@@ -131,7 +131,7 @@ const DetailModal = ({ elan, onClose }) => {
 
         <div className="elan-detail__head">
           <div className="elan-type-badge" style={{ background: typeStyle.bg, color: typeStyle.color }}>
-            {FILTER_TABS.find(t=>t.key===elan.type)?.label || elan.type}
+            {FILTER_TABS.find(t => t.key === elan.type)?.label || elan.type}
           </div>
           {elan.tier === 'vip' && <div className="vip-badge"><FiStar /> VIP</div>}
         </div>
@@ -156,11 +156,11 @@ const DetailModal = ({ elan, onClose }) => {
         </div>
 
         <div className="elan-detail__actions">
-          <button className="btn btn--primary elan-cta-big">
-            {elan.cta} <FiArrowRight />
-          </button>
           <button className="btn btn--outline" onClick={() => navigator.clipboard?.writeText(window.location.href)}>
             <FiShare2 /> Paylaş
+          </button>
+          <button className="btn btn--primary elan-cta-big">
+            {elan.cta} <FiArrowRight />
           </button>
         </div>
       </motion.div>
@@ -203,7 +203,7 @@ const ElanCard = ({ elan, onDetail }) => {
         </div>
         <div className="elan-actions">
           <button className="btn-detail" onClick={() => onDetail(elan)}>
-             Ətraflı
+            Ətraflı
           </button>
           <button className="btn btn--primary btn-cta">
             {elan.cta} <FiArrowRight />
@@ -217,13 +217,13 @@ const ElanCard = ({ elan, onDetail }) => {
 const ElanlarPage = () => {
   const { user } = useAuth();
   const [activeFilter, setActiveFilter] = useState('all');
-  const [search, setSearch]             = useState('');
+  const [search, setSearch] = useState('');
   const [selectedElan, setSelectedElan] = useState(null);
 
   const filtered = useMemo(() =>
     ELANLAR.filter(e => {
-      const matchType   = activeFilter === 'all' || e.type === activeFilter;
-      const q           = search.toLowerCase();
+      const matchType = activeFilter === 'all' || e.type === activeFilter;
+      const q = search.toLowerCase();
       const matchSearch = !q || e.title.toLowerCase().includes(q)
         || e.shortDesc.toLowerCase().includes(q)
         || e.tags.some(t => t.toLowerCase().includes(q));
@@ -236,7 +236,7 @@ const ElanlarPage = () => {
     <motion.div className="elanlar-page"
       initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
     >
-      {}
+      { }
       <div className="page-header">
         <div>
           <h2>Elanlar Lövhəsi</h2>
@@ -248,7 +248,7 @@ const ElanlarPage = () => {
         </div>
       </div>
 
-      {}
+      { }
       <div className="elan-search glass-panel">
         <FiSearch className="search-icon" />
         <input
@@ -260,9 +260,12 @@ const ElanlarPage = () => {
         {search && <button className="clear-search" onClick={() => setSearch('')}><FiX /></button>}
       </div>
 
-      {}
+      { }
       <div className="elan-filters">
-        {FILTER_TABS.map(tab => (
+        <div className="elan-results-count">
+          <span>{filtered.length} elan tapıldı</span>
+        </div>
+        <div className='elan-btns'>{FILTER_TABS.map(tab => (
           <button
             key={tab.key}
             className={`filter-tab ${activeFilter === tab.key ? 'active' : ''}`}
@@ -270,15 +273,14 @@ const ElanlarPage = () => {
           >
             {tab.icon} {tab.label}
           </button>
-        ))}
+        ))}</div>
+
       </div>
 
-      {}
-      <div className="elan-results-count">
-        <span>{filtered.length} elan tapıldı</span>
-      </div>
+      { }
 
-      {}
+
+      { }
       <AnimatePresence mode="popLayout">
         {filtered.length === 0 ? (
           <motion.div className="elan-empty-state" key="empty"
@@ -294,7 +296,7 @@ const ElanlarPage = () => {
         )}
       </AnimatePresence>
 
-      {}
+      { }
       <AnimatePresence>
         {selectedElan && (
           <DetailModal elan={selectedElan} onClose={() => setSelectedElan(null)} />

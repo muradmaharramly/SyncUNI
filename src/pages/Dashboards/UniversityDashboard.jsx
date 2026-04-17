@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useData } from '../../context/DataContext';
 import { Treemap, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { FiLock, FiStar, FiEdit3 } from 'react-icons/fi';
+import Modal from '../../components/Common/Modal';
 import './UniversityDashboard.scss';
 
 const UniversityDashboard = () => {
-  const { data: SYNC_DATA } = useData();
+  const { data: SYNC_DATA, createTemplate } = useData();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newTemplate, setNewTemplate] = useState({ title: '', content: '' });
+
   const uni = SYNC_DATA.universities[0];
   const students = SYNC_DATA.students.filter(s => s.uni === uni.name);
+
+  const handleCreateTemplate = async (e) => {
+    e.preventDefault();
+    if (!newTemplate.title || !newTemplate.content) return;
+    await createTemplate({ ...newTemplate, uni_id: uni.id });
+    setIsModalOpen(false);
+    setNewTemplate({ title: '', content: '' });
+  };
 
   const heatmapData = [
     { name: 'Frontend', size: 400 },
@@ -65,7 +77,7 @@ const UniversityDashboard = () => {
         <motion.div className="bento-panel ref-ledger glass-panel" layout style={{ gridColumn: '1 / -1' }}>
           <div className="panel-header">
             <h3>Digital Reference Ledger (Ağıllı Rəy)</h3>
-            <button className="btn btn--primary btn-sm"><FiEdit3 /> Yeni Şablon Yarat</button>
+            <button className="btn btn--primary btn-sm" onClick={() => setIsModalOpen(true)}><FiEdit3 /> Yeni Şablon Yarat</button>
           </div>
           <div className="ledger-grid">
             {SYNC_DATA.references.map(ref => {
@@ -105,6 +117,39 @@ const UniversityDashboard = () => {
         </motion.div>
 
       </div>
+
+      {/* CREATE TEMPLATE MODAL */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Yeni Rəy Şablonu"
+        footer={(
+          <>
+            <button className="btn btn--outline" onClick={() => setIsModalOpen(false)}>İmtina</button>
+            <button className="btn btn--primary" onClick={handleCreateTemplate}>Şablonu Yadda Saxla</button>
+          </>
+        )}
+      >
+        <div className="modal-form">
+          <div className="form-group">
+            <label>Şablon Başlığı</label>
+            <input 
+              type="text" 
+              placeholder="Məsələn: Akademik Məhsuldarlıq Rəyi" 
+              value={newTemplate.title} 
+              onChange={e => setNewTemplate({...newTemplate, title: e.target.value})}
+            />
+          </div>
+          <div className="form-group">
+            <label>Şablon Mətni (Smart Tags: {name}, {uni} istifadə edə bilərsiniz)</label>
+            <textarea 
+              placeholder="Tələbə üçün standart rəy mətni..." 
+              value={newTemplate.content} 
+              onChange={e => setNewTemplate({...newTemplate, content: e.target.value})}
+            />
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

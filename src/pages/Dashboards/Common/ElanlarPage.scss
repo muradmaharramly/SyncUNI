@@ -68,9 +68,17 @@
 
   .elan-filters {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    .elan-btns{
+      display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: $spacing-2;
     margin-bottom: $spacing-4;
+    }
 
     .filter-tab {
       display: inline-flex;
@@ -150,9 +158,10 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: linear-gradient(135deg, #f59e0b, #f97316);
-      color: white;
+      background: transparent;
+      color: #f59e0b;
       font-size: 0.7rem;
+      border: 1px solid #f59e0b;
       font-weight: 700;
       padding: 3px 10px;
       border-radius: $radius-sm;
@@ -259,7 +268,7 @@
     align-items: center;
     gap: 5px;
     padding: 4px 10px;
-    border-radius: $radius-full;
+    border-radius: $radius-sm;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.2px;
@@ -291,12 +300,13 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: linear-gradient(135deg, #f59e0b, #f97316);
-  color: white;
-  font-size: $font-sm;
+  background: transparent;
+  color: #f59e0b;
+  font-size: 0.6rem;
   font-weight: 700;
-  padding: 4px 12px;
-  border-radius: $radius-full;
+  padding: 4px 10px;
+  border: 1px solid #f59e0b;
+  border-radius: $radius-sm;
   svg { font-size: 0.8rem; }
 }
 
@@ -329,12 +339,24 @@
     position: absolute;
     top: $spacing-4;
     right: $spacing-4;
-    background: rgba(255,255,255,0.05);
-    border-radius: $radius-md;
-    padding: $spacing-2;
+    background: var(--hover-bg);
+    border: 1px solid var(--border-color);
     color: var(--text-muted);
-    transition: background 0.2s, color 0.2s;
-    &:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      transform: rotate(90deg);
+    }
   }
 
   &__head {
@@ -388,6 +410,7 @@
 
   &__actions {
     display: flex;
+    justify-content: flex-end;
     gap: $spacing-3;
     flex-wrap: wrap;
     margin-top: $spacing-6;

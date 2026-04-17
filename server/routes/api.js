@@ -71,4 +71,81 @@ router.put('/students/:id/endorse', async (req, res) => {
     }
 });
 
+// Create New Course
+router.post('/courses', async (req, res) => {
+    const { name, category, instructor, enrolled, rating } = req.body;
+    if (!name) return res.status(400).json({ error: 'Ad mütləqdir' });
+
+    const newId = 'C' + Date.now().toString().slice(-6);
+    try {
+        await dbRun(
+            'INSERT INTO courses (id, name, category, instructor, enrolled, rating) VALUES (?, ?, ?, ?, ?, ?)',
+            [newId, name, category || 'General', instructor || 'SyncUNI Partner', enrolled || 0, rating || 5.0]
+        );
+        res.json({ success: true, id: newId });
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ error: 'DB Error' });
+    }
+});
+
+// Create Reference Template
+router.post('/references/templates', async (req, res) => {
+    const { title, content, uni_id } = req.body;
+    if (!title || !content) return res.status(400).json({ error: 'Başlıq və mətn mütləqdir' });
+
+    try {
+        await dbRun(
+            'INSERT INTO reference_templates (uni_id, title, content) VALUES (?, ?, ?)',
+            [uni_id || 1, title, content]
+        );
+        res.json({ success: true });
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ error: 'DB Error' });
+    }
+});
+
+// Bulk Upload Students
+router.post('/bulk-upload/students', async (req, res) => {
+    const { students, uni_id, uni_name } = req.body;
+    if (!Array.isArray(students) || students.length === 0) {
+        return res.status(400).json({ error: 'Siyahı boşdur' });
+    }
+
+    try {
+        await dbRun('BEGIN');
+        for (const s of students) {
+            await dbRun(
+                'INSERT INTO invited_students (name, email, uni_id, uni_name) VALUES (?, ?, ?, ?) ON CONFLICT (email) DO NOTHING',
+                [s.name, s.email, uni_id, uni_name]
+            );
+        }
+        await dbRun('COMMIT');
+        res.json({ success: true, count: students.length });
+    } catch(err) {
+        await dbRun('ROLLBACK');
+        console.error(err);
+        res.status(500).json({ error: 'Bulk upload error' });
+    }
+});
+
+// Create Job Listing
+router.post('/job-listings', async (req, res) => {
+    const { title, type, company } = req.body;
+    if (!title) return res.status(400).json({ error: 'Başlıq mütləqdir' });
+
+    const newId = 'J' + Date.now().toString().slice(-6);
+    try {
+        await dbRun(
+            'INSERT INTO job_listings (id, company, title, type, applicants) VALUES (?, ?, ?, ?, ?)',
+            [newId, company || 'SyncUNI Partner', title, type || 'Full-time', 0]
+        );
+        res.json({ success: true, id: newId });
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ error: 'DB Error' });
+    }
+});
+
 module.exports = router;

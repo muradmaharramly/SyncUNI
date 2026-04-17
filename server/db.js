@@ -114,6 +114,14 @@ const initDb = async () => {
             applicants INTEGER
         )`);
 
+        await pool.query(`CREATE TABLE IF NOT EXISTS reference_templates (
+            id SERIAL PRIMARY KEY,
+            uni_id INTEGER NOT NULL,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )`);
+
         await pool.query('COMMIT');
 
         // Seeding logic

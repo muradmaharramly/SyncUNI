@@ -138,7 +138,55 @@ export const DataProvider = ({ children }) => {
     }));
   };
 
-  const addCourse = () => toast.success('Yeni kurs yaradıldı!');
+  const createCourse = async (courseData) => {
+    try {
+      const res = await fetch(`${API_URL}/courses`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(courseData)
+      });
+      if (res.ok) {
+        toast.success('Yeni kurs yaradıldı!');
+        fetchApiData(); // Refresh all
+      }
+    } catch(e) { 
+      console.error("Course API error", e); 
+      toast.error('Kurs yaradılarkən xəta baş verdi');
+    }
+  };
+
+  const createTemplate = async (templateData) => {
+    try {
+      const res = await fetch(`${API_URL}/references/templates`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(templateData)
+      });
+      if (res.ok) {
+        toast.success('Yeni şablon yadda saxlanıldı!');
+      }
+    } catch(e) { 
+      console.error("Template API error", e); 
+      toast.error('Şablon yaradılarkən xəta baş verdi');
+    }
+  };
+
+  const bulkUpload = async (students, uni_id, uni_name) => {
+    try {
+      const res = await fetch(`${API_URL}/bulk-upload/students`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ students, uni_id, uni_name })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        toast.success(`${data.count} tələbə uğurla əlavə edildi!`);
+      }
+    } catch(e) { 
+      console.error("Bulk upload API error", e); 
+      toast.error('Toplu yükləmə zamanı xəta baş verdi');
+    }
+  };
 
   const enrollCourse = (studentId, courseName) => {
     setData(prev => ({
@@ -153,10 +201,27 @@ export const DataProvider = ({ children }) => {
     toast.success('Kursa uğurla qeydiyyatlandınız!');
   };
 
+  const createJob = async (jobData) => {
+    try {
+      const res = await fetch(`${API_URL}/job-listings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(jobData)
+      });
+      if (res.ok) {
+        toast.success('Yeni vakansiya paylaşıldı!');
+        fetchApiData();
+      }
+    } catch(e) { 
+      console.error("Job API error", e); 
+      toast.error('Vakansiya yaradılarkən xəta baş verdi');
+    }
+  };
+
   return (
     <DataContext.Provider value={{
       data, loading, apiOk,
-      setData, hireStudent, updateFunnelStatus, endorseStudent, addCourse, enrollCourse,
+      setData, hireStudent, updateFunnelStatus, endorseStudent, createCourse, createTemplate, bulkUpload, enrollCourse, createJob,
       refetch: fetchApiData,
     }}>
       {children}

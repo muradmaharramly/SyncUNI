@@ -313,14 +313,26 @@
 
   .receipt-close {
     position: absolute;
-    top: $spacing-4;
     right: $spacing-4;
-    background: rgba(255,255,255,0.05);
-    border-radius: $radius-md;
-    padding: $spacing-2;
+    top: $spacing-4;
+    background: var(--hover-bg);
+    border: 1px solid var(--border-color);
     color: var(--text-muted);
-    transition: background 0.2s, color 0.2s;
-    &:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      transform: rotate(90deg);
+    }
   }
 
   .receipt-header {
