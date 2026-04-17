@@ -101,10 +101,6 @@ const StudentOperations = () => {
     <div className="operations-page">
       {loading ? (
         <>
-  return (
-    <div className="operations-page">
-      {loading ? (
-        <>
           <h2 className="sk-block--mt-3 opacity-0-5">İcra Mərkəzi (Goal Tracking)</h2>
           <SkeletonCardGrid count={4} />
         </>
