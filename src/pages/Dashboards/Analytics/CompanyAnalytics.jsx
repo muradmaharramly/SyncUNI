@@ -40,7 +40,7 @@ const CompanyAnalytics = () => {
                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
                  <XAxis dataKey="name" stroke="var(--text-muted)" tick={{fontSize: 12}} />
                  <YAxis stroke="var(--text-muted)" tick={{fontSize: 12}} />
-                 <Tooltip cursor={{fill: 'var(--hover-bg)'}} contentStyle={{backgroundColor: '#0F172A', border: 'none', borderRadius: '8px'}} />
+                 <Tooltip cursor={{fill: 'var(--hover-bg)'}} contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}} />
                  <Bar dataKey="namizəd" fill="var(--primary-color)" radius={[4, 4, 0, 0]} />
                </BarChart>
              </ResponsiveContainer>
@@ -66,7 +66,7 @@ const CompanyAnalytics = () => {
                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
                  <XAxis dataKey="year" stroke="var(--text-muted)" tick={{fontSize: 12}} />
                  <YAxis stroke="var(--text-muted)" tick={{fontSize: 12}} />
-                 <Tooltip contentStyle={{backgroundColor: '#0F172A', border: 'none', borderRadius: '8px'}} />
+                 <Tooltip contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}} />
                  <Area type="monotone" dataKey="retention" stroke="var(--primary-color)" fillOpacity={1} fill="url(#colorRetention)" />
                  <Area type="monotone" dataKey="performance" stroke="var(--success)" fillOpacity={1} fill="url(#colorPerf)" />
                </AreaChart>

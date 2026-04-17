@@ -25,7 +25,7 @@ const CourseDashboard = () => {
         <section className="panel course-listings">
           <div className="panel-header">
             <h2>Kurs Elanları</h2>
-            <button className="btn btn--outline btn-sm" onClick={() => setIsModalOpen(true)}>+ Yeni Kurs</button>
+            <button className="btn btn--primary btn-sm" onClick={() => setIsModalOpen(true)}>+ Yeni Kurs</button>
           </div>
           <div className="courses-grid">
             {SYNC_DATA.courses.map((course, idx) => (

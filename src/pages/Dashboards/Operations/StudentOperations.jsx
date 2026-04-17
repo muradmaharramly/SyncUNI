@@ -101,7 +101,11 @@ const StudentOperations = () => {
     <div className="operations-page">
       {loading ? (
         <>
-          <h2 style={{ marginBottom: '1.5rem', opacity: 0.5 }}>İcra Mərkəzi (Goal Tracking)</h2>
+  return (
+    <div className="operations-page">
+      {loading ? (
+        <>
+          <h2 className="sk-block--mt-3 opacity-0-5">İcra Mərkəzi (Goal Tracking)</h2>
           <SkeletonCardGrid count={4} />
         </>
       ) : (
@@ -115,21 +119,15 @@ const StudentOperations = () => {
           <div className="panel-header">
             <h3><FiTarget /> Skill-to-Job Simulator</h3>
           </div>
-          <p style={{marginBottom: '1rem'}}>Arzuladığınız peşəni seçin və çatmıyan bacarıqları To-do list şəklində görün:</p>
+          <p className="no-margin-bottom sk-block--mt-2 mb-2">Arzuladığınız peşəni seçin və çatmıyan bacarıqları To-do list şəklində görün:</p>
 
-          <div className="custom-dropdown-container" style={{ position: 'relative', marginBottom: '1rem' }}>
+          <div className="custom-dropdown-container">
             <div
               className="custom-dropdown-selected"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              style={{
-                width: '100%', padding: '10px 15px', borderRadius: '8px',
-                background: 'var(--hover-bg)', color: 'var(--text-main)',
-                border: '1px solid var(--border-color)', cursor: 'pointer',
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-              }}
             >
               <span>{selectedGoal || '-- Məqsəd Seçin --'}</span>
-              <span style={{ fontSize: '0.8rem', transform: isDropdownOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>▼</span>
+              <span className={`arrow-icon ${isDropdownOpen ? 'open' : ''}`}>▼</span>
             </div>
 
             <AnimatePresence>
@@ -139,31 +137,18 @@ const StudentOperations = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  style={{
-                    position: 'absolute', top: '100%', left: 0, right: 0,
-                    marginTop: '5px', borderRadius: '8px', overflow: 'hidden',
-                    background: 'var(--bg-color)', zIndex: 10,
-                    border: '1px solid var(--border-color)',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
-                  }}
                 >
                   <div
                     className="custom-dropdown-option"
                     onClick={() => { setSelectedGoal(''); setIsDropdownOpen(false); }}
-                    style={{ padding: '10px 15px', cursor: 'pointer', borderBottom: '1px solid var(--border-color)' }}
                   >
                     -- Məqsəd Seçin --
                   </div>
                   {['Frontend Developer', 'Data Scientist', 'Project Manager'].map(option => (
                     <div
                       key={option}
-                      className="custom-dropdown-option"
+                      className={`custom-dropdown-option ${selectedGoal === option ? 'selected' : ''}`}
                       onClick={() => { setSelectedGoal(option); setIsDropdownOpen(false); }}
-                      style={{
-                        padding: '10px 15px', cursor: 'pointer',
-                        background: selectedGoal === option ? 'var(--hover-bg)' : 'transparent',
-                        color: selectedGoal === option ? 'var(--primary-color)' : 'var(--text-main)'
-                      }}
                     >
                       {option}
                     </div>
@@ -174,16 +159,16 @@ const StudentOperations = () => {
           </div>
 
           {selectedGoal && (
-            <div className="todo-list">
-              <h4 style={{marginBottom: '10px', color: 'var(--primary-color)'}}>Action Plan:</h4>
+            <div className="todo-list sk-block--mt-3">
+              <h4 className="color-primary no-margin-bottom mb-1">Action Plan:</h4>
               {getMissingSkills().map((skill, i) => (
-                <div key={i} className="st-strip" style={{ borderLeft: '3px solid var(--warning)', paddingLeft: '10px' }}>
+                <div key={i} className="st-strip border-left-warning">
                   <span>{skill} öyrənməlisiniz</span>
                   <button className="btn btn--outline btn-sm" onClick={() => toast('Plan əlavə edildi')}>Qeyd al</button>
                 </div>
               ))}
-              <div className="st-strip" style={{ borderLeft: '3px solid var(--success)', paddingLeft: '10px' }}>
-                <span style={{textDecoration: 'line-through'}}>{student.skills.hard[0]} - Tamamlanıb</span>
+              <div className="st-strip border-left-success">
+                <span className="text-strike">{student.skills.hard[0]} - Tamamlanıb</span>
                 <FiCheck color="var(--success)"/>
               </div>
             </div>
@@ -195,18 +180,18 @@ const StudentOperations = () => {
           <div className="panel-header">
             <h3><FiDownloadCloud /> Portfolio / CV Builder</h3>
           </div>
-          <p style={{marginBottom: '1rem'}}>
+          <p className="sk-block--mt-2 mb-2">
              Mövcud akademik GPA-niz, kurslarınız, təsdiqlənmiş referanslarınız və "Match Score"unuz əsasında peşəkar dizaynlı bir PDF CV generasiya edin.
           </p>
-          <div style={{ padding: '2rem', textAlign: 'center', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px dashed var(--border-color)' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📄</div>
+          <div className="cv-upload-placeholder">
+            <div className="placeholder-icon">📄</div>
             <motion.button
                className="btn btn--primary"
                onClick={handleGeneratePDF}
                whileHover={{ scale: 1.01 }}
                whileTap={{ scale: 0.95 }}
                disabled={isGenerating}
-               style={{ opacity: isGenerating ? 0.7 : 1 }}
+               className={`btn btn--primary ${isGenerating ? 'opacity-70' : ''}`}
             >
                {isGenerating ? 'AI Analiz Edir...' : 'SyncUNI CV Yarat (AI format)'}
             </motion.button>
@@ -214,7 +199,6 @@ const StudentOperations = () => {
         </motion.div>
       </div>
 
-      {}
       <AnimatePresence>
         {showCVModal && (
           <div className="cv-modal-overlay">
@@ -226,7 +210,7 @@ const StudentOperations = () => {
             >
                <div className="cv-modal-header no-print">
                  <h3>📄 AI Generated CV</h3>
-                 <div style={{display: 'flex', gap: '1rem', alignItems: 'center'}}>
+                 <div className="flex-align-center-gap-1">
                    <button className="btn btn--primary" onClick={handlePrint}>
                      <FiPrinter /> PDF Endir
                    </button>
@@ -237,40 +221,39 @@ const StudentOperations = () => {
                </div>
 
                <div className="cv-document print-cv-area">
-                 {}
                  <div className="cv-header">
-                    <h1 style={{fontSize: '2.5rem', marginBottom: '0.5rem', color: '#1a1a2e'}}>{cvStudent.name}</h1>
-                    <p style={{fontSize: '1.1rem', color: '#4a4a68'}}>{cvStudent.degree} | GPA: {cvStudent.gpa}</p>
-                    <p style={{color: 'var(--primary-color)', fontWeight: 'bold', marginTop: '10px', fontSize: '1.2rem', textTransform: 'uppercase'}}>{selectedGoal}</p>
+                    <h1>{cvStudent.name}</h1>
+                    <p>{cvStudent.degree} | GPA: {cvStudent.gpa}</p>
+                    <p className="goal">{selectedGoal}</p>
                  </div>
 
-                 <hr style={{border: '0', borderBottom: '2px solid #e1e1e8', margin: '2rem 0'}} />
+                 <hr />
 
-                 <div className="cv-section" style={{marginBottom: '2rem'}}>
-                   <h4 style={{fontSize: '1.2rem', color: '#1a1a2e', margin: '0 0 1rem 0', borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}}>🤖 AI Xülasəsi (Profile Summary)</h4>
-                   <p style={{lineHeight: '1.6', color: '#4a4a68'}}>{aiSummaryText}</p>
+                 <div className="cv-section">
+                   <h4>🤖 AI Xülasəsi (Profile Summary)</h4>
+                   <p>{aiSummaryText}</p>
                  </div>
 
-                 <div className="cv-section" style={{marginBottom: '2rem'}}>
-                   <h4 style={{fontSize: '1.2rem', color: '#1a1a2e', margin: '0 0 1rem 0', borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}}>🛠 Təsdiqlənmiş Bacarıqlar (Verified Skills)</h4>
-                   <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
+                 <div className="cv-section">
+                   <h4>🛠 Təsdiqlənmiş Bacarıqlar (Verified Skills)</h4>
+                   <div className="skills-list">
                      {cvStudent.skills.hard.map(skill => (
-                       <span key={skill} style={{background: '#e0e7ff', color: '#3730a3', padding: '0.5rem 1rem', borderRadius: '4px', fontSize: '0.9rem', fontWeight: '500'}}>{skill}</span>
+                       <span key={skill} className="skill-tag">{skill}</span>
                      ))}
                    </div>
                  </div>
 
                  <div className="cv-section">
-                   <h4 style={{fontSize: '1.2rem', color: '#1a1a2e', margin: '0 0 1rem 0', borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}}>🎓 Təhsil və Layihələr</h4>
-                   <ul style={{listStyle: 'none', padding: '0', margin: '0', lineHeight: '1.8', color: '#4a4a68'}}>
-                     <li><strong style={{color: '#1a1a2e'}}>Müəssisə:</strong> {cvStudent.uni}</li>
+                   <h4>🎓 Təhsil və Layihələr</h4>
+                   <ul>
+                     <li><strong>Müəssisə:</strong> {cvStudent.uni}</li>
                      <li>GPA göstəricisi {cvStudent.gpa} olaraq rəsmi qeydiyyata alınıb.</li>
                      <li>Platforma daxilində ekspertlər tərəfindən verilmiş <strong>{cvStudent.verifyStatus?.references ?? 1} rəsmi referans (təsdilənmiş portfoliosu) mövcuddur.</strong></li>
                      <li>SyncUNI rəqəmsal reyestrinin imtiyazlı istifadəçisidir.</li>
                    </ul>
                  </div>
 
-                 <div className="cv-footer" style={{marginTop: '3rem', textAlign: 'center', fontSize: '0.8rem', color: '#888', borderTop: '1px dotted #ccc', paddingTop: '1rem'}}>
+                 <div className="cv-footer">
                     <p>Bu sənəd SyncUNI AI Engine vasitəsilə <strong>{cvStudent.name}</strong> üçün avtomatik yaradılmışdır.</p>
                  </div>
                </div>

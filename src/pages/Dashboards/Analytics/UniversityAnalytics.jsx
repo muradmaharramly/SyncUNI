@@ -48,7 +48,7 @@ const UniversityAnalytics = () => {
         {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay:0.1}}>
           <h3>Tələbə Bazası Üzrə Aktual Bacarıqlar</h3>
-          <div className="chart-wrapper" style={{display:'flex', alignItems:'center'}}>
+          <div className="chart-wrapper chart-flex">
              <ResponsiveContainer width="100%" height="100%">
                <PieChart>
                  <Pie data={skillsConfig} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value">
@@ -56,13 +56,13 @@ const UniversityAnalytics = () => {
                      <Cell key={`cell-${index}`} fill={entry.color} />
                    ))}
                  </Pie>
-                 <Tooltip contentStyle={{backgroundColor: '#0F172A', border: 'none', borderRadius: '8px'}} />
+                 <Tooltip contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}} />
                </PieChart>
              </ResponsiveContainer>
              <div className="pie-legend">
                {skillsConfig.map(s => (
                  <div key={s.name} className="legend-item">
-                   <div className="color-box" style={{backgroundColor: s.color}}></div>
+                   <div className="color-box" style={{'--legend-bg': s.color}}></div>
                    <span>{s.name}</span>
                  </div>
                ))}

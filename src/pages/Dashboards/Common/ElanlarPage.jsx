@@ -130,7 +130,7 @@ const DetailModal = ({ elan, onClose }) => {
         <button className="elan-close icon-btn" onClick={onClose}><FiX /></button>
 
         <div className="elan-detail__head">
-          <div className="elan-type-badge" style={{ background: typeStyle.bg, color: typeStyle.color }}>
+          <div className="elan-type-badge" style={{ '--elan-bg': typeStyle.bg, '--elan-color': typeStyle.color }}>
             {FILTER_TABS.find(t => t.key === elan.type)?.label || elan.type}
           </div>
           {elan.tier === 'vip' && <div className="vip-badge"><FiStar /> VIP</div>}

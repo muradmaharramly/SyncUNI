@@ -142,7 +142,11 @@ const AgentPage = () => {
                 <motion.div
                   key={n.id}
                   className="agent-card glass-panel"
-                  style={{ borderColor: colors.border, background: colors.bg }}
+                  style={{ 
+                    '--priority-border': colors.border, 
+                    '--priority-bg': colors.bg,
+                    '--priority-dot': colors.dot
+                  }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20, height: 0, marginBottom: 0, paddingTop: 0 }}
@@ -160,9 +164,13 @@ const AgentPage = () => {
                       <h4 className="agent-card__title">{n.title}</h4>
                       <span
                         className="agent-priority-badge"
-                        style={{ background: colors.bg, color: colors.dot, borderColor: colors.border }}
+                        style={{ 
+                          '--priority-bg': colors.bg, 
+                          '--priority-dot': colors.dot, 
+                          '--priority-border': colors.border 
+                        }}
                       >
-                        <span className="badge-dot" style={{ background: colors.dot }} />
+                        <span className="badge-dot" />
                         {colors.label}
                       </span>
                     </div>

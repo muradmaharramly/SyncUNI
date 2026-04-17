@@ -6,7 +6,9 @@
 }
 
 .sk-block {
-  display: block;
+  width: var(--sk-width, 100%);
+  height: var(--sk-height, 1rem);
+  border-radius: var(--sk-radius, 8px);
   background: linear-gradient(
     90deg,
     rgba(255,255,255,0.04) 25%,
@@ -15,7 +17,6 @@
   );
   background-size: 600px 100%;
   animation: sk-shimmer 1.6s infinite linear;
-  border-radius: 8px;
   flex-shrink: 0;
 
   :root[data-theme='light'] & {
@@ -114,4 +115,11 @@
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+}
+
+// Utility classes for Skeleton Blocks
+.sk-block {
+  &--mt-1 { margin-top: 4px; }
+  &--mt-2 { margin-top: 6px; }
+  &--mt-3 { margin-top: 10px; }
 }

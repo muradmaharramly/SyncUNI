@@ -35,7 +35,7 @@ const CourseAnalytics = () => {
                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
                  <XAxis dataKey="month" stroke="var(--text-muted)" tick={{fontSize: 12}} />
                  <YAxis stroke="var(--text-muted)" tick={{fontSize: 12}} />
-                 <Tooltip cursor={{fill: 'var(--hover-bg)'}} contentStyle={{backgroundColor: '#0F172A', border: 'none', borderRadius: '8px'}} />
+                  <Tooltip cursor={{fill: 'var(--hover-bg)'}} contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}} />
                  <Bar dataKey="telebeler" fill="var(--secondary-color)" radius={[4, 4, 0, 0]} />
                </BarChart>
              </ResponsiveContainer>
@@ -45,7 +45,7 @@ const CourseAnalytics = () => {
         {}
         <motion.div className="analytics-panel glass-panel" initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay:0.1}}>
           <h3>Məzuniyyət və Tərk Nisbəti</h3>
-          <div className="chart-wrapper" style={{display:'flex', alignItems:'center'}}>
+          <div className="chart-wrapper chart-flex">
              <ResponsiveContainer width="100%" height="100%">
                <PieChart>
                  <Pie data={completionData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={2} dataKey="value">
@@ -53,13 +53,13 @@ const CourseAnalytics = () => {
                      <Cell key={`cell-${index}`} fill={entry.color} />
                    ))}
                  </Pie>
-                 <Tooltip contentStyle={{backgroundColor: '#0F172A', border: 'none', borderRadius: '8px'}} />
+                 <Tooltip contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}} />
                </PieChart>
              </ResponsiveContainer>
              <div className="pie-legend">
                {completionData.map(s => (
                  <div key={s.name} className="legend-item">
-                   <div className="color-box" style={{backgroundColor: s.color}}></div>
+                   <div className="color-box" style={{'--legend-bg': s.color}}></div>
                    <span>{s.name} ({s.value}%)</span>
                  </div>
                ))}

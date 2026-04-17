@@ -52,13 +52,12 @@ const SubscriptionPage = () => {
           <div className="title-area">
             <FiShield className="icon-main" />
             <div>
-              <h3>Cari Planınız: {currentPlan.title}</h3>
-              <span className="badge">{currentPlan.badge}</span>
+              <h3>Cari Planınız: {currentPlan.title} <span className="badge">{currentPlan.badge}</span></h3>
             </div>
           </div>
           {!isUniversity && (
-            <button className="btn btn--outline" onClick={() => setShowPlans(!showPlans)}>
-              <FiZap style={{ marginRight: '8px' }} />
+            <button className="btn btn--primary" onClick={() => setShowPlans(!showPlans)}>
+              <FiZap className="margin-right-1" />
               {showPlans ? 'Planları Gizlət' : 'Planı Dəyiş'}
             </button>
           )}

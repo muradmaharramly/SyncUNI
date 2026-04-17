@@ -35,7 +35,7 @@ const Navbar = () => {
         </Link>
 
         {}
-        <div className="navbar__menu hide-mobile" style={{ flex: 1, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
+        <div className="navbar__menu hide-mobile">
           {!user && isHome && (
             <>
               <a href="#features" className="navbar__link">Xidmətlər</a>
@@ -46,7 +46,7 @@ const Navbar = () => {
         </div>
 
         {}
-        <div className="navbar__actions hide-mobile" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="navbar__actions hide-mobile">
           <button className="navbar__theme-toggle" onClick={toggleTheme} aria-label="Toggle Theme">
             {theme === 'dark' ? <FiSun /> : <FiMoon />}
           </button>
@@ -126,7 +126,7 @@ const Navbar = () => {
       footer={(
         <>
           <button className="btn btn--outline" onClick={() => setShowLogoutModal(false)}>İmtina</button>
-          <button className="btn btn--primary" style={{ background: 'var(--danger)' }} onClick={confirmLogout}>Çıxış Et</button>
+          <button className="btn btn--danger" onClick={confirmLogout}>Çıxış Et</button>
         </>
       )}
     >

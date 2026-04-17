@@ -87,4 +87,31 @@ button {
     justify-content: center;
     display: flex;
   }
+
+  &--danger {
+    background-color: $danger;
+    color: white;
+    &:hover {
+      background-color: darken(#ef4444, 10%);
+    }
+  }
 }
+
+.sk-block--mt-1 { margin-top: 0.5rem !important; }
+.sk-block--mt-2 { margin-top: 1rem !important; }
+.sk-block--mt-3 { margin-top: 1.5rem !important; }
+.sk-block--mt-4 { margin-top: 2rem !important; }
+
+.mb-1 { margin-bottom: 0.5rem !important; }
+.mb-2 { margin-bottom: 1rem !important; }
+.opacity-0-5 { opacity: 0.5 !important; }
+.block { display: block !important; }
+
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+.text-sm { font-size: 0.85rem !important; }
+.text-muted { color: var(--text-muted) !important; }
+.success { color: var(--success) !important; }
+.warning { color: var(--warning) !important; }
+.danger { color: var(--danger) !important; }

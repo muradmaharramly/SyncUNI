@@ -13,7 +13,7 @@ const CompanyOperations = () => {
   const { user } = useAuth();
   const [activeStage, setActiveStage] = useState('Applicants');
   const [draggedStage, setDraggedStage] = useState(null);
-  
+
   const [isJobModalOpen, setIsJobModalOpen] = useState(false);
   const [newJob, setNewJob] = useState({ title: '', type: 'Full-time' });
   const [isTypeMenuOpen, setIsTypeMenuOpen] = useState(false);
@@ -72,151 +72,140 @@ const CompanyOperations = () => {
     <div className="operations-page">
       {loading ? (
         <>
-          <h2 style={{ marginBottom: '1.5rem', opacity: 0.5 }}>Advanced Operations: Recruitment Flow</h2>
+          <h2 className="sk-block--mt-3 opacity-0-5">Advanced Operations: Recruitment Flow</h2>
           <SkeletonStatCards count={4} />
-          <div style={{ marginTop: '1.5rem' }}>
+          <div className="sk-block--mt-3">
             <SkeletonTable rows={6} cols={5} />
           </div>
         </>
       ) : (
-      <>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <h2>Recruitment Flow</h2>
-          </div>
-          <p className="desc" style={{marginBottom: 0}}>Tələbələri sütunlar arası sürükləyərək statuslarını yeniləyin.</p>
-        </div>
-
-        <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-card)', padding: '0.5rem', borderRadius: '12px', border: '1px solid var(--border-color)', backdropFilter: 'blur(10px)', boxShadow: 'var(--card-shadow)' }}>
-          {stages.map(stage => (
-            <div
-              key={stage}
-              onClick={() => setActiveStage(stage)}
-              onDrop={(e) => handleDrop(e, stage)}
-              onDragOver={(e) => handleDragOver(e, stage)}
-              onDragLeave={handleDragLeave}
-              style={{
-                padding: '0.1rem 1rem',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: activeStage === stage ? 'bold' : 'normal',
-                background: activeStage === stage ? 'var(--primary-color)' : (draggedStage === stage ? 'var(--hover-bg)' : 'transparent'),
-                color: activeStage === stage ? '#fff' : 'var(--text-main)',
-                transition: 'all 0.2s',
-                border: draggedStage === stage ? '1px dashed var(--primary-color)' : '1px solid transparent'
-              }}
-            >
-              {stage}
+        <>
+          <div className="operations-header-flex">
+            <div>
+              <div className="flex-align-center-gap-1">
+                <h2>Recruitment Flow</h2>
+              </div>
+              <p className="desc no-margin-bottom">Tələbələri sütunlar arası sürükləyərək statuslarını yeniləyin.</p>
             </div>
-            
-          ))}
-          <button className="btn btn--primary btn-sm" style={{margin: 'auto'}} onClick={() => setIsJobModalOpen(true)}>
-              <FiPlus /> Yeni Vakansiya
-            </button>
-        </div>
-        
-      </div>
 
-      <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '1.5rem'
-        }}>
-        <AnimatePresence mode='popLayout'>
-          {getStageStudents(activeStage).map(st => (
-            <motion.div
-              layout
-              initial={{opacity: 0, scale: 0.9}}
-              animate={{opacity: 1, scale: 1}}
-              exit={{opacity: 0, scale: 0.9}}
-              key={st.id}
-              className="kanban-card glass-panel"
-              draggable
-              onDragStart={(e) => handleDragStart(e, st.id)}
-              whileHover={{ scale: 1.01 }}
-              style={{ cursor: 'grab', padding: '1.5rem' }}
-            >
-              <h4 style={{ color: 'var(--primary-color)', fontSize: '1.1rem', marginBottom: '0.2rem'}}>{st.name}</h4>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
-                GPA: {st.gpa} | Score: {st.activityScore}
-              </p>
-              <div className="quick-actions" style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
-                <button className="icon-btn" style={{background:'transparent', border:'none', cursor:'pointer'}} onClick={() => toast.success('İmtina məktubu göndərildi!')} title="Reject"><FiX color="var(--danger)"/></button>
-                <button className="icon-btn" style={{background:'transparent', border:'none', cursor:'pointer'}} onClick={() => toast('Təqvimlə görüş təyin edildi')} title="Schedule"><FiCalendar color="var(--secondary-color)"/></button>
-                <button className="icon-btn" style={{background:'transparent', border:'none', cursor:'pointer'}} onClick={() => toast.success('Feedback göndərildi')} title="Feedback"><FiSend color="var(--primary-color)"/></button>
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-        {getStageStudents(activeStage).length === 0 && (
-          <p style={{ color: 'var(--text-muted)' }}>Bu mərhələdə hələ tələbə yoxdur.</p>
-        )}
-      </div>
-
-      {/* NEW JOB MODAL */}
-      <Modal
-        isOpen={isJobModalOpen}
-        onClose={() => setIsJobModalOpen(false)}
-        title="Yeni Vakansiya Yarat"
-        className="modal--overflow-visible"
-        footer={(
-          <>
-            <button className="btn btn--outline" onClick={() => setIsJobModalOpen(false)}>İmtina</button>
-            <button className="btn btn--primary" onClick={handleCreateJob}>Vakansiyanı Paylaş</button>
-          </>
-        )}
-      >
-        <div className="modal-form">
-          <div className="form-group">
-            <label>Vakansiya Başlığı</label>
-            <input 
-              type="text" 
-              placeholder="Məsələn: Frontend Developer" 
-              value={newJob.title} 
-              onChange={e => setNewJob({...newJob, title: e.target.value})}
-            />
-          </div>
-          <div className="form-group">
-            <label>İş Növü</label>
-            <div className="custom-select-container">
-              <div 
-                className="select-trigger" 
-                onClick={() => setIsTypeMenuOpen(!isTypeMenuOpen)}
-              >
-                <span>{newJob.type}</span>
-                <FiChevronDown className={`arrow-icon ${isTypeMenuOpen ? 'open' : ''}`} />
-              </div>
-
-              <AnimatePresence>
-                {isTypeMenuOpen && (
-                  <motion.div 
-                    className="select-options"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
+            <div className='operate-acts'>
+              <div className="stages-bar glass-panel">
+                {stages.map(stage => (
+                  <div
+                    key={stage}
+                    onClick={() => setActiveStage(stage)}
+                    onDrop={(e) => handleDrop(e, stage)}
+                    onDragOver={(e) => handleDragOver(e, stage)}
+                    onDragLeave={handleDragLeave}
+                    className={`stage-item ${activeStage === stage ? 'active' : ''} ${draggedStage === stage ? 'dragged' : ''}`}
                   >
-                    {jobTypes.map(type => (
-                      <div 
-                        key={type}
-                        className={`option-item ${newJob.type === type ? 'selected' : ''}`}
-                        onClick={() => {
-                          setNewJob({ ...newJob, type });
-                          setIsTypeMenuOpen(false);
-                        }}
-                      >
-                        {type}
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    {stage}
+                  </div>
+
+                ))}
+
+              </div>
+              <button className="btn btn--primary btn-sm margin-auto" onClick={() => setIsJobModalOpen(true)}>
+                <FiPlus /> Yeni Vakansiya
+              </button>
             </div>
+
           </div>
-        </div>
-      </Modal>
-      </>
+
+          <div className="kanban-grid-layout">
+            <AnimatePresence mode='popLayout'>
+              {getStageStudents(activeStage).map(st => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  key={st.id}
+                  className="kanban-card glass-panel grab-cursor"
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, st.id)}
+                  whileHover={{ scale: 1.01 }}
+                >
+                  <h4 className="kanban-card__title">{st.name}</h4>
+                  <p className="kanban-card__subtitle">
+                    GPA: {st.gpa} | Score: {st.activityScore}
+                  </p>
+                  <div className="quick-actions">
+                    <button className="icon-btn transparent-bg" onClick={() => toast.success('İmtina məktubu göndərildi!')} title="Reject"><FiX color="var(--danger)" /></button>
+                    <button className="icon-btn transparent-bg" onClick={() => toast('Təqvimlə görüş təyin edildi')} title="Schedule"><FiCalendar color="var(--secondary-color)" /></button>
+                    <button className="icon-btn transparent-bg" onClick={() => toast.success('Feedback göndərildi')} title="Feedback"><FiSend color="var(--primary-color)" /></button>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            {getStageStudents(activeStage).length === 0 && (
+              <p className="text-muted">Bu mərhələdə hələ tələbə yoxdur.</p>
+            )}
+          </div>
+
+          {/* NEW JOB MODAL */}
+          <Modal
+            isOpen={isJobModalOpen}
+            onClose={() => setIsJobModalOpen(false)}
+            title="Yeni Vakansiya Yarat"
+            className="modal--overflow-visible"
+            footer={(
+              <>
+                <button className="btn btn--outline" onClick={() => setIsJobModalOpen(false)}>İmtina</button>
+                <button className="btn btn--primary" onClick={handleCreateJob}>Vakansiyanı Paylaş</button>
+              </>
+            )}
+          >
+            <div className="modal-form">
+              <div className="form-group">
+                <label>Vakansiya Başlığı</label>
+                <input
+                  type="text"
+                  placeholder="Məsələn: Frontend Developer"
+                  value={newJob.title}
+                  onChange={e => setNewJob({ ...newJob, title: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label>İş Növü</label>
+                <div className="custom-select-container">
+                  <div
+                    className="select-trigger"
+                    onClick={() => setIsTypeMenuOpen(!isTypeMenuOpen)}
+                  >
+                    <span>{newJob.type}</span>
+                    <FiChevronDown className={`arrow-icon ${isTypeMenuOpen ? 'open' : ''}`} />
+                  </div>
+
+                  <AnimatePresence>
+                    {isTypeMenuOpen && (
+                      <motion.div
+                        className="select-options"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {jobTypes.map(type => (
+                          <div
+                            key={type}
+                            className={`option-item ${newJob.type === type ? 'selected' : ''}`}
+                            onClick={() => {
+                              setNewJob({ ...newJob, type });
+                              setIsTypeMenuOpen(false);
+                            }}
+                          >
+                            {type}
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+          </Modal>
+        </>
       )}
     </div>
   );

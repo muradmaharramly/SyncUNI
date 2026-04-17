@@ -59,7 +59,7 @@ const LandingPage = () => {
         <div className="neon-blob blue"></div>
 
         {}
-        <div className="hero__roadmap-bg" style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', zIndex: 0, pointerEvents: 'none'}}>
+        <div className="hero__roadmap-bg">
            <svg width="100%" height="100%" viewBox="0 0 1440 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
              <path d="M-100 500 C 300 0, 800 600, 1500 100" stroke="rgba(255,255,255,0.03)" strokeWidth="6" fill="none" strokeDasharray="30 20" />
              <path d="M-100 600 C 400 100, 700 800, 1500 200" stroke="rgba(124, 58, 237, 0.08)" strokeWidth="8" fill="none" />
@@ -184,7 +184,7 @@ const LandingPage = () => {
                     transition={{ duration: 0.5 }}
                     className="feed-item"
                   >
-                    <div className="feed-item__icon" style={{background: agentMocks[visibleAgentMock].color + '20', color: agentMocks[visibleAgentMock].color}}>
+                    <div className="feed-item__icon" style={{'--icon-bg': agentMocks[visibleAgentMock].color + '20', '--icon-color': agentMocks[visibleAgentMock].color}}>
                       {agentMocks[visibleAgentMock].icon}
                     </div>
                     <div className="feed-item__text">
@@ -195,11 +195,11 @@ const LandingPage = () => {
 
                 {}
                 <div className="feed-item static">
-                  <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>📋</div>
+                  <div className="feed-item__icon">📋</div>
                   <div className="feed-item__text">Son həftə 12 tələbə təcrübəyə başladı.</div>
                 </div>
                 <div className="feed-item static">
-                  <div className="feed-item__icon" style={{background: 'rgba(255,255,255,0.05)'}}>📊</div>
+                  <div className="feed-item__icon">📊</div>
                   <div className="feed-item__text">Həftəlik bazar payı hesablandı.</div>
                 </div>
               </div>
@@ -339,8 +339,8 @@ const LandingPage = () => {
             <div className="cta-badge"> SyncUNI - Karyera və Təhsil Ekosistemi</div>
             <h2>Potensialı Karyeraya Çevir!</h2>
             <p>Data əsaslı platformamızla real potensialınızı üzə çıxarın: Bacarıqlarınıza ən uyğun vakansiyaları tapın və şirkətlərin axtardığı top kadrlar sırasına qoşulun.</p>
-            <Link to="/login" className="btn btn--primary cta-btn" style={{borderRadius: '2rem', padding: '1rem 2rem', fontSize: '1.1rem'}}>
-              Başla <FiArrowRight className="icon"/>
+            <Link to="/login" className="btn btn--primary cta-btn-rounded">
+              Başla <FiArrowRight className="icon-margin"/>
             </Link>
           </div>
         </div>
@@ -348,37 +348,34 @@ const LandingPage = () => {
 
       {}
       <section className="faq section">
-        <div className="container faq__wrapper" style={{display: 'flex', gap: '4rem', alignItems: 'stretch'}}>
-
-          {}
-          <div className="faq__visual hide-mobile" style={{flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-card)', borderRadius: '15px', border: '1px solid var(--border-color)', overflow: 'hidden'}}>
-             <div style={{fontSize: '20rem', color: 'rgba(124, 58, 237, 0.1)', lineHeight: '1', fontWeight: '900', userSelect: 'none', position: 'absolute'}}>?</div>
-             <div style={{position: 'absolute', top: '15%', left: '15%', fontSize: '4rem', color: 'rgba(56, 189, 248, 0.2)'}}>?</div>
-             <div style={{position: 'absolute', bottom: '15%', right: '20%', fontSize: '6rem', color: 'rgba(124, 58, 237, 0.15)'}}>?</div>
-             <div style={{position: 'relative', zIndex: 1, textAlign: 'center', padding: '2rem'}}>
-                <h3 style={{color: 'var(--primary-color)', fontSize: '1.5rem', marginBottom: '1rem'}}>Maraqlandığınızı tapmadınız?</h3>
-                <p style={{color: 'var(--text-muted)'}}>Bizim peşəkar komandamız sizin bütün texniki və təşkilati suallarınızı cavablandırmağa hər zaman hazırdır.</p>
-             </div>
+        <div className="container faq__wrapper">
+          <div className="faq__visual hide-mobile">
+            <div className="faq__q-mark bg">?</div>
+            <div className="faq__q-mark sm">?</div>
+            <div className="faq__q-mark md">?</div>
+            <div className="faq__visual-text">
+              <h3>Maraqlandığınızı tapmadınız?</h3>
+              <p>Bizim peşəkar komandamız sizin bütün texniki və təşkilati suallarınızı cavablandırmağa hər zaman hazırdır.</p>
+            </div>
           </div>
 
-          {}
-          <div className="faq__content" style={{flex: 1.5}}>
-            <div className="section__header" style={{textAlign: 'left', alignItems: 'flex-start', marginBottom: '2rem'}}>
-              <h2 style={{fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-main)'}}>Suallarına Cavab Tap</h2>
-              <p style={{color: 'var(--text-muted)'}}>Platforma haqqında ən çox soruşulan vacib detallar</p>
+          <div className="faq__content">
+            <div className="section__header text-left">
+              <h2>Suallarına Cavab Tap</h2>
+              <p>Platforma haqqında ən çox soruşulan vacib detallar</p>
             </div>
             <div className="faq__list">
-            {faqs.map(faq => (
-              <div key={faq.id} className={`faq-item ${openFaq === faq.id ? 'open' : ''}`}>
-                <div className="faq-item__header" onClick={() => toggleFaq(faq.id)}>
-                  <h3>{faq.q}</h3>
-                  {openFaq === faq.id ? <FiChevronUp /> : <FiChevronDown />}
+              {faqs.map(faq => (
+                <div key={faq.id} className={`faq-item ${openFaq === faq.id ? 'open' : ''}`}>
+                  <div className="faq-item__header" onClick={() => toggleFaq(faq.id)}>
+                    <h3>{faq.q}</h3>
+                    {openFaq === faq.id ? <FiChevronUp /> : <FiChevronDown />}
+                  </div>
+                  <div className="faq-item__content">
+                    <p>{faq.a}</p>
+                  </div>
                 </div>
-                <div className="faq-item__content">
-                  <p>{faq.a}</p>
-                </div>
-              </div>
-            ))}
+              ))}
             </div>
           </div>
         </div>

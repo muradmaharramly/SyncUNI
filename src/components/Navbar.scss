@@ -29,10 +29,18 @@
     letter-spacing: -0.5px;
     span { color: $primary; }
   }
+  
+  &__menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: $spacing-8;
+  }
 
   &__actions {
     @include flex-center;
     gap: $spacing-4;
+    
     a, button{
       padding: $spacing-1 $spacing-2;
       font-size: $font-sm;

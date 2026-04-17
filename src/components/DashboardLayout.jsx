@@ -132,7 +132,7 @@ const DashboardLayout = () => {
 
         </nav>
 
-        <div className="dashboard-sidebar__footer" style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="dashboard-sidebar__footer">
           <Link
             to={`/dashboard/${user.role}/profile`}
             className={`dashboard-sidebar__link ${location.pathname.includes('/profile') ? 'active' : ''}`}

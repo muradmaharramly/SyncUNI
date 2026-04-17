@@ -8,6 +8,11 @@
     text-align: center;
     margin-bottom: $spacing-12;
 
+    &.text-left {
+      text-align: left;
+      align-items: flex-start;
+    }
+
     h2 {
       font-size: $font-3xl;
       margin-bottom: $spacing-4;
@@ -113,6 +118,17 @@
       display: inline-flex;
       align-items: center;
     }
+  }
+
+  &__roadmap-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
   }
 }
 
@@ -869,30 +885,30 @@
         align-items: center;
         gap: $spacing-4;
         padding: $spacing-4;
-        background: $bg-card;
-        border: 1px solid $border;
+        background: rgba(255, 255, 255, 0.03);
         border-radius: $radius-lg;
-        box-shadow: $card-shadow-var;
-
-        &.static {
-          opacity: 0.6;
-          filter: grayscale(0.5);
-        }
+        margin-bottom: $spacing-4;
 
         &__icon {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
           @include flex-center;
-          font-size: 1.2rem;
+          font-size: 1.5rem;
           flex-shrink: 0;
+          background: var(--icon-bg, rgba(255,255,255,0.05));
+          color: var(--icon-color, inherit);
         }
 
         &__text {
-          font-size: 0.9rem;
-          line-height: 1.4;
+          font-size: $font-sm;
           color: $text-main;
-          font-weight: 500;
+          line-height: 1.5;
+        }
+
+        &.static {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.05);
         }
       }
     }
@@ -1044,3 +1060,56 @@
   .receipt-modal { padding: $spacing-5; }
   .elan-detail { padding: $spacing-5; }
 }
+
+.faq__wrapper {
+  display: flex;
+  gap: 4rem;
+  align-items: stretch;
+  @media (max-width: 992px) { flex-direction: column; gap: 2rem; }
+}
+
+.faq__visual {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  min-height: 300px;
+}
+
+.faq__q-mark {
+  user-select: none;
+  position: absolute;
+  line-height: 1;
+  font-weight: 900;
+  color: rgba(124, 58, 237, 0.1);
+  &.bg { font-size: 20rem; }
+  &.md { font-size: 6rem; color: rgba(124, 58, 237, 0.15); bottom: 15%; right: 20%; }
+  &.sm { font-size: 4rem; color: rgba(56, 189, 248, 0.2); top: 15%; left: 15%; }
+}
+
+.faq__visual-text {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  h3 { color: var(--primary-color); font-size: 1.5rem; margin-bottom: 1rem; }
+  p { color: var(--text-muted); }
+}
+
+.faq__content { flex: 1.5; }
+
+.cta-btn-rounded {
+  border-radius: 2rem !important;
+  padding: 1rem 2rem !important;
+  font-size: 1.1rem !important;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.icon-margin { margin-left: 0.5rem; }

@@ -31,14 +31,14 @@ const CourseOperations = () => {
           <div className="panel-header">
             <h3>Tələbə Bacarıqlarını Təsdiqləmə (Endorsement)</h3>
           </div>
-          <p style={{marginBottom: '1rem'}}>Kursunuzu uğurla bitirən tələbələrə "Verify" statusu qazandırın:</p>
+          <p className="sk-block--mt-2 mb-2">Kursunuzu uğurla bitirən tələbələrə "Verify" statusu qazandırın:</p>
 
           <div className="student-list-mini">
             {data.students.slice(0, 5).map(st => (
-              <div key={st.id} className="st-strip" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+              <div key={st.id} className="st-strip flex-between-center">
                 <div>
-                  <strong style={{display: 'block', color: 'var(--primary-color)'}}>{st.name}</strong>
-                  <span style={{fontSize: '0.8rem', color: 'var(--text-muted)'}}>{st.skills.hard[0]} kursu</span>
+                  <strong className="block color-primary">{st.name}</strong>
+                  <span className="text-sm text-muted">{st.skills.hard[0]} kursu</span>
                 </div>
                 <button className="btn btn--outline btn-sm" onClick={() => handleEndorse(st.name)}>
                    Badge Ver
@@ -52,9 +52,9 @@ const CourseOperations = () => {
           <div className="panel-header">
             <h3>Kurs İdarəetməsi</h3>
           </div>
-          <p style={{marginBottom: '1rem'}}>Aktiv kurslar və elanlar paneli</p>
+          <p className="sk-block--mt-2 mb-2">Aktiv kurslar və elanlar paneli</p>
 
-          <button className="btn btn--primary" onClick={() => setIsModalOpen(true)} style={{width: '100%', marginBottom: '1rem'}}>
+          <button className="btn btn--primary btn--full sk-block--mt-2 mb-2" onClick={() => setIsModalOpen(true)}>
              <FiPlus /> Yeni Kurs Yarat
           </button>
 
@@ -79,22 +79,22 @@ const CourseOperations = () => {
       <AnimatePresence>
         {isModalOpen && (
           <motion.div className="modal-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
-            <div className="modal-content glass-panel" style={{ background: 'var(--bg-color)', zIndex: 1000, padding: '2rem', width: '90%', maxWidth: '500px', borderRadius: '16px'}}>
-              <div className="modal-header" style={{display: 'flex', justifyContent: 'space-between', marginBottom: '1rem'}}>
-                <h3 style={{color: 'var(--text-main)'}}>Yeni Kurs Elanı</h3>
-                <button className="icon-btn toggle-btn" onClick={() => setIsModalOpen(false)} style={{background: 'transparent', border: 'none', color: 'var(--text-main)', cursor: 'pointer'}}><FiX size={24}/></button>
+            <div className="modal-content glass-panel modal--sm">
+              <div className="modal-header flex-between">
+                <h3>Yeni Kurs Elanı</h3>
+                <button className="icon-btn transparent-bg" onClick={() => setIsModalOpen(false)}><FiX size={24}/></button>
               </div>
-              <div style={{marginBottom: '1rem'}}>
-                <label style={{display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)'}}>Kursun Adı</label>
+              <div className="sk-block--mt-2 mb-2">
+                <label className="block text-muted sk-block--mt-1 mb-1">Kursun Adı</label>
                 <input
                   type="text"
+                  className="input-field"
                   value={newCourseName}
                   onChange={(e) => setNewCourseName(e.target.value)}
-                  style={{width: '100%', padding: '10px', borderRadius: '8px', background: 'var(--hover-bg)', border: '1px solid var(--border-color)', color: 'var(--text-main)'}}
                   placeholder="Məs. Node.js Masterclass"
                 />
               </div>
-              <button className="btn btn--primary" style={{width: '100%'}} onClick={handleAddCourse}>Təsdiqlə</button>
+              <button className="btn btn--primary btn--full" onClick={handleAddCourse}>Təsdiqlə</button>
             </div>
           </motion.div>
         )}

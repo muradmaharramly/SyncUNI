@@ -83,13 +83,13 @@ const CompanyDashboard = () => {
           <div className="panel-header">
             <h3>Talent Radar: {selectedStudent.name}</h3>
           </div>
-          <div className="chart-wrapper" style={{ height: '250px' }}>
+          <div className="chart-wrapper talent-radar-chart">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
                 <PolarGrid stroke="rgba(255,255,255,0.1)"/>
                 <PolarAngleAxis dataKey="subject" tick={{fill: 'var(--text-muted)', fontSize: 12}}/>
                 <Radar name={selectedStudent.name} dataKey="A" stroke="var(--primary-color)" fill="var(--primary-color)" fillOpacity={0.5} />
-                <Tooltip contentStyle={{backgroundColor: '#0F172A', border: '1px solid #334155'}}/>
+                <Tooltip contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}}/>
               </RadarChart>
             </ResponsiveContainer>
           </div>
@@ -127,7 +127,7 @@ const CompanyDashboard = () => {
               ))}
             </AnimatePresence>
             {filteredStudents.length > 5 && (
-               <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+               <div className="text-center sk-block--mt-2">
                   <button className="btn btn--outline btn-sm">Daha çox yüklə</button>
                </div>
             )}
@@ -140,11 +140,11 @@ const CompanyDashboard = () => {
             <div className="panel-header">
               <h3>Hiring Accuracy Trend</h3>
             </div>
-            <div style={{ height: '180px' }}>
+            <div className="chart-wrapper accuracy-chart-wrapper">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={SYNC_DATA.hiringAccuracyTimeline}>
                   <XAxis dataKey="month" stroke="var(--text-muted)" tick={{fontSize: 12}} />
-                  <Tooltip contentStyle={{backgroundColor: '#0F172A', border: 'none', borderRadius: '8px'}}/>
+                  <Tooltip contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}}/>
                   <Line type="monotone" dataKey="score" stroke="var(--primary-color)" strokeWidth={3} dot={{r:4}} />
                   <Line type="monotone" dataKey="expected" stroke="var(--secondary-color)" strokeWidth={2} strokeDasharray="5 5" />
                 </LineChart>

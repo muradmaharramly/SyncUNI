@@ -52,11 +52,11 @@ const UniversityDashboard = () => {
                 data={heatmapData}
                 dataKey="size"
                 aspectRatio={4/3}
-                stroke="#0F172A"
+                stroke="var(--bg-card)"
                 fill="var(--primary-color)"
                 fillOpacity={0.8}
               >
-                <RechartsTooltip contentStyle={{backgroundColor: '#0F172A', border: '1px solid #334155'}} />
+                <RechartsTooltip contentStyle={{backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)'}} />
               </Treemap>
             </ResponsiveContainer>
           </div>
@@ -73,8 +73,8 @@ const UniversityDashboard = () => {
           <button className="btn btn--outline" disabled onClick={() => toast.error('Qadağandır')}>Kənar Baza Axtarışı</button>
         </motion.div>
 
-        {}
-        <motion.div className="bento-panel ref-ledger glass-panel" layout style={{ gridColumn: '1 / -1' }}>
+        {/* 2. Digital Reference Ledger */}
+        <motion.div className="bento-panel ref-ledger glass-panel" layout>
           <div className="panel-header">
             <h3>Digital Reference Ledger (Ağıllı Rəy)</h3>
             <button className="btn btn--primary btn-sm" onClick={() => setIsModalOpen(true)}><FiEdit3 /> Yeni Şablon Yarat</button>

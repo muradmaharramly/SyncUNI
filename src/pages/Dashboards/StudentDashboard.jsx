@@ -82,10 +82,9 @@ const StudentDashboard = () => {
              <h4>Tövsiyə olunan iş: PASHA Bank - Analyst</h4>
              <p>Match Score: <strong className="success">98%</strong></p>
              <motion.button
-              className="btn btn--primary"
+              className="btn btn--primary btn--full sk-block--mt-2"
               whileHover={{scale: 1.01}} whileTap={{scale: 0.95}}
               onClick={handleApply}
-              style={{width: '100%', marginTop: '1rem'}}
              >
                Müraciət Et
              </motion.button>
