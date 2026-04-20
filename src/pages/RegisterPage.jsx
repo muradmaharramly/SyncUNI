@@ -228,7 +228,7 @@ const RegisterPage = () => {
                       <input type="email" value={stuEmail} onChange={e => setStuEmail(e.target.value)} placeholder="student@uni.edu.az" />
                     </div>
                   </div>
-                  <button type="submit" className="lf-submit" disabled={checking}>
+                  <button type="submit" className="lf-submit btn--primary" disabled={checking}>
                     {checking ? <span className="lf-spinner" /> : 'Yoxla'}
                   </button>
                 </form>

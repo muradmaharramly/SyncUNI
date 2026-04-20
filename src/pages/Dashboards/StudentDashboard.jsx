@@ -43,9 +43,9 @@ const StudentDashboard = () => {
                 <div className="progress-bg"><motion.div className="progress-fill hard" initial={{width:0}} animate={{width:'80%'}} /></div>
               </div>
               <div className="bar-item">
-                <div className="bar-label"><span>Tələb olunan: AWS Cloud</span> <span className="warning">Eksikdir</span></div>
+                <div className="bar-label"><span>Tələb olunan: AWS Cloud</span> <span className="warning">Əskikdir</span></div>
                 <div className="progress-bg"><motion.div className="progress-fill missing" initial={{width:'100%'}} animate={{width:'100%'}} /></div>
-                <button className="btn btn--outline btn-sm gap-action" onClick={() => handleEnroll('AWS Cloud')}>
+                <button className="btn btn--primary btn-sm gap-action" onClick={() => handleEnroll('AWS Cloud')}>
                   Kursa Başla <FiArrowRight/>
                 </button>
               </div>

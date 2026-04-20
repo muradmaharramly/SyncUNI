@@ -138,12 +138,8 @@ const DetailModal = ({ elan, onClose }) => {
 
         <h2 className="elan-detail__title">{elan.title}</h2>
 
-        <div className="elan-detail__meta">
-          <span><FiCalendar /> {fmtDate(elan.publishDate)}</span>
-          <span><FiEye /> {fmt(elan.views)} baxış</span>
-          <span><FiShare2 /> {elan.shares} paylaşım</span>
-          <span className="publisher-name">📌 {elan.publisher.name}</span>
-        </div>
+        
+        <span className="publisher-name">{elan.publisher.name}</span>
 
         <div className="elan-detail__full-desc">
           {elan.fullDesc.split('. ').map((sentence, i) => sentence && (
@@ -153,6 +149,12 @@ const DetailModal = ({ elan, onClose }) => {
 
         <div className="elan-tags">
           {elan.tags.map(tag => <span key={tag} className="tag">{tag}</span>)}
+        </div>
+        <div className="elan-detail__meta">
+          <span><FiCalendar /> {fmtDate(elan.publishDate)}</span>
+          <span><FiEye /> {fmt(elan.views)} baxış</span>
+          <span><FiShare2 /> {elan.shares} paylaşım</span>
+          
         </div>
 
         <div className="elan-detail__actions">

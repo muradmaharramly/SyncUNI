@@ -269,10 +269,11 @@
     gap: 5px;
     padding: 4px 10px;
     border-radius: $radius-sm;
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.2px;
-    background: var(--elan-bg, rgba($primary, 0.12));
+    background: transparent;
+    border: 1px solid var(--elan-color);
     color: var(--elan-color, $primary);
     svg { font-size: 0.75rem; }
   }
@@ -322,6 +323,10 @@
   align-items: center;
   justify-content: center;
   padding: $spacing-6;
+}
+.publisher-name { 
+  color: $primary;
+  font-weight: 600; 
 }
 
 .elan-detail {
@@ -380,10 +385,8 @@
   &__meta {
     display: flex;
     flex-wrap: wrap;
-    gap: $spacing-4;
-    margin-bottom: $spacing-6;
-    padding-bottom: $spacing-4;
-    border-bottom: 1px solid var(--border-color);
+    gap: $spacing-12;
+    padding: $spacing-4 0;
 
     span {
       display: inline-flex;
@@ -394,14 +397,13 @@
       svg { font-size: 0.9rem; }
     }
 
-    .publisher-name { color: $primary; font-weight: 600; }
   }
 
   &__full-desc {
     display: flex;
     flex-direction: column;
     gap: $spacing-3;
-    margin-bottom: $spacing-6;
+    margin:$spacing-4 0 $spacing-6 0;
 
     p {
       font-size: $font-base;
@@ -415,7 +417,6 @@
     justify-content: flex-end;
     gap: $spacing-3;
     flex-wrap: wrap;
-    margin-top: $spacing-6;
     padding-top: $spacing-4;
     border-top: 1px solid var(--border-color);
 

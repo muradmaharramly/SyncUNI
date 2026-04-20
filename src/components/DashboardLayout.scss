@@ -52,8 +52,8 @@
     content: '';
     position: absolute;
     top: -20%;
-    left: -10%;
-    width: 50%;
+    left: 0;
+    width: 40%;
     height: 50%;
     background: radial-gradient(circle, rgba($primary, 0.1) 0%, transparent 60%);
     z-index: 0;
@@ -64,8 +64,8 @@
     content: '';
     position: absolute;
     bottom: -10%;
-    right: -10%;
-    width: 40%;
+    right: 0;
+    width: 30%;
     height: 60%;
     background: radial-gradient(circle, rgba($secondary, 0.08) 0%, transparent 60%);
     z-index: 0;

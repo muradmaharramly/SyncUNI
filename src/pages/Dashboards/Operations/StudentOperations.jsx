@@ -3,7 +3,7 @@ import { useData } from '../../../context/DataContext';
 import { useAuth } from '../../../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
-import { FiTarget, FiDownloadCloud, FiCheck, FiX, FiPrinter } from 'react-icons/fi';
+import { FiTarget, FiDownloadCloud, FiCheck, FiX, FiPrinter, FiChevronDown } from 'react-icons/fi';
 import { SkeletonCardGrid } from '../../../components/SkeletonLoader';
 import './Operations.scss';
 
@@ -117,25 +117,26 @@ const StudentOperations = () => {
           </div>
           <p className="no-margin-bottom sk-block--mt-2 mb-2">Arzuladığınız peşəni seçin və çatmıyan bacarıqları To-do list şəklində görün:</p>
 
-          <div className="custom-dropdown-container">
+          <div className="custom-select-container">
             <div
-              className="custom-dropdown-selected"
+              className="select-trigger"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <span>{selectedGoal || '-- Məqsəd Seçin --'}</span>
-              <span className={`arrow-icon ${isDropdownOpen ? 'open' : ''}`}>▼</span>
+              <FiChevronDown className={`arrow-icon ${isDropdownOpen ? 'open' : ''}`} />
             </div>
 
             <AnimatePresence>
               {isDropdownOpen && (
                 <motion.div
-                  className="custom-dropdown-options glass-panel"
+                  className="select-options"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
                 >
                   <div
-                    className="custom-dropdown-option"
+                    className={`option-item ${!selectedGoal ? 'selected' : ''}`}
                     onClick={() => { setSelectedGoal(''); setIsDropdownOpen(false); }}
                   >
                     -- Məqsəd Seçin --
@@ -143,7 +144,7 @@ const StudentOperations = () => {
                   {['Frontend Developer', 'Data Scientist', 'Project Manager'].map(option => (
                     <div
                       key={option}
-                      className={`custom-dropdown-option ${selectedGoal === option ? 'selected' : ''}`}
+                      className={`option-item ${selectedGoal === option ? 'selected' : ''}`}
                       onClick={() => { setSelectedGoal(option); setIsDropdownOpen(false); }}
                     >
                       {option}

@@ -221,51 +221,62 @@
     }
   }
 
-  .custom-dropdown-container {
+  .custom-select-container {
     position: relative;
-    
-    .custom-dropdown-selected {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    width: 100%;
+    margin-top: $spacing-4;
+
+    .select-trigger {
       width: 100%;
-      padding: 10px 15px;
-      border-radius: $radius-sm;
+      padding: 0.8rem 1rem;
       background: var(--hover-bg);
-      color: var(--text-main);
       border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--primary-color);
+      }
 
       .arrow-icon {
-        font-size: 0.8rem;
-        transition: transform 0.2s;
+        transition: transform 0.3s;
         &.open { transform: rotate(180deg); }
       }
     }
 
-    .custom-dropdown-options {
+    .select-options {
       position: absolute;
-      top: 100%;
+      top: calc(100% + 8px);
       left: 0;
-      right: 0;
-      margin-top: 5px;
-      border-radius: $radius-sm;
-      overflow: hidden;
-      background: var(--bg-color);
-      z-index: 10;
+      width: 100%;
+      background: rgba(15, 15, 20, 0.95);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border-color);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      z-index: 5000; /* Extremely high to clear footer */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
 
-      .custom-dropdown-option {
-        padding: 10px 15px;
+      .option-item {
+        padding: 0.75rem 1rem;
         cursor: pointer;
-        border-bottom: 1px solid var(--border-color);
-        transition: background 0.2s;
+        transition: all 0.2s;
+        color: var(--text-main);
+        font-size: 0.95rem;
 
-        &:last-child { border-bottom: none; }
-        &:hover { background: var(--hover-bg); }
+        &:hover {
+          background: var(--primary-color);
+          color: white;
+        }
+
         &.selected {
-          background: var(--hover-bg);
+          background: rgba(99, 102, 241, 0.2);
           color: var(--primary-color);
         }
       }
@@ -339,7 +350,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
